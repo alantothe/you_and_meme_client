@@ -1,17 +1,8 @@
 import React from "react";
 import { memes } from "../assets/templates.js";
 import { Button } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
-// {
-//   id: "181913649",
-//   name: "Drake Hotline Bling",
-//   url: "https://i.imgflip.com/30b1gx.jpg",
-//   width: 1200,
-//   height: 1200,
-//   box_count: 2,
-//   captions: 0,
-// },
-// }
 
 function MemeSelectionPage() {
   return (
@@ -40,5 +31,6 @@ function MemeSelectionPage() {
     </div>
   );
 }
+
 
 export default MemeSelectionPage;

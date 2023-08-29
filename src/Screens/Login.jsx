@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
-function LoginPage() {
+const LoginForm = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -49,8 +48,6 @@ function LoginPage() {
       </form>
     </div>
   );
-}
+};
 
-<Link to="/register">Signup</Link>;
-
-export default LoginPage;
+export default LoginForm;

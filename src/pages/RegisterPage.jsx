@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -72,5 +73,8 @@ function RegisterPage() {
     </div>
   );
 }
+
+<Link to="/login">Login</Link>;
+<Link to="/">Home</Link>;
 
 export default RegisterPage;

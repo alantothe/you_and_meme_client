@@ -1,13 +1,29 @@
 import React from "react";
-import MemeSelectionPage from "./pages/MemeSelectionPage";
-import CreateMemePage from "./pages/CreateMemePage";
+import { Routes, Route } from "react-router-dom";
+import  AccountSettingsPage  from "./pages/AccountSettingsPage.jsx";
+import  CreateMemePage  from "./pages/CreateMemePage.jsx";
+import  HomePage  from "./pages/HomePage.jsx";
+import  LoginPage from "./pages/LoginPage.jsx";
+import  MemeDetailPage  from "./pages/MemeDetailPage.jsx";
+import  MemeSelectionPage  from "./pages/MemeSelectionPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
 
-function App() {
+
+const App = () => {
   return (
-    <div>
-      <CreateMemePage />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/account-settings" element={<AccountSettingsPage />} />
+      <Route path="/create-meme" element={<CreateMemePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/memes/:memeId" element={<MemeDetailPage />} />
+      <Route path="/meme-selection" element={<MemeSelectionPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/register" element={<RegisterPage />} />
+    </Routes>
   );
-}
+};
+
 
 export default App;
