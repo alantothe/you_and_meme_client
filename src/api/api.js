@@ -1,23 +1,23 @@
 import api from "./apiConfig";
 import { memes } from "./assets/templates.js";
 
-export const getMockMeme = async () => {
-  try {
-    const response = await api.get("./assets/mockdata.js");
-    return response.data[0];
-  } catch (error) {
-    throw error;
-  }
-};
+// export const getMockMeme = async () => {
+//   try {
+//     const response = await api.get("./assets/mockdata.js");
+//     return response.data[0];
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
-export const getMockComments = async () => {
-  try {
-    const response = await api.get("./assets/mockdata.js");
-    return response.data[1];
-  } catch (error) {
-    throw error;
-  }
-};
+// export const getMockComments = async () => {
+//   try {
+//     const response = await api.get("./assets/mockdata.js");
+//     return response.data[1];
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 export const getMemes = async () => {
   try {

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Input } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
+import { getComments, getMeme } from "../api/api";
+
 
 const DetailPage = () => {
   // State to hold real data from the API
@@ -10,24 +12,27 @@ const DetailPage = () => {
   const memeId = 1; // Replace this with the actual meme ID you are interested in.
 
   useEffect(() => {
-    // Fetch meme data when component mounts
-    axios.get(`http://localhost:8000/api/memes/${memeId}/`)
-      .then(response => {
-        setMemeData(response.data);
-      })
-      .catch(error => {
-        console.log('Could not fetch meme:', error);
-      });
-
-    // Fetch comments for the meme
-    axios.get(`http://localhost:8000/api/comments/?meme=${memeId}`)
-      .then(response => {
-        setComments(response.data);
-      })
-      .catch(error => {
-        console.log('Could not fetch comments:', error);
-      });
+    fetchMeme();
+    fetchComments();
   }, []);
+
+  async function fetchMeme() {
+    try {
+      const oneMeme = await getMeme(memeId);
+      setMemeData(oneMeme);
+    } catch (error) {
+      console.log('Error fetching meme:', error);
+    }
+  }
+
+  async function fetchComments() {
+    try {
+      const comments = await getComments(memeId);
+      setComments(comments);
+    } catch (error) {
+      console.log('Error fetching comments:', error);
+    }
+  }
 
   if (!memeData) {
     return <p>Loading...</p>;
@@ -36,7 +41,7 @@ const DetailPage = () => {
   return (
     <div className="container mx-auto">
       <div className="meme-detail">
-        <img src={memeData.memeUrl} alt="Meme" className="w-full h-auto" />
+        <img src={memeData.url} alt="Meme" className="w-full h-auto" />
       </div>
       <div className="comments">
         <ul>
