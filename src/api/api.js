@@ -1,5 +1,4 @@
 import api from "./apiConfig";
-import { memes } from "./assets/templates.js";
 
 // export const getMockMeme = async () => {
 //   try {

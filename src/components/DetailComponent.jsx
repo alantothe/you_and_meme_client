@@ -1,60 +1,40 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import { Input } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
-import { getComments, getMeme } from "../api/api";
 
-
-const DetailPage = () => {
-  // State to hold real data from the API
-  const [memeData, setMemeData] = useState(null);
-  const [comments, setComments] = useState([]);
-  const memeId = 1; // Replace this with the actual meme ID you are interested in.
-
-  useEffect(() => {
-    fetchMeme();
-    fetchComments();
-  }, []);
-
-  async function fetchMeme() {
-    try {
-      const oneMeme = await getMeme(memeId);
-      setMemeData(oneMeme);
-    } catch (error) {
-      console.log('Error fetching meme:', error);
-    }
-  }
-
-  async function fetchComments() {
-    try {
-      const comments = await getComments(memeId);
-      setComments(comments);
-    } catch (error) {
-      console.log('Error fetching comments:', error);
-    }
-  }
-
-  if (!memeData) {
-    return <p>Loading...</p>;
-  }
-
+const DetailPage = ({ onePost, comments }) => {
   return (
-    <div className="container mx-auto">
-      <div className="meme-detail">
-        <img src={memeData.url} alt="Meme" className="w-full h-auto" />
+    <div className=" mx-auto p-4 flex flex-col items-center">
+      <div className=" mb-4 flex justify-center">
+        <img
+          src={onePost.meme}
+          alt="whatever"
+          className="w-full h-auto rounded"
+        />
       </div>
-      <div className="comments">
-        <ul>
+      <div
+        className="comments overflow-y-auto bg-gray-100 p-4 rounded flex flex-col"
+        style={{ height: "200px", width: "100%" }}
+      >
+        <ul className="flex flex-col items-center">
           {comments.map((comment) => (
-            <li key={comment.id}>
-              <strong>{comment.user}:</strong> {comment.comment}
+            <li key={comment.id} className="mb-2">
+              <strong className="mr-2">{comment.user}:</strong>
+              {comment.comment}
             </li>
           ))}
         </ul>
       </div>
-      <div className="add-comment">
-        <Input type="text" placeholder="Add a comment..." />
-        <Button color="blue">Submit</Button>
+      <div className="add-comment mt-4 flex flex-col items-center">
+        <Input
+          type="text"
+          placeholder="Add a comment..."
+          color="lightBlue"
+          className="mb-2 w-full"
+        />
+        <Button color="blue" className="w-full">
+          Submit
+        </Button>
       </div>
     </div>
   );
