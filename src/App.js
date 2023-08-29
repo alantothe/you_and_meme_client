@@ -9,6 +9,7 @@ import  MemeSelectionPage  from "./pages/MemeSelectionPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 
+
 const App = () => {
   return (
     <Routes>
@@ -23,6 +24,5 @@ const App = () => {
     </Routes>
   );
 };
-
 
 export default App;
