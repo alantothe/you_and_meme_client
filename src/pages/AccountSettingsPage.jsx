@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 
 const AccountSettingsPage = () => {
-  const [username, setUsername] = useState('currentUsername');
+  const [username, setUsername] = useState('currentUsername'); // mockdata.user
   const [email, setEmail] = useState('currentEmail');
   const [currentPassword, setCurrentPassword] = useState('currentPassword');
   const [newPassword, setNewPassword] = useState('');
