@@ -1,7 +1,12 @@
 import React from "react";
+import MemeSelectionPage from "./pages/MemeSelectionPage";
 
 function App() {
-  return <div className="text-red-800"></div>;
+  return (
+    <div>
+      <MemeSelectionPage />
+    </div>
+  );
 }
 
 export default App;
