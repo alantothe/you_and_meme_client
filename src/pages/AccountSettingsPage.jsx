@@ -7,7 +7,7 @@ const mockdata = {
 }
  
 const AccountSettingsPage = () => { 
-  const [username, setUsername] = useState(mockdata.username); // mockdata.user
+  const [username, setUsername] = useState(mockdata.username);
   const [email, setEmail] = useState(mockdata.email);
   const [currentPassword, setCurrentPassword] = useState('mockdata.Password');
   const [newPassword, setNewPassword] = useState('');
@@ -30,60 +30,61 @@ const AccountSettingsPage = () => {
   };
 
   const handleUpdateClick = () => {
-    // Here you can implement the logic to update the user's information on the server.
-    // You can use APIs or any other method to communicate with your backend.
-    // After successfully updating, you might want to show a success message to the user.
     setIsEditMode(false);
     console.log('Updated:', { username, email, newPassword });
   };
 
   return (
-    <div>
-      <h1>Account Settings</h1>
-      <label>
-        Username:
-        {isEditMode ? (
-          <input type="text" value={username} onChange={handleUsernameChange} />
-        ) : (
-          <span>{username}</span>
-        )}
-      </label>
-      <br />
-      <label>
-        Email:
-        {isEditMode ? (
-          <input type="email" value={email} onChange={handleEmailChange} />
-        ) : (
-          <span>{email}</span>
-        )}
-      </label>
-      <br />
-      <label>
-        Current Password:
-        {isEditMode ? (
-          <input type="password" value={currentPassword} disabled />
-        ) : (
-          <span>********</span>
-        )}
-      </label>
-      <br />
-      {isEditMode && (
-        <>
-          <label>
-            New Password:
-            <input type="password" value={newPassword} onChange={handleNewPasswordChange} />
-          </label>
-          <br />
-        </>
-      )}
-      {isEditMode ? (
-        <>
-          <button onClick={handleUpdateClick}>Update</button>
-          <button onClick={() => setIsEditMode(false)}>Cancel</button>
-        </>
-      ) : (
-        <button onClick={handleEditClick}>Edit</button>
-      )}
+    <div className="flex items-center justify-center h-screen bg-red-600">
+  
+      <div className="bg-blue-400 p-6 rounded-lg shadow-md w-2/3">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold mb-4 mt-8">Account Settings</h1>
+          <div className="grid grid-cols-2 gap-4 text-2xl">
+            <div className="flex items-center justify-end">Username:</div>
+            <div className="flex items-center">
+              {isEditMode ? (
+                <input type="text" value={username} onChange={handleUsernameChange} />
+              ) : (
+                <span>{username}</span> 
+              )}
+            </div>
+            <div className="flex items-center justify-end">Email:</div>
+            <div className="flex items-center">
+              {isEditMode ? (
+                <input type="email" value={email} onChange={handleEmailChange} />
+              ) : (
+                <span>{email}</span> 
+              )}
+            </div>
+            <div className="flex items-center justify-end">Current Password:</div>
+            <div className="flex items-center">
+              {isEditMode ? (
+                <input type="password" value={currentPassword} disabled />
+              ) : (
+                <span>********</span> 
+              )}
+            </div>
+            {isEditMode && (
+              <>
+                <div className="flex items-center justify-end">New Password:</div>
+                <div className="flex items-center">
+                  <input type="password" value={newPassword} onChange={handleNewPasswordChange} />
+                </div>
+              </>
+            )}
+          </div>
+          
+          {isEditMode ? (
+            <div className="mt-4">
+              <button className="px-4 py-2 mr-2 bg-blue-700 text-white rounded" onClick={handleUpdateClick}>Update</button>
+              <button className="px-4 py-2 bg-gray-300 rounded" onClick={() => setIsEditMode(false)}>Cancel</button>
+            </div>
+          ) : (
+            <button className="px-4 py-2 bg-green-700 text-white rounded" onClick={handleEditClick}>Edit</button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
