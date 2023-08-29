@@ -1,269 +1,262 @@
-import React from "react";
+import { useState, useEffect, createElement } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
-    Navbar,
-    MobileNav,
-    Typography,
-    Button,
-    Menu,
-    MenuHandler,
-    MenuList,
-    MenuItem,
-    Avatar,
-    Card,
-    IconButton,
+  Navbar,
+  Collapse,
+  Typography,
+  Button,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  IconButton,
 } from "@material-tailwind/react";
+
 import {
-    CubeTransparentIcon,
-    UserCircleIcon,
-    CodeBracketSquareIcon,
-    Square3Stack3DIcon,
-    ChevronDownIcon,
-    Cog6ToothIcon,
-    InboxArrowDownIcon,
-    LifebuoyIcon,
-    PowerIcon,
-    RocketLaunchIcon,
-    Bars2Icon,
+  UserCircleIcon,
+  ChevronDownIcon,
+  Cog6ToothIcon,
+  PowerIcon,
+  Bars2Icon,
+  HeartIcon,
+  ShoppingCartIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 
-// profile menu component
-const profileMenuItems = [
-    {
-        label: "My Profile",
-        icon: UserCircleIcon,
-    },
-    {
-        label: "Edit Profile",
-        icon: Cog6ToothIcon,
-    },
-    {
-        label: "Inbox",
-        icon: InboxArrowDownIcon,
-    },
-    {
-        label: "Help",
-        icon: LifebuoyIcon,
-    },
-    {
-        label: "Sign Out",
-        icon: PowerIcon,
-    },
-];
+//dropdown menu
+function AccountMenu({
+  // user, handleLogOut
+}) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const closeMenu = () => setIsMenuOpen(false);
 
-function ProfileMenu() {
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-    const closeMenu = () => setIsMenuOpen(false);
-
-    return (
-        <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
-        <MenuHandler>
+  return (
+    <Menu open={isMenuOpen} handler={setIsMenuOpen}>
+      <MenuHandler>
         <Button
-            variant="text"
-            color="blue-gray"
-            className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+          variant="text"
+          className="flex items-center gap-1 rounded-full"
+          style={{ color: "rgb(96, 20, 30)" }}
         >
-        <Avatar
-            variant="circular"
-            size="sm"
-            alt="tania andrew"
-            className="border border-gray-900 p-0.5"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-        />
-        <ChevronDownIcon
+          {createElement(UserCircleIcon, {
+            className: "h-[24px] w-[24px]",
+            style: {
+              color:
+                // user ?
+                  "green"
+                  // : "rgb(96, 20, 30)"
+            },
+          })}
+
+          <ChevronDownIcon
             strokeWidth={2.5}
             className={`h-3 w-3 transition-transform ${
-                isMenuOpen ? "rotate-180" : ""
+              isMenuOpen ? "rotate-180" : ""
             }`}
-        />
+            style={{
+              color:
+                // user ?
+                  "green"
+                  // : "rgb(96, 20, 30)"
+            }}
+          />
         </Button>
-        </MenuHandler>
-        <MenuList className="p-1">
-            {profileMenuItems.map(({ label, icon }, key) => {
-            const isLastItem = key === profileMenuItems.length - 1;
-            return (
-            <MenuItem
-                key={label}
-                onClick={closeMenu}
-                className={`flex items-center gap-2 rounded ${
-                    isLastItem
-                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                    : ""
-                }`}
-            >
-                {React.createElement(icon, {
-                    className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                    strokeWidth: 2,
-                })}
-                <Typography
-                    as="span"
-                    variant="small"
-                    className="font-normal"
-                    color={isLastItem ? "red" : "inherit"}
-                >
-                {label}
-                </Typography>
-        </MenuItem>
-        );
-    })}
-        </MenuList>
-        </Menu>
-    );
-}
+      </MenuHandler>
 
-// nav list menu
-const navListMenuItems = [
-    {
-        title: "@material-tailwind/html",
-        description:
-            "Learn how to use @material-tailwind/html, packed with rich components and widgets.",
-    },
-    {
-        title: "@material-tailwind/react",
-        description:
-            "Learn how to use @material-tailwind/react, packed with rich components for React.",
-    },
-    {
-        title: "Material Tailwind PRO",
-        description:
-            "A complete set of UI Elements for building faster websites in less time.",
-    },
-];
-
-function NavListMenu() {
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-    const renderItems = navListMenuItems.map(({ title, description }) => (
-    <a href="#" key={title}>
-        <MenuItem>
-        <Typography variant="h6" color="blue-gray" className="mb-1">
-            {title}
+      <MenuList className="p-1">
+        <Typography as="a" href="/account-info">
+          <MenuItem
+            onClick={closeMenu}
+            className={"flex items-center gap-2 rounded"}
+            style={{ color: "rgb(96, 20, 30)" }}
+          >
+            {createElement(UserCircleIcon, {
+              className: "h-4 w-4",
+              strokeWidth: 2,
+            })}
+            My Account
+          </MenuItem>
         </Typography>
-        <Typography variant="small" color="gray" className="font-normal">
-            {description}
+
+        <Typography as="a" href="/development">
+          <MenuItem
+            onClick={closeMenu}
+            className={"flex items-center gap-2 rounded"}
+            style={{ color: "rgb(96, 20, 30)" }}
+          >
+            {createElement(Cog6ToothIcon, {
+              className: "h-4 w-4",
+              strokeWidth: 2,
+            })}
+            Edit Account
+          </MenuItem>
         </Typography>
-        </MenuItem>
-    </a>
-    ));
 
-    return (
-    <React.Fragment>
-        <Menu allowHover open={isMenuOpen} handler={setIsMenuOpen}>
-        <MenuHandler>
-            <Typography as="a" href="#" variant="small" className="font-normal">
-            <MenuItem className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full">
-                <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Pages{" "}
-                <ChevronDownIcon
-                    strokeWidth={2}
-                    className={`h-3 w-3 transition-transform ${
-                    isMenuOpen ? "rotate-180" : ""
-                }`}
-                />
-            </MenuItem>
-            </Typography>
-        </MenuHandler>
-        <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
-            <Card
-                color="blue"
-                shadow={false}
-                variant="gradient"
-                className="col-span-3 grid h-full w-full place-items-center rounded-md"
-            >
-            <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" />
-            </Card>
-            <ul className="col-span-4 flex w-full flex-col gap-1">
-            {renderItems}
-            </ul>
-        </MenuList>
-        </Menu>
-        <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
-        <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Pages{" "}
-        </MenuItem>
-        <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
-            {renderItems}
-        </ul>
-    </React.Fragment>
-    );
-}
-
-// nav list component
-const navListItems = [
-    {
-        label: "Account",
-        icon: UserCircleIcon,
-    },
-    {
-        label: "Blocks",
-        icon: CubeTransparentIcon,
-    },
-    {
-        label: "Docs",
-        icon: CodeBracketSquareIcon,
-    },
-];
-
-function NavList() {
-    return (
-        <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-        <NavListMenu />
-        {navListItems.map(({ label, icon }, key) => (
         <Typography
-            key={label}
-            as="a"
-            href="#"
-            variant="small"
-            color="blue-gray"
-            className="font-normal"
+          as="a"
+          // onClick={user ? handleLogOut : undefined}
+          href={
+            // user ?
+              undefined
+              // : "/sign-in"
+            }
         >
-            <MenuItem className="flex items-center gap-2 lg:rounded-full">
-            {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-            {label}
-            </MenuItem>
+          <MenuItem
+            onClick={closeMenu}
+            className={"flex items-center gap-2 rounded"}
+            style={{ color: "rgb(96, 20, 30)" }}
+          >
+            {createElement(PowerIcon, {
+              className: "h-4 w-4",
+              strokeWidth: 2,
+            })}
+            {
+              // user ?
+                "Sign Out"
+                // : "Sign In"
+            }
+          </MenuItem>
         </Typography>
-        ))}
-    </ul>
-    );
+      </MenuList>
+    </Menu>
+  );
 }
 
-export function ComplexNavbar() {
-    const [isNavOpen, setIsNavOpen] = React.useState(false);
-
-    const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
-
-    React.useEffect(() => {
-        window.addEventListener(
-        "resize",
-        () => window.innerWidth >= 960 && setIsNavOpen(false),
-    );
-    }, []);
-
-    return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">
-        <div className="relative mx-auto flex items-center text-blue-gray-900">
-        <Typography
-            as="a"
-            href="#"
-            className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+// Creates favorites and shopping cart icons
+function NavList({
+  // user, handleLogOut
+}) {
+  return (
+    <div className="flex flex-row items-center justify-between">
+      <Typography
+        as="a"
+        href="/favorites"
+        variant="small"
+        className="font-normal"
+      >
+        <MenuItem
+          className="flex items-center gap-2 rounded-full"
+          style={{ color: "rgb(96, 20, 30)" }}
         >
-            Material Tailwind
-        </Typography>
-        <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
-            <NavList />
-        </div>
-        <IconButton
+          {createElement(HeartIcon, { className: "h-6 w-6" })}
+        </MenuItem>
+      </Typography>
+
+      <Typography
+        as="a"
+        href="/shopping-cart"
+        variant="small"
+        className="font-normal"
+      >
+        <MenuItem
+          className="flex items-center gap-2 rounded-full"
+          style={{ color: "rgb(96, 20, 30)" }}
+        >
+          {createElement(ShoppingCartIcon, {
+            className: "h-6 w-6",
+          })}
+        </MenuItem>
+      </Typography>
+      {/* <AccountMenu user={user} handleLogOut={handleLogOut} /> */}
+    </div>
+  );
+}
+
+//real below
+export default function Nav({ user, handleLogOut }) {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setIsNavOpen(false)
+    );
+  }, []);
+
+  // When productType button is clicked, it will navigate to the url, with above useEffect re-rendering page
+  const handleProductTypeFilter = async (e) => {
+    if (e.target.id === "red") {
+      navigate("/filter/red");
+    } else if (e.target.id === "white") {
+      navigate("/filter/white");
+    } else if (e.target.id === "rose") {
+      navigate("/filter/rose");
+    } else if (e.target.id === "all") {
+      navigate("/filter/all");
+    }
+  };
+
+  return (
+    <div className="bg-white">
+      <Navbar className="max-w-full rounded-none">
+        {/* ==================== */}
+        <div className="flex" style={{ color: "rgb(96, 20, 30)" }}>
+          <Typography
+            onClick={() => navigate("/development")}
+            className="flex items-center w-1/6"
+          >
+            {// user ?
+                "Username"
+              // : ""
+            }
+          </Typography>
+
+          <Typography
+            
+          >
+
+          </Typography>
+
+          <Typography
+            onClick={() => navigate("/")}
+            className="mr-4 ml-2 flex items-center justify-center grow cursor-pointer py-1.5 font-black text-5xl"
+            style={{ fontFamily: "Wine Date" }}
+          >
+            You & Meme
+          </Typography>
+
+          {/* Favorites and shopping cart icons */}
+          <div className="flex justify-end w-1/6 top-2/4 hidden lg:block">
+            <NavList user={user} handleLogOut={handleLogOut} />
+          </div>
+
+          {/* Responsive menu change (NavList > Bars2Icon) when Collapse is open (determined by useEffect above) */}
+          <IconButton
             size="sm"
-            color="blue-gray"
             variant="text"
             onClick={toggleIsNavOpen}
-            className="ml-auto mr-2 lg:hidden"
-        >
+            className="ml-auto mr-2 lg:hidden my-auto"
+            style={{ color: "rgb(96, 20, 30)" }}
+          >
             <Bars2Icon className="h-6 w-6" />
-        </IconButton>
-        <ProfileMenu />
+          </IconButton>
         </div>
-        <MobileNav open={isNavOpen} className="overflow-scroll">
-        <NavList />
-        </MobileNav>
-    </Navbar>
-    );
+        {/* ==================== */}
+
+        <Collapse open={isNavOpen} className="overflow-scroll">
+          <NavList user={user} handleLogOut={handleLogOut} />
+        </Collapse>
+      </Navbar>
+
+      <div
+        className="flex justify-center border-b border-t"
+        style={{ borderColor: "rgb(96, 20, 30)" }}
+      >
+        <Button
+          id="all"
+          variant="text"
+          onClick={handleProductTypeFilter}
+          style={{
+            color: "rgb(96, 20, 30)",
+            fontFamily: "'HelpUsGiambattista', sans-serif",
+          }}
+        >
+          All Wines
+        </Button>
+      </div>
+    </div>
+  );
 }
