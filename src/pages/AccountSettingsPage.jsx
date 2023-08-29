@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 
-
-const AccountSettingsPage = () => {
-  const [username, setUsername] = useState('currentUsername');
-  const [email, setEmail] = useState('currentEmail');
-  const [currentPassword, setCurrentPassword] = useState('currentPassword');
+const mockdata = {
+  username: "danish", 
+  email: "danish@gmail.com",
+  password: "danish123"
+}
+ 
+const AccountSettingsPage = () => { 
+  const [username, setUsername] = useState(mockdata.username); // mockdata.user
+  const [email, setEmail] = useState(mockdata.email);
+  const [currentPassword, setCurrentPassword] = useState('mockdata.Password');
   const [newPassword, setNewPassword] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
 
