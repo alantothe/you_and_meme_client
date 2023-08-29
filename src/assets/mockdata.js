@@ -6,6 +6,6 @@ export const onePost = {
 };
 
 export const Comments = [
-  { user: "userRebekah", comment: "This is a comment", id: 1 },
-  { user: "userKyle", comment: "This is another comment", id: 2 },
+  { user: "userRebekah", post_id: 1, comment: "This is a comment" },
+  { user: "userKyle", post_id: 1, comment: "This is another comment" },
 ];
