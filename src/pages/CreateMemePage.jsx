@@ -5,7 +5,6 @@ import axios from "axios";
 function CreateMemePage() {
   const oneMeme = memes[0];
 
-  //
   const initialTextFields = {};
   for (let i = 0; i < oneMeme.box_count; i++) {
     initialTextFields[`text${i}`] = "";
@@ -30,7 +29,6 @@ function CreateMemePage() {
 
   const handleSubmit = async () => {
     try {
-      // Convert formData to URL-encoded string
       const formParams = new URLSearchParams(formData).toString();
 
       const response = await axios.post(
@@ -43,24 +41,30 @@ function CreateMemePage() {
         }
       );
 
-      return setNewMeme(response.data.data.url);
+      setNewMeme(response.data.data.url);
     } catch (error) {
       console.error("Error sending request:", error);
     }
   };
-
-  console.log("newMeme", newMeme);
 
   return (
     <div>
       <h1>Create Meme Page</h1>
       <div className="w-1/4 mb-12 mt-12 flex flex-col items-center">
         <div className=" w-60 h-60 relative">
-          <img
-            className="absolute top-0 left-0 w-full h-full object-contain"
-            src={oneMeme.url}
-            alt={oneMeme.name}
-          />
+          {newMeme ? (
+            <img
+              className="absolute top-0 left-0 w-full h-full object-contain"
+              src={newMeme}
+              alt="Generated Meme"
+            />
+          ) : (
+            <img
+              className="absolute top-0 left-0 w-full h-full object-contain"
+              src={oneMeme.url}
+              alt={oneMeme.name}
+            />
+          )}
         </div>
 
         <div>
@@ -81,6 +85,5 @@ function CreateMemePage() {
     </div>
   );
 }
-
 
 export default CreateMemePage;
