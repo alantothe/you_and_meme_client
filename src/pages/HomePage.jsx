@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function HomePage() {
-  return(
+  return (
     <div>
       <h1>Home Page</h1>
     </div>
-  )
+  );
 }
 
 {/* <Link to="/memes/:memeId">Meme</Link>; */}
