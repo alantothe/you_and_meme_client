@@ -8,9 +8,12 @@ import MemeDetailPage from "./pages/MemeDetailPage.jsx";
 import MemeSelectionPage from "./pages/MemeSelectionPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
+import Nav from "./components/Nav.jsx"
 
 const App = () => {
   return (
+    <div>
+    <Nav />
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/account-settings" element={<AccountSettingsPage />} />
@@ -22,6 +25,7 @@ const App = () => {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/meme-detail-page" element={<MemeDetailPage />} />
     </Routes>
+    </div>
   );
 };
 
