@@ -37,7 +37,7 @@ function LoginPage() {
 
         <label htmlFor="password">Password</label>
         <input
-          type="text"
+          type="password"
           id="password"
           name="password"
           value={formData.password}
