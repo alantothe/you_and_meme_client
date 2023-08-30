@@ -4,7 +4,7 @@ import api from "./apiConfig";
 // detail page
 export const getCommentsByPost = async (memeId) => {
   try {
-    const response = await api.get(`/memes/${memeId}/comments`);
+    const response = await api.get(`/posts/${memeId}/comments`);
     return response.data;
   } catch (error) {
     throw error;
@@ -14,7 +14,7 @@ export const getCommentsByPost = async (memeId) => {
 // getPostByUser - profile page
 export const getPostsByUser = async (userId) => {
   try {
-    const response = await api.get(`/users/${userId}/memes`);
+    const response = await api.get(`/users/${userId}/posts`);
     return response.data;
   } catch (error) {
     throw error;
@@ -24,7 +24,7 @@ export const getPostsByUser = async (userId) => {
 // getAllPosts - home page
 export const getAllPosts = async () => {
   try {
-    const response = await api.get("/memes");
+    const response = await api.get("/posts");
     return response.data;
   } catch (error) {
     throw error;
@@ -34,7 +34,7 @@ export const getAllPosts = async () => {
 // user can delete their own post
 export const deletePost = async (id) => {
   try {
-    const response = await api.delete(`/memes/${id}`);
+    const response = await api.delete(`/posts/${id}`);
     return response.data;
   } catch (error) {
     throw error;
