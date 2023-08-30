@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let baseURL = "api.imgflip.com/";
+let baseURL = "http://localhost:8000/";
 
 const api = axios.create({
   baseURL,
