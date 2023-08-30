@@ -41,20 +41,20 @@ export const deletePost = async (id) => {
   }
 };
 
-export const postMeme = async (memeUrl) => {
+export const postMeme = async (postData) => {
   try {
-    const response = await api.post("/posts/", memeUrl);
+    const response = await api.post("/posts/", postData);
     return response.data;
   } catch (err) {
     throw err;
   }
 };
 
-export const createOrder = async (orderData) => {
+// getAllTemplates - Selection page
+export const getAllTemplates = async () => {
   try {
-    const resp = await api.post("/order", orderData);
-    const order = resp.data;
-    return order;
+    const response = await api.get("/memes");
+    return response.data;
   } catch (error) {
     throw error;
   }

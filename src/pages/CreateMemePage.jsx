@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { memes } from "../assets/templates.js";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { postMeme } from "../api/ourApi/api.js";
 
 function CreateMemePage() {
   const { id } = useParams();
@@ -68,6 +69,15 @@ function CreateMemePage() {
     }
   };
 
+  const postData = {
+    user: 1,
+    meme: newMeme,
+  };
+  console.log(postData);
+  const handleMemePost = async () => {
+    postMeme(postData);
+  };
+
   return (
     <div>
       <h1>Create Meme Page</h1>
@@ -101,7 +111,7 @@ function CreateMemePage() {
             </div>
           ))}
           <button onClick={() => handleSubmit()}>Preview Meme</button>
-          <button>Generate Meme</button>
+          <button onClick={() => handleMemePost()}>Generate Meme</button>
         </div>
       </div>
     </div>

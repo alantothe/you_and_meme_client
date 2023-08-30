@@ -21,11 +21,11 @@ import {
   PowerIcon,
   Bars2Icon,
   HeartIcon,
-  PlusSmallIcon
+  PlusSmallIcon,
 } from "@heroicons/react/24/outline";
 
 //dropdown menu
-function AccountMenu({user, handleLogOut }) {
+function AccountMenu({ user, handleLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -40,7 +40,7 @@ function AccountMenu({user, handleLogOut }) {
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "green" : "rgb(96, 20, 30)"
+              color: user ? "green" : "rgb(96, 20, 30)",
             },
           })}
 
@@ -50,54 +50,60 @@ function AccountMenu({user, handleLogOut }) {
               isMenuOpen ? "rotate-180" : ""
             }`}
             style={{
-              color: user ? "green" : "rgb(96, 20, 30)"
+              color: user ? "green" : "rgb(96, 20, 30)",
             }}
           />
         </Button>
       </MenuHandler>
 
-      <MenuList className="p-1"> 
-        {user && (<Typography as="a" href="/account-settings">
-          <MenuItem
-            onClick={closeMenu}
-            className={"flex items-center gap-2 rounded"}
-            style={{ color: "rgb(96, 20, 30)" }}
-          >
-            {createElement(UserCircleIcon, {
-              className: "h-4 w-4",
-              strokeWidth: 2,
-            })}
-            My Account
-          </MenuItem>
-        </Typography>)}
+      <MenuList className="p-1">
+        {user && (
+          <Typography as="a" href="/account-settings">
+            <MenuItem
+              onClick={closeMenu}
+              className={"flex items-center gap-2 rounded"}
+              style={{ color: "rgb(96, 20, 30)" }}
+            >
+              {createElement(UserCircleIcon, {
+                className: "h-4 w-4",
+                strokeWidth: 2,
+              })}
+              My Account
+            </MenuItem>
+          </Typography>
+        )}
 
-        {user && (<Typography as="a" href="/development">
-          <MenuItem
-            onClick={closeMenu}
-            className={"flex items-center gap-2 rounded"}
-            style={{ color: "rgb(96, 20, 30)" }}
-          >
-            {createElement(Cog6ToothIcon, {
-              className: "h-4 w-4",
-              strokeWidth: 2,
-            })}
-            Edit Account
-          </MenuItem>
-        </Typography>)}
+        {user && (
+          <Typography as="a" href="/development">
+            <MenuItem
+              onClick={closeMenu}
+              className={"flex items-center gap-2 rounded"}
+              style={{ color: "rgb(96, 20, 30)" }}
+            >
+              {createElement(Cog6ToothIcon, {
+                className: "h-4 w-4",
+                strokeWidth: 2,
+              })}
+              Edit Account
+            </MenuItem>
+          </Typography>
+        )}
 
-        {!user && (<Typography as="a" href="/register">
-          <MenuItem
-            onClick={closeMenu}
-            className={"flex items-center gap-2 rounded"}
-            style={{ color: "rgb(96, 20, 30)" }}
-          >
-            {createElement(UserPlusIcon, {
-              className: "h-4 w-4",
-              strokeWidth: 2,
-            })}
-            Sign Up
-          </MenuItem>
-        </Typography>)}
+        {!user && (
+          <Typography as="a" href="/register">
+            <MenuItem
+              onClick={closeMenu}
+              className={"flex items-center gap-2 rounded"}
+              style={{ color: "rgb(96, 20, 30)" }}
+            >
+              {createElement(UserPlusIcon, {
+                className: "h-4 w-4",
+                strokeWidth: 2,
+              })}
+              Sign Up
+            </MenuItem>
+          </Typography>
+        )}
 
         <Typography
           as="a"
@@ -122,7 +128,7 @@ function AccountMenu({user, handleLogOut }) {
 }
 
 // Creates favorites and add post icons
-function NavList({user, handleLogOut}) {
+function NavList({ user, handleLogOut }) {
   return (
     <div className="flex flex-row items-center justify-end">
       {/* <Typography
@@ -139,32 +145,31 @@ function NavList({user, handleLogOut}) {
         </MenuItem>
       </Typography> */}
 
-      {user && (<Typography
-        as="a"
-        // route to add post
-        href="/select-meme"
-        variant="small"
-        className="font-normal"
-      >
-        <MenuItem
-          className="flex items-center gap-2 rounded-full"
-          style={{ color: "rgb(96, 20, 30)" }}
+      {user && (
+        <Typography
+          as="a"
+          // route to add post
+          href="/select-meme"
+          variant="small"
+          className="font-normal"
         >
-          {createElement(PlusSmallIcon, {
-            className: "h-6 w-6",
-          })}
-        </MenuItem>
-      </Typography>)}
-      <AccountMenu
-        user={user}
-        handleLogOut={handleLogOut}
-      />
+          <MenuItem
+            className="flex items-center gap-2 rounded-full"
+            style={{ color: "rgb(96, 20, 30)" }}
+          >
+            {createElement(PlusSmallIcon, {
+              className: "h-6 w-6",
+            })}
+          </MenuItem>
+        </Typography>
+      )}
+      <AccountMenu user={user} handleLogOut={handleLogOut} />
     </div>
   );
 }
 
 //real below
-export default function Nav({user,handleLogOut }) {
+export default function Nav({ user, handleLogOut }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
   const navigate = useNavigate();
@@ -179,9 +184,7 @@ export default function Nav({user,handleLogOut }) {
   // When productType button is clicked, it will navigate to the url, with above useEffect re-rendering page
   const handleFeedFilter = async (e) => {
     if (e.target.id === "most-liked") {
-
     } else if (e.target.id === "friends") {
-
     } else if (e.target.id === "newest") {
       // navigate("/filter/all");
     }
