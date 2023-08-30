@@ -11,8 +11,24 @@ export const getCommentsByPost = async (memeId) => {
 };
 
 // getPostByUser - profile page
+export const getPostsByUser = async (userId) => {
+  try {
+    const response = await api.get(`/users/${userId}/memes`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 // getAllPosts - home page
+export const getAllPosts = async () => {
+  try {
+    const response = await api.get("/memes");
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 // user can delete their own post
 export const deletePost = async (id) => {
