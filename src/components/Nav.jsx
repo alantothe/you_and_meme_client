@@ -57,7 +57,7 @@ function AccountMenu({user, handleLogOut }) {
       </MenuHandler>
 
       <MenuList className="p-1"> 
-        {user && (<Typography as="a" href="/account-info">
+        {user && (<Typography as="a" href="/account-settings">
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
