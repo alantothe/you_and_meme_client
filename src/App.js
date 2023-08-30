@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/account-settings" element={<AccountSettingsPage />} />
         <Route path="/create-meme/:id" element={<CreateMemePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign-in" element={<LoginPage />} />
         <Route path="/memes/:postId" element={<MemeDetailPage />} />
         <Route path="/meme-selection" element={<MemeSelectionPage />} />
         <Route path="/profile" element={<ProfilePage />} />
