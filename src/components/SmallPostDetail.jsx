@@ -5,7 +5,7 @@ function SmallPostDetail({ allPosts }) {
 
   return (
     <div>
-      {allPosts.meme}
+      <img src={allPosts.meme} />
     </div>
   )
 
