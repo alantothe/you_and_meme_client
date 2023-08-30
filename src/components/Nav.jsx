@@ -109,7 +109,7 @@ function AccountMenu({user, handleLogOut }) {
 // Creates favorites and add post icons
 function NavList({user, handleLogOut}) {
   return (
-    <div className="flex flex-row items-center justify-between">
+    <div className="flex flex-row items-center justify-end">
       {/* <Typography
         as="a"
         href="/favorites"
@@ -149,11 +149,7 @@ function NavList({user, handleLogOut}) {
 }
 
 //real below
-export default function Nav(
-  user = 1,
-  {
-  // user,
-  handleLogOut }) {
+export default function Nav({user,handleLogOut }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
   const navigate = useNavigate();
