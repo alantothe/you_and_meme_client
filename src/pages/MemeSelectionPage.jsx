@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 function MemeSelectionPage() {
   return (
     <div className="meme-selection-page flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-center mb-8">Meme Selection Page</h1>
+      <h1 className="text-center mb-8 font-bold text-4xl mt-10">Meme Selection Page</h1>
 
-      <div className="flex flex-wrap px-48 items-center justify-center ">
+      <div className="flex flex-wrap px-48 items-center justify-center">
         {memes.map((meme, index) => {
           return (
             <div
