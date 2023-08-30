@@ -1,16 +1,14 @@
 import React from "react";
 
 function SmallPostDetail({ allPosts }) {
-  console.log(allPosts)
+  console.log(allPosts.meme)
 
-  return
-  (
+  return (
     <div>
-      <h1>{allPosts.meme}</h1>
-      
+      {allPosts.meme}
+    </div>
+  )
 
-  </div>
-  );
 }
 
 export default SmallPostDetail;
