@@ -1,3 +1,4 @@
+import api from "./apiConfig";
 // FUNCTIONS FROM OUR API
 
 // detail page
