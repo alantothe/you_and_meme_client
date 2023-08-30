@@ -193,7 +193,7 @@ export default function Nav({user,handleLogOut }) {
         {/* ==================== */}
         <div className="flex" style={{ color: "rgb(96, 20, 30)" }}>
           <Typography
-            onClick={() => navigate("/development")}
+            onClick={() => navigate("/")}
             className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl"
           >
             You & Meme
