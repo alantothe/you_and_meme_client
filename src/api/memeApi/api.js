@@ -2,9 +2,9 @@ import api from "./apiConfig";
 
 // FUNCTIONS FROM MEME API
 // make sure the endpoints are correct
-export const getMemes = async () => {
+export const getPosts = async () => {
   try {
-    const response = await api.get("/get_memes");
+    const response = await api.get("/posts");
     return response.data;
   } catch (error) {
     throw error;
