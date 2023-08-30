@@ -1,8 +1,6 @@
 import React from "react";
 import { memes } from "../assets/templates.js";
 import { Button } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-
 
 function MemeSelectionPage() {
   return (
@@ -31,6 +29,5 @@ function MemeSelectionPage() {
     </div>
   );
 }
-
 
 export default MemeSelectionPage;
