@@ -20,14 +20,11 @@ import {
   PowerIcon,
   Bars2Icon,
   HeartIcon,
-  ShoppingCartIcon,
-  MagnifyingGlassIcon,
+  PlusSmallIcon
 } from "@heroicons/react/24/outline";
 
 //dropdown menu
-function AccountMenu({
-  // user, handleLogOut
-}) {
+function AccountMenu({user, handleLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -42,10 +39,7 @@ function AccountMenu({
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color:
-                // user ?
-                  "green"
-                  // : "rgb(96, 20, 30)"
+              color: user ? "green" : "rgb(96, 20, 30)"
             },
           })}
 
@@ -55,17 +49,14 @@ function AccountMenu({
               isMenuOpen ? "rotate-180" : ""
             }`}
             style={{
-              color:
-                // user ?
-                  "green"
-                  // : "rgb(96, 20, 30)"
+              color: user ? "green" : "rgb(96, 20, 30)"
             }}
           />
         </Button>
       </MenuHandler>
 
-      <MenuList className="p-1">
-        <Typography as="a" href="/account-info">
+      <MenuList className="p-1"> 
+        {user && (<Typography as="a" href="/account-info">
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
@@ -77,9 +68,9 @@ function AccountMenu({
             })}
             My Account
           </MenuItem>
-        </Typography>
+        </Typography>)}
 
-        <Typography as="a" href="/development">
+        {user && (<Typography as="a" href="/development">
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
@@ -91,16 +82,12 @@ function AccountMenu({
             })}
             Edit Account
           </MenuItem>
-        </Typography>
+        </Typography>)}
 
         <Typography
           as="a"
-          // onClick={user ? handleLogOut : undefined}
-          href={
-            // user ?
-              undefined
-              // : "/sign-in"
-            }
+          onClick={user ? handleLogOut : undefined}
+          href={user ? undefined : "/sign-in"}
         >
           <MenuItem
             onClick={closeMenu}
@@ -111,11 +98,7 @@ function AccountMenu({
               className: "h-4 w-4",
               strokeWidth: 2,
             })}
-            {
-              // user ?
-                "Sign Out"
-                // : "Sign In"
-            }
+            {user ? "Sign Out" : "Sign In"}
           </MenuItem>
         </Typography>
       </MenuList>
@@ -123,13 +106,11 @@ function AccountMenu({
   );
 }
 
-// Creates favorites and shopping cart icons
-function NavList({
-  // user, handleLogOut
-}) {
+// Creates favorites and add post icons
+function NavList({user, handleLogOut}) {
   return (
-    <div className="flex flex-row items-center justify-between">
-      <Typography
+    <div className="flex flex-row items-center justify-end">
+      {/* <Typography
         as="a"
         href="/favorites"
         variant="small"
@@ -141,11 +122,12 @@ function NavList({
         >
           {createElement(HeartIcon, { className: "h-6 w-6" })}
         </MenuItem>
-      </Typography>
+      </Typography> */}
 
-      <Typography
+      {user && (<Typography
         as="a"
-        href="/shopping-cart"
+        // route to add post
+        href="/select-meme"
         variant="small"
         className="font-normal"
       >
@@ -153,18 +135,21 @@ function NavList({
           className="flex items-center gap-2 rounded-full"
           style={{ color: "rgb(96, 20, 30)" }}
         >
-          {createElement(ShoppingCartIcon, {
+          {createElement(PlusSmallIcon, {
             className: "h-6 w-6",
           })}
         </MenuItem>
-      </Typography>
-      {/* <AccountMenu user={user} handleLogOut={handleLogOut} /> */}
+      </Typography>)}
+      <AccountMenu
+        user={user}
+        handleLogOut={handleLogOut}
+      />
     </div>
   );
 }
 
 //real below
-export default function Nav({ user, handleLogOut }) {
+export default function Nav({user,handleLogOut }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
   const navigate = useNavigate();
@@ -177,15 +162,13 @@ export default function Nav({ user, handleLogOut }) {
   }, []);
 
   // When productType button is clicked, it will navigate to the url, with above useEffect re-rendering page
-  const handleProductTypeFilter = async (e) => {
-    if (e.target.id === "red") {
-      navigate("/filter/red");
-    } else if (e.target.id === "white") {
-      navigate("/filter/white");
-    } else if (e.target.id === "rose") {
-      navigate("/filter/rose");
-    } else if (e.target.id === "all") {
-      navigate("/filter/all");
+  const handleFeedFilter = async (e) => {
+    if (e.target.id === "most-liked") {
+
+    } else if (e.target.id === "friends") {
+
+    } else if (e.target.id === "newest") {
+      // navigate("/filter/all");
     }
   };
 
@@ -196,24 +179,7 @@ export default function Nav({ user, handleLogOut }) {
         <div className="flex" style={{ color: "rgb(96, 20, 30)" }}>
           <Typography
             onClick={() => navigate("/development")}
-            className="flex items-center w-1/6"
-          >
-            {// user ?
-                "Username"
-              // : ""
-            }
-          </Typography>
-
-          <Typography
-            
-          >
-
-          </Typography>
-
-          <Typography
-            onClick={() => navigate("/")}
-            className="mr-4 ml-2 flex items-center justify-center grow cursor-pointer py-1.5 font-black text-5xl"
-            style={{ fontFamily: "Wine Date" }}
+            className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl"
           >
             You & Meme
           </Typography>
@@ -246,15 +212,15 @@ export default function Nav({ user, handleLogOut }) {
         style={{ borderColor: "rgb(96, 20, 30)" }}
       >
         <Button
-          id="all"
+          id="newest"
           variant="text"
-          onClick={handleProductTypeFilter}
+          onClick={handleFeedFilter}
           style={{
             color: "rgb(96, 20, 30)",
             fontFamily: "'HelpUsGiambattista', sans-serif",
           }}
         >
-          All Wines
+          Newest Posts
         </Button>
       </div>
     </div>
