@@ -100,7 +100,8 @@ function CreateMemePage() {
               />
             </div>
           ))}
-          <button onClick={() => handleSubmit()}>Generate Meme</button>
+          <button onClick={() => handleSubmit()}>Preview Meme</button>
+          <button>Generate Meme</button>
         </div>
       </div>
     </div>
