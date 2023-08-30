@@ -201,6 +201,7 @@ export default function Nav({user,handleLogOut }) {
 
           {/* Favorites and shopping cart icons */}
           <div className="flex justify-end w-1/6 top-2/4 hidden lg:block">
+            {/* USER GOES HERE */}
             <NavList user={user} handleLogOut={handleLogOut} />
           </div>
 
