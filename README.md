@@ -9,7 +9,6 @@
 - API Functions
 - From External Meme API
 - From Backend API
-- Components
 - State Management
 - Tailwind CSS
 - Contributors
@@ -22,49 +21,52 @@ This React frontend is a part of a meme-sharing platform where users can create 
 Installation
 
 Clone the repository
-bash
-Copy code
+
+```
 git clone <repository_url>
-Navigate to the frontend directory
-bash
-Copy code
-cd path/to/frontend
+```
+
 Install npm packages
-bash
-Copy code
+
+```
 npm install
+```
+
 Start the React development server
-bash
-Copy code
+
+```
 npm start
-Project Structure
+```
 
-src/api/api.js: Houses the API functions that interact with the backend and external meme API
-src/components/: Contains all the React components for the application
-API Functions
+### Project Structure
 
-From External Meme API
-getMemes(): Fetches a list of available memes
-getMeme(id): Fetches a single meme (Note: This function might be re-evaluated based on the API's capabilities)
-createMeme(meme): Generates a new meme
-From Backend API
-getCommentsByPost(memeId): Fetches comments for a specific post
-getPostsByUser(userId): Fetches posts made by a specific user
-getAllPosts(): Fetches all posts
-deletePost(id): Deletes a post by its ID
-Components
+- src/api/api.js: Houses the API functions that interact with the backend and external meme API
+- src/components/: Contains all the React components for the application
+  API Functions
 
-DetailPage: Shows the detail view of a meme post and associated comments
-(Add more components as they are built)
-State Management
+#### From External Meme API
 
-We are using React's built-in useState and useEffect for managing the component state and side-effects, respectively.
+- getMemes(): Fetches a list of available memes
+- getMeme(id): Fetches a single meme (Note: This function might be re-evaluated based on the API's capabilities)
+- createMeme(meme): Generates a new meme
 
-Tailwind CSS
+#### From Backend API
 
-Tailwind CSS is used for styling the application. For example, in the DetailPage component, Tailwind CSS classes are used to set width and height, and enable scrolling when the content overflows.
+- getCommentsByPost(memeId): Fetches comments for a specific post
+- getPostsByUser(userId): Fetches posts made by a specific user
+- getAllPosts(): Fetches all posts
+- deletePost(id): Deletes a post by its ID
 
-Contributors
+### State Management
 
-(Your Name)
-(Team Member Names)
+- We are using React's built-in useState and useEffect for managing the component state and side-effects, respectively.
+
+### Tailwind CSS
+
+- Tailwind CSS is used for styling the application. For example, in the DetailPage component, Tailwind CSS classes are used to set width and height, and enable scrolling when the content overflows.
+
+### Contributors
+
+- Contributors to this project include: <br>
+  [Alan Malpartida](Alan's LinkedIn) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) |
+- Please reach out to us via LinkedIn
