@@ -15,6 +15,7 @@ import {
 
 import {
   UserCircleIcon,
+  UserPlusIcon,
   ChevronDownIcon,
   Cog6ToothIcon,
   PowerIcon,
@@ -81,6 +82,20 @@ function AccountMenu({user, handleLogOut }) {
               strokeWidth: 2,
             })}
             Edit Account
+          </MenuItem>
+        </Typography>)}
+
+        {!user && (<Typography as="a" href="/register">
+          <MenuItem
+            onClick={closeMenu}
+            className={"flex items-center gap-2 rounded"}
+            style={{ color: "rgb(96, 20, 30)" }}
+          >
+            {createElement(UserPlusIcon, {
+              className: "h-4 w-4",
+              strokeWidth: 2,
+            })}
+            Sign Up
           </MenuItem>
         </Typography>)}
 
@@ -186,6 +201,7 @@ export default function Nav({user,handleLogOut }) {
 
           {/* Favorites and shopping cart icons */}
           <div className="flex justify-end w-1/6 top-2/4 hidden lg:block">
+            {/* USER GOES HERE */}
             <NavList user={user} handleLogOut={handleLogOut} />
           </div>
 
