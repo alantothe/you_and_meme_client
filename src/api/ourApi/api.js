@@ -1,27 +1,42 @@
+import api from "./apiConfig";
 // FUNCTIONS FROM OUR API
 
-// get all meme-templates from our backend
-// export const getMemes = async () => {
-//   try {
-//     const response = await api.get("/get_memes");
-//     return response.data;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+// detail page
+export const getCommentsByPost = async (memeId) => {
+  try {
+    const response = await api.get(`/posts/${memeId}/comments`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
-// getOnePost - profile page
+// getPostByUser - profile page
+export const getPostsByUser = async (userId) => {
+  try {
+    const response = await api.get(`/users/${userId}/posts`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
-// getAllPostsByUser - profile page
-
-// getAllPosts - get all created posts from all users - home page
+// getAllPosts - home page
+export const getAllPosts = async () => {
+  try {
+    const response = await api.get("/posts");
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 // user can delete their own post
-// export const deletePost = async (id) => {
-//   try {
-//     const response = await api.delete(`/memes/${id}`);
-//     return response.data;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+export const deletePost = async (id) => {
+  try {
+    const response = await api.delete(`/posts/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
