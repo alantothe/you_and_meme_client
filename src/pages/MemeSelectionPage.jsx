@@ -1,8 +1,11 @@
 import React from "react";
 import { memes } from "../assets/templates.js";
 import { Button } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 function MemeSelectionPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="meme-selection-page flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-center mb-8">Meme Selection Page</h1>
@@ -21,7 +24,9 @@ function MemeSelectionPage() {
                   alt={meme.name}
                 />
               </div>
-              <Button>Use Template</Button>
+              <Button onClick={() => navigate(`/create-meme/${meme.id}`)}>
+                Use Template
+              </Button>
             </div>
           );
         })}
