@@ -4,7 +4,7 @@ let apiUrl;
 
 const apiUrls = {
   production: "",
-  development: "http://localhost:4000/api",
+  development: "http://localhost:8000/",
 };
 
 if (window.location.hostname === "localhost") {

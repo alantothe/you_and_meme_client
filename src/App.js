@@ -18,14 +18,13 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/account-settings" element={<AccountSettingsPage />} />
         <Route path="/create-meme/:id" element={<CreateMemePage />} />
-         <Route path="/sign-in" element={<LoginPage />} />
+        <Route path="/sign-in" element={<LoginPage />} />
         <Route path="/memes/:postId" element={<MemeDetailPage />} />
         <Route path="/meme-selection" element={<MemeSelectionPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/meme-detail-page" element={<MemeDetailPage />} />
       </Routes>
-
     </div>
   );
 };
