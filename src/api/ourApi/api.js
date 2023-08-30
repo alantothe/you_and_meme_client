@@ -1,4 +1,6 @@
+import api from "./apiConfig";
 // FUNCTIONS FROM OUR API
+
 
 // get all meme-templates from our backend
 // export const getMemes = async () => {
