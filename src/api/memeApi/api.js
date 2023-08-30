@@ -2,10 +2,7 @@ import api from "./apiConfig";
 
 // FUNCTIONS FROM MEME API
 
-
-
 export const getMemes = async () => {
-
   try {
     const response = await api.get("/posts");
     return response.data;
