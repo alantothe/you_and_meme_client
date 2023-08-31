@@ -65,13 +65,13 @@ function CreateMemePage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-200">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-400">
       {/* Main title */}
       <h1 className="mb-4 text-3xl font-semibold">Create Meme Page</h1>
       {/* Meme container */}
-      <div className="w-4/5 p-6 bg-white rounded shadow-md">
+      <div className="w-3/4 p-6 bg-white rounded shadow-md bg-gray-600">
         {/* Meme preview */}
-        <div className="w-64 h-64 mx-auto relative">
+        <div className="w-96 h-96 mx-auto relative">
           {newMeme ? (
             <img
               className="absolute top-0 left-0 w-full h-full object-cover"
@@ -106,8 +106,19 @@ function CreateMemePage() {
               />
             </div>
           ))}
-          <button onClick={() => handleSubmit()}>Generate Meme</button>
-          <button onClick={() => handleMemePost()}>Generate Meme</button>
+          <button 
+            onClick={() => handleSubmit()}
+            className="bg-blue-500 text-gray-900 px-4 py-2 rounded"
+          >
+           Preview Meme  
+          </button>
+
+         <button
+           onClick={() => handleMemePost()}
+           className="bg-green-500 text-gray-900 px-4 py-2 rounded"  
+         >
+           Generate Meme
+        </button>
         </div>
       </div>
     </div>
