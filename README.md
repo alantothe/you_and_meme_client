@@ -2,18 +2,6 @@
 
 ## Table of Contents
 
-- Overview
-- Quick Links
-- Installation
-- Project Structure
-- API Functions
-- From External Meme API
-- From Backend API
-- State Management
-- Tailwind CSS
-- Contributors
-- Overview
-
 This React frontend is a part of a meme-sharing platform where users can create memes using a meme generator, post them, and comment on them. The frontend interacts with both an external meme API and a Django backend.
 
 ### Quick Links
