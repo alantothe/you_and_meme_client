@@ -21,11 +21,13 @@ function HomePage() {
       <p className="text-center mb-8 font-bold text-2xl">
         A place to share & create your favorite memes!
       </p>
-      <div className="flex flex-wrap px-48 items-center justify-center">
-        {allPosts.map((allPosts, index) => (
-          <SmallPostDetail allPosts={allPosts} key={index} />
-        ))}
-      </div>
+      <div className="flex justify-center">
+        <div className="flex flex-wrap px-48 items-center justify-center">
+          {allPosts.map((allPosts, index) => (
+            <SmallPostDetail allPosts={allPosts} key={index} />
+          ))}
+          </div>
+        </div>
     </div>
   );
 }
