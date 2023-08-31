@@ -36,12 +36,12 @@ function AccountMenu({ user, handleLogOut }) {
         <Button
           variant="text"
           className="flex items-center gap-1 rounded-full"
-          style={{ color: "rgb(209, 189, 4)" }}
+          style={{ color: "teal-400" }}
         >
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "green" : "rgb(209, 189, 4)",
+              color: user ? "green" : "teal-400",
             },
           })}
 
@@ -51,7 +51,7 @@ function AccountMenu({ user, handleLogOut }) {
               isMenuOpen ? "rotate-180" : ""
             }`}
             style={{
-              color: user ? "green" : "rgb(209, 189, 4)"
+              color: user ? "green" : "teal-400"
             }}
           />
         </Button>
@@ -62,7 +62,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "rgb(209, 189, 4)" }}
+            style={{ color: "#d1bd04" }}
           >
             {createElement(UserCircleIcon, {
               className: "h-4 w-4",
@@ -76,7 +76,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "rgb(209, 189, 4)" }}
+            style={{ color: "#d1bd04" }}
           >
             {createElement(Cog6ToothIcon, {
               className: "h-4 w-4",
@@ -90,7 +90,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "rgb(209, 189, 4)" }}
+            style={{ color: "#d1bd04" }}
           >
             {createElement(UserPlusIcon, {
               className: "h-4 w-4",
@@ -108,7 +108,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "rgb(209, 189, 4)" }}
+            style={{ color: "#d1bd04" }}
           >
             {createElement(PowerIcon, {
               className: "h-4 w-4",
@@ -149,7 +149,7 @@ function NavList({ user, handleLogOut }) {
       >
         <MenuItem
           className="flex items-center gap-2 rounded-full"
-          style={{ color: "rgb(209, 189, 4)" }}
+          style={{ color: "#d1bd04" }}
           >
             {createElement(PlusSmallIcon, {
               className: "h-6 w-6",
@@ -185,10 +185,13 @@ export default function Nav({ user, handleLogOut }) {
   };
 
   return (
-    <div className="bg-white">
-      <Navbar className="max-w-full rounded-none">
+    <div
+      // className="bg-white"
+    // style={{backgroundColor: "red"}}
+    >
+      <Navbar className="max-w-full rounded-none bg-gray-600">
         {/* ==================== */}
-        <div className="flex" style={{ color: "rgb(209, 189, 4)" }}>
+        <div className="flex" style={{ color: "#d1bd04" }}>
 
           <DogeIcon width="30" height="30" fill="white" />
 
@@ -211,7 +214,7 @@ export default function Nav({ user, handleLogOut }) {
             variant="text"
             onClick={toggleIsNavOpen}
             className="ml-auto mr-2 lg:hidden my-auto"
-            style={{ color: "rgb(209, 189, 4)" }}
+            style={{ color: "#d1bd04" }}
           >
             <Bars2Icon className="h-6 w-6" />
           </IconButton>
