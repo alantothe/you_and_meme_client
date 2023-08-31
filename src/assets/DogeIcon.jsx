@@ -5,7 +5,7 @@ const DogeIcon = () => {
   <div>
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-file-invoice stroke-white w-12 mx-0.5 rotate-180"
+            className="icon icon-tabler icon-tabler-file-invoice stroke-white w-12 mx-0.5 rotate-180 fill-white"
             width="100%"
             height="100%"
             viewBox="0 0 2048 2048"  // updated viewBox
