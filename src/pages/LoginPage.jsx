@@ -47,7 +47,7 @@ function LoginPage() {
           onChange={handleChange}
           required
         />
-        <label htmlFor="password">E-mail</label>
+        <label htmlFor="email">email</label>
         <input
           type="email"
           id="email"

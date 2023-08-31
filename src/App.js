@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import AccountSettingsPage from "./pages/AccountSettingsPage.jsx";
 import CreateMemePage from "./pages/CreateMemePage.jsx";
@@ -10,29 +10,51 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import Nav from "./components/Nav.jsx";
 import { verifyUser } from "./api/users.js";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const verifyToken = async () => {
-      const currentUser = await verifyUser();
-      console.log("YOO this is the " + currentUser.user_id);
+      const user = await verifyUser();
+      user.user_id ? setUser(user) : setUser(null);
     };
     verifyToken();
   }, []);
 
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/sign-in");
+  };
+
   return (
     <div>
-      <Nav />
+      <Nav user={user} handleLogOut={handleLogOut} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/account-settings" element={<AccountSettingsPage />} />
-        <Route path="/create-meme/:id" element={<CreateMemePage />} />
-        <Route path="/sign-in" element={<LoginPage />} />
-        <Route path="/memes/:postId" element={<MemeDetailPage />} />
-        <Route path="/meme-selection" element={<MemeSelectionPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/meme-detail-page" element={<MemeDetailPage />} />
+        <Route path="/" element={<HomePage user={user} />} />
+        <Route
+          path="/account-settings"
+          element={<AccountSettingsPage user={user} />}
+        />
+        <Route
+          path="/create-meme/:id"
+          element={<CreateMemePage user={user} />}
+        />
+        <Route path="/sign-in" element={<LoginPage user={user} />} />
+        <Route path="/memes/:postId" element={<MemeDetailPage user={user} />} />
+        <Route
+          path="/meme-selection"
+          element={<MemeSelectionPage user={user} />}
+        />
+        <Route path="/profile" element={<ProfilePage user={user} />} />
+        <Route path="/register" element={<RegisterPage user={user} />} />
+        <Route
+          path="/meme-detail-page"
+          element={<MemeDetailPage user={user} />}
+        />
       </Routes>
     </div>
   );

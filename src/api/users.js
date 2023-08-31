@@ -19,15 +19,11 @@ export const loginUser = async (loginData) => {
 };
 
 export const verifyUser = async () => {
-  try {
-    const token = await getToken();
-    if (token) {
-      const user = jwtDecode(token);
-      console.log(user);
-      return user;
-    }
-    return false;
-  } catch (err) {
-    throw err;
+  const token = await getToken();
+  if (token) {
+    const user = jwtDecode(token);
+    console.log(user);
+    return user;
   }
+  return false;
 };
