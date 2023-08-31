@@ -51,7 +51,7 @@ function AccountMenu({ user, handleLogOut }) {
               isMenuOpen ? "rotate-180" : ""
             }`}
             style={{
-              color: user ? "green" : "teal-400"
+              color: user ? "green" : "teal-400",
               color: user ? "green" : "rgb(209, 189, 4)",
             }}
           />
