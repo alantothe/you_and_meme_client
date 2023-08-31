@@ -14,9 +14,11 @@ function HomePage() {
   console.log(allPosts);
 
   return (
-    <div>
-      <h1>Home Page</h1>
-      <div>
+    <div className="bg-gray-800 min-h-screen">
+      <h1 className="text-center mb-8 font-bold text-4xl mt-10">
+        Welcome! 
+      </h1>
+      <div className="flex flex-wrap px-48 items-center justify-center">
         {allPosts.map((allPosts, index) => (
           <SmallPostDetail allPosts={allPosts} key={index} />
         ))}
