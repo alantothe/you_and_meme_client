@@ -39,6 +39,7 @@ export const getAllTemplates = async () => {
     throw error;
   }
 };
+
 // detail page
 // export const getCommentsByPost = async (memeId) => {
 //   try {

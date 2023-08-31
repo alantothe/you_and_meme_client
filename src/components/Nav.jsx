@@ -1,5 +1,6 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
+import DogeIcon from "../assets/DogeIcon";
 
 import {
   Navbar,
@@ -35,12 +36,12 @@ function AccountMenu({ user, handleLogOut }) {
         <Button
           variant="text"
           className="flex items-center gap-1 rounded-full"
-          style={{ color: "rgb(96, 20, 30)" }}
+          style={{ color: "rgb(209, 189, 4)" }}
         >
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "green" : "rgb(96, 20, 30)",
+              color: user ? "green" : "rgb(209, 189, 4)",
             },
           })}
 
@@ -50,60 +51,54 @@ function AccountMenu({ user, handleLogOut }) {
               isMenuOpen ? "rotate-180" : ""
             }`}
             style={{
-              color: user ? "green" : "rgb(96, 20, 30)",
+              color: user ? "green" : "rgb(209, 189, 4)"
             }}
           />
         </Button>
       </MenuHandler>
 
-      <MenuList className="p-1">
-        {user && (
-          <Typography as="a" href="/account-settings">
-            <MenuItem
-              onClick={closeMenu}
-              className={"flex items-center gap-2 rounded"}
-              style={{ color: "rgb(96, 20, 30)" }}
-            >
-              {createElement(UserCircleIcon, {
-                className: "h-4 w-4",
-                strokeWidth: 2,
-              })}
-              My Account
-            </MenuItem>
-          </Typography>
-        )}
+      <MenuList className="p-1"> 
+        {user && (<Typography as="a" href="/account-info">
+          <MenuItem
+            onClick={closeMenu}
+            className={"flex items-center gap-2 rounded"}
+            style={{ color: "rgb(209, 189, 4)" }}
+          >
+            {createElement(UserCircleIcon, {
+              className: "h-4 w-4",
+              strokeWidth: 2,
+            })}
+            My Account
+          </MenuItem>
+        </Typography>)}
 
-        {user && (
-          <Typography as="a" href="/development">
-            <MenuItem
-              onClick={closeMenu}
-              className={"flex items-center gap-2 rounded"}
-              style={{ color: "rgb(96, 20, 30)" }}
-            >
-              {createElement(Cog6ToothIcon, {
-                className: "h-4 w-4",
-                strokeWidth: 2,
-              })}
-              Edit Account
-            </MenuItem>
-          </Typography>
-        )}
+        {user && (<Typography as="a" href="/development">
+          <MenuItem
+            onClick={closeMenu}
+            className={"flex items-center gap-2 rounded"}
+            style={{ color: "rgb(209, 189, 4)" }}
+          >
+            {createElement(Cog6ToothIcon, {
+              className: "h-4 w-4",
+              strokeWidth: 2,
+            })}
+            Edit Account
+          </MenuItem>
+        </Typography>)}
 
-        {!user && (
-          <Typography as="a" href="/register">
-            <MenuItem
-              onClick={closeMenu}
-              className={"flex items-center gap-2 rounded"}
-              style={{ color: "rgb(96, 20, 30)" }}
-            >
-              {createElement(UserPlusIcon, {
-                className: "h-4 w-4",
-                strokeWidth: 2,
-              })}
-              Sign Up
-            </MenuItem>
-          </Typography>
-        )}
+        {!user && (<Typography as="a" href="/register">
+          <MenuItem
+            onClick={closeMenu}
+            className={"flex items-center gap-2 rounded"}
+            style={{ color: "rgb(209, 189, 4)" }}
+          >
+            {createElement(UserPlusIcon, {
+              className: "h-4 w-4",
+              strokeWidth: 2,
+            })}
+            Sign Up
+          </MenuItem>
+        </Typography>)}
 
         <Typography
           as="a"
@@ -113,7 +108,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "rgb(96, 20, 30)" }}
+            style={{ color: "rgb(209, 189, 4)" }}
           >
             {createElement(PowerIcon, {
               className: "h-4 w-4",
@@ -145,17 +140,16 @@ function NavList({ user, handleLogOut }) {
         </MenuItem>
       </Typography> */}
 
-      {user && (
-        <Typography
-          as="a"
-          // route to add post
-          href="/select-meme"
-          variant="small"
-          className="font-normal"
-        >
-          <MenuItem
-            className="flex items-center gap-2 rounded-full"
-            style={{ color: "rgb(96, 20, 30)" }}
+      {user && (<Typography
+        as="a"
+        // route to add post
+        href="/select-meme"
+        variant="small"
+        className="font-normal"
+      >
+        <MenuItem
+          className="flex items-center gap-2 rounded-full"
+          style={{ color: "rgb(209, 189, 4)" }}
           >
             {createElement(PlusSmallIcon, {
               className: "h-6 w-6",
@@ -194,7 +188,10 @@ export default function Nav({ user, handleLogOut }) {
     <div className="bg-white">
       <Navbar className="max-w-full rounded-none">
         {/* ==================== */}
-        <div className="flex" style={{ color: "rgb(96, 20, 30)" }}>
+        <div className="flex" style={{ color: "rgb(209, 189, 4)" }}>
+
+          <DogeIcon width="30" height="30" fill="white" />
+
           <Typography
             onClick={() => navigate("/")}
             className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl"
@@ -214,7 +211,7 @@ export default function Nav({ user, handleLogOut }) {
             variant="text"
             onClick={toggleIsNavOpen}
             className="ml-auto mr-2 lg:hidden my-auto"
-            style={{ color: "rgb(96, 20, 30)" }}
+            style={{ color: "rgb(209, 189, 4)" }}
           >
             <Bars2Icon className="h-6 w-6" />
           </IconButton>
@@ -226,22 +223,22 @@ export default function Nav({ user, handleLogOut }) {
         </Collapse>
       </Navbar>
 
-      <div
+      {/* <div
         className="flex justify-center border-b border-t"
-        style={{ borderColor: "rgb(96, 20, 30)" }}
+        style={{ borderColor: "rgb(209, 189, 4)" }}
       >
         <Button
           id="newest"
           variant="text"
           onClick={handleFeedFilter}
           style={{
-            color: "rgb(96, 20, 30)",
+            color: "rgb(209, 189, 4)",
             fontFamily: "'HelpUsGiambattista', sans-serif",
           }}
         >
           Newest Posts
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }
