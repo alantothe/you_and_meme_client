@@ -5,7 +5,7 @@ module.exports = withMT({
   theme: {
     extend: {
       screens: {
-        xs: "480px",
+        xs: { max: "480px" },
       },
       colors: {
         "meme-gray": "#565656",
