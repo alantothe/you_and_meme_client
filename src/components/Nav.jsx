@@ -50,10 +50,10 @@ function AccountMenu({ user, handleLogOut }) {
             className={`h-3 w-3 transition-transform ${
               isMenuOpen ? "rotate-180" : ""
             }`}
-            style={{
-              color: user ? "green" : "teal-400"
-              color: user ? "green" : "rgb(209, 189, 4)",
-            }}
+            // style={{
+            //   color: user ? "green" : "teal-400"
+            //   color: user ? "green" : "rgb(209, 189, 4)",
+            // }}
           />
         </Button>
       </MenuHandler>
