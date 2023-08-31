@@ -35,7 +35,7 @@ function AccountMenu({ user, handleLogOut }) {
       <MenuHandler>
         <Button
           variant="text"
-          className="flex items-center gap-1 rounded-full"
+          className="flex items-center gap-1 rounded-full meme-gray"
           style={{ color: "teal-400" }}
         >
           {createElement(UserCircleIcon, {
@@ -90,7 +90,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "#d1bd04" }}
+            style={{ color: "meme-gray" }}
           >
             {createElement(UserPlusIcon, {
               className: "h-4 w-4",
@@ -108,7 +108,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "#d1bd04" }}
+            style={{ color: "meme-gray" }}
           >
             {createElement(PowerIcon, {
               className: "h-4 w-4",
@@ -149,7 +149,7 @@ function NavList({ user, handleLogOut }) {
       >
         <MenuItem
           className="flex items-center gap-2 rounded-full"
-          style={{ color: "#d1bd04" }}
+          style={{ color: "meme-gray" }}
           >
             {createElement(PlusSmallIcon, {
               className: "h-6 w-6",
@@ -175,23 +175,12 @@ export default function Nav({ user, handleLogOut }) {
     );
   }, []);
 
-  // When productType button is clicked, it will navigate to the url, with above useEffect re-rendering page
-  const handleFeedFilter = async (e) => {
-    if (e.target.id === "most-liked") {
-    } else if (e.target.id === "friends") {
-    } else if (e.target.id === "newest") {
-      // navigate("/filter/all");
-    }
-  };
-
   return (
     <div
-      // className="bg-white"
-    // style={{backgroundColor: "red"}}
     >
-      <Navbar className="max-w-full rounded-none bg-gray-600">
+      <Navbar className="max-w-full rounded-none bg-meme-teal">
         {/* ==================== */}
-        <div className="flex" style={{ color: "#d1bd04" }}>
+        <div className="flex text-meme-gray">
 
           <DogeIcon width="30" height="30" fill="white" />
 
@@ -202,9 +191,8 @@ export default function Nav({ user, handleLogOut }) {
             You & Meme
           </Typography>
 
-          {/* Favorites and shopping cart icons */}
+          {/* Add meme icon */}
           <div className="flex justify-end w-1/6 top-2/4 hidden lg:block">
-            {/* USER GOES HERE */}
             <NavList user={user} handleLogOut={handleLogOut} />
           </div>
 
