@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import AccountSettingsPage from "./pages/AccountSettingsPage.jsx";
 import CreateMemePage from "./pages/CreateMemePage.jsx";
@@ -9,8 +9,17 @@ import MemeSelectionPage from "./pages/MemeSelectionPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import Nav from "./components/Nav.jsx";
+import { verifyUser } from "./api/users.js";
 
 const App = () => {
+  useEffect(() => {
+    const verifyToken = async () => {
+      const currentUser = await verifyUser();
+      console.log("YOO this is the " + currentUser.user_id);
+    };
+    verifyToken();
+  }, []);
+
   return (
     <div>
       <Nav />
