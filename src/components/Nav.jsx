@@ -52,53 +52,60 @@ function AccountMenu({ user, handleLogOut }) {
             }`}
             style={{
               color: user ? "green" : "teal-400"
+              color: user ? "green" : "rgb(209, 189, 4)",
             }}
           />
         </Button>
       </MenuHandler>
 
-      <MenuList className="p-1"> 
-        {user && (<Typography as="a" href="/account-info">
-          <MenuItem
-            onClick={closeMenu}
-            className={"flex items-center gap-2 rounded"}
-            style={{ color: "#d1bd04" }}
-          >
-            {createElement(UserCircleIcon, {
-              className: "h-4 w-4",
-              strokeWidth: 2,
-            })}
-            My Account
-          </MenuItem>
-        </Typography>)}
+      <MenuList className="p-1">
+        {user && (
+          <Typography as="a" href="/account-info">
+            <MenuItem
+              onClick={closeMenu}
+              className={"flex items-center gap-2 rounded"}
+              style={{ color: "rgb(209, 189, 4)" }}
+            >
+              {createElement(UserCircleIcon, {
+                className: "h-4 w-4",
+                strokeWidth: 2,
+              })}
+              My Account
+            </MenuItem>
+          </Typography>
+        )}
 
-        {user && (<Typography as="a" href="/development">
-          <MenuItem
-            onClick={closeMenu}
-            className={"flex items-center gap-2 rounded"}
-            style={{ color: "#d1bd04" }}
-          >
-            {createElement(Cog6ToothIcon, {
-              className: "h-4 w-4",
-              strokeWidth: 2,
-            })}
-            Edit Account
-          </MenuItem>
-        </Typography>)}
+        {user && (
+          <Typography as="a" href="/development">
+            <MenuItem
+              onClick={closeMenu}
+              className={"flex items-center gap-2 rounded"}
+              style={{ color: "rgb(209, 189, 4)" }}
+            >
+              {createElement(Cog6ToothIcon, {
+                className: "h-4 w-4",
+                strokeWidth: 2,
+              })}
+              Edit Account
+            </MenuItem>
+          </Typography>
+        )}
 
-        {!user && (<Typography as="a" href="/register">
-          <MenuItem
-            onClick={closeMenu}
-            className={"flex items-center gap-2 rounded"}
-            style={{ color: "#d1bd04" }}
-          >
-            {createElement(UserPlusIcon, {
-              className: "h-4 w-4",
-              strokeWidth: 2,
-            })}
-            Sign Up
-          </MenuItem>
-        </Typography>)}
+        {!user && (
+          <Typography as="a" href="/register">
+            <MenuItem
+              onClick={closeMenu}
+              className={"flex items-center gap-2 rounded"}
+              style={{ color: "rgb(209, 189, 4)" }}
+            >
+              {createElement(UserPlusIcon, {
+                className: "h-4 w-4",
+                strokeWidth: 2,
+              })}
+              Sign Up
+            </MenuItem>
+          </Typography>
+        )}
 
         <Typography
           as="a"
@@ -140,16 +147,17 @@ function NavList({ user, handleLogOut }) {
         </MenuItem>
       </Typography> */}
 
-      {user && (<Typography
-        as="a"
-        // route to add post
-        href="/select-meme"
-        variant="small"
-        className="font-normal"
-      >
-        <MenuItem
-          className="flex items-center gap-2 rounded-full"
-          style={{ color: "#d1bd04" }}
+      {user && (
+        <Typography
+          as="a"
+          // route to add post
+          href="meme-selection"
+          variant="small"
+          className="font-normal"
+        >
+          <MenuItem
+            className="flex items-center gap-2 rounded-full"
+            style={{ color: "rgb(209, 189, 4)" }}
           >
             {createElement(PlusSmallIcon, {
               className: "h-6 w-6",
@@ -191,8 +199,7 @@ export default function Nav({ user, handleLogOut }) {
     >
       <Navbar className="max-w-full rounded-none bg-gray-600">
         {/* ==================== */}
-        <div className="flex" style={{ color: "#d1bd04" }}>
-
+        <div className="flex" style={{ color: "rgb(209, 189, 4)" }}>
           <DogeIcon width="30" height="30" fill="white" />
 
           <Typography
