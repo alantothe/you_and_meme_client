@@ -70,12 +70,19 @@ function CreateMemePage() {
   };
 
   const postData = {
-    user: 1,
+    user: 3,
     meme: newMeme,
   };
   console.log(postData);
   const handleMemePost = async () => {
-    postMeme(postData);
+    try {
+      const response = await postMeme(postData);
+      // Do something with the response if needed. E.g., show a success message or redirect the user.
+      console.log("Successfully posted meme:", response);
+    } catch (error) {
+      console.error("Error in handleMemePost:", error);
+      // Optionally show an error message to the user.
+    }
   };
 
   return (
