@@ -4,8 +4,9 @@ function SmallPostDetail({ allPosts }) {
   console.log(allPosts.meme)
 
   return (
-    <div>
-      <img src={allPosts.meme} />
+    <div className=" w-60 h-60 relative">
+      <img className="absolute top-0 left-0 w-full h-full object-contain"
+      src={allPosts.meme} />
     </div>
   )
 

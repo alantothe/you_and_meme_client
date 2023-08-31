@@ -15,8 +15,10 @@ function HomePage() {
 
   return (
     <div>
-      <h1>Home Page</h1>
-      <div>
+      <h1 className="text-center mb-8 font-bold text-4xl mt-10">
+        Home Page 
+      </h1>
+      <div className="flex flex-wrap px-48 items-center justify-center">
         {allPosts.map((allPosts, index) => (
           <SmallPostDetail allPosts={allPosts} key={index} />
         ))}
