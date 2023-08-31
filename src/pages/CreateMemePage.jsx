@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { memes } from "../assets/templates.js";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { postMeme } from "../api/ourApi/api.js";
+import { postMeme } from "../api/api.js";
 
 function CreateMemePage() {
   const { id } = useParams();

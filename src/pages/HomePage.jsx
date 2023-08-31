@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllPosts } from "../api/ourApi/api.js";
+import { getAllPosts } from "../api/api.js";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
 
 function HomePage() {
