@@ -22,11 +22,11 @@ import {
   PowerIcon,
   Bars2Icon,
   HeartIcon,
-  PlusSmallIcon
+  PlusSmallIcon,
 } from "@heroicons/react/24/outline";
 
 //dropdown menu
-function AccountMenu({user, handleLogOut }) {
+function AccountMenu({ user, handleLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -41,7 +41,7 @@ function AccountMenu({user, handleLogOut }) {
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "green" : "rgb(209, 189, 4)"
+              color: user ? "green" : "rgb(209, 189, 4)",
             },
           })}
 
@@ -123,7 +123,7 @@ function AccountMenu({user, handleLogOut }) {
 }
 
 // Creates favorites and add post icons
-function NavList({user, handleLogOut}) {
+function NavList({ user, handleLogOut }) {
   return (
     <div className="flex flex-row items-center justify-end">
       {/* <Typography
@@ -150,22 +150,20 @@ function NavList({user, handleLogOut}) {
         <MenuItem
           className="flex items-center gap-2 rounded-full"
           style={{ color: "rgb(209, 189, 4)" }}
-        >
-          {createElement(PlusSmallIcon, {
-            className: "h-6 w-6",
-          })}
-        </MenuItem>
-      </Typography>)}
-      <AccountMenu
-        user={user}
-        handleLogOut={handleLogOut}
-      />
+          >
+            {createElement(PlusSmallIcon, {
+              className: "h-6 w-6",
+            })}
+          </MenuItem>
+        </Typography>
+      )}
+      <AccountMenu user={user} handleLogOut={handleLogOut} />
     </div>
   );
 }
 
 //real below
-export default function Nav({user,handleLogOut }) {
+export default function Nav({ user, handleLogOut }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
   const navigate = useNavigate();
@@ -180,9 +178,7 @@ export default function Nav({user,handleLogOut }) {
   // When productType button is clicked, it will navigate to the url, with above useEffect re-rendering page
   const handleFeedFilter = async (e) => {
     if (e.target.id === "most-liked") {
-
     } else if (e.target.id === "friends") {
-
     } else if (e.target.id === "newest") {
       // navigate("/filter/all");
     }

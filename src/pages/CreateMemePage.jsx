@@ -1,17 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { memes } from "../assets/templates.js";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { postMeme } from "../api/api.js";
 
 function CreateMemePage() {
-  const oneMeme = memes[0];
+  const { id } = useParams();
+
+  const [meme, setMeme] = useState({});
+
+  useEffect(() => {
+    fetchMeme(id);
+  }, []);
+
+  function fetchMeme(memeId) {
+    const foundMeme = memes.find((m) => m.id === memeId);
+    if (foundMeme) {
+      setMeme(foundMeme);
+      console.log("yoo we found it ");
+    } else {
+      console.log("no meme bruh");
+      setMeme({});
+    }
+  }
 
   const initialTextFields = {};
-  for (let i = 0; i < oneMeme.box_count; i++) {
+  for (let i = 0; i < meme.box_count; i++) {
     initialTextFields[`text${i}`] = "";
   }
 
   const [formData, setFormData] = useState({
-    template_id: oneMeme.id,
+    template_id: id,
     username: "alantothe",
     password: "Fresh1260!",
     ...initialTextFields,
@@ -29,21 +48,39 @@ function CreateMemePage() {
 
   const handleSubmit = async () => {
     try {
-      const formParams = new URLSearchParams(formData).toString();
+      // Dynamically generate the parameters for boxes.
+      let boxesParams = "";
+      for (let i = 0; i < meme.box_count; i++) {
+        boxesParams += `&boxes[${i}][text]=${encodeURIComponent(
+          formData[`text${i}`]
+        )}`;
+      }
 
-      const response = await axios.post(
-        "https://api.imgflip.com/caption_image",
-        formParams,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const baseApiUrl = "https://api.imgflip.com/caption_image";
+      const authParams = `template_id=${formData.template_id}&username=${formData.username}&password=${formData.password}`;
+
+      const fullApiUrl = `${baseApiUrl}?${authParams}${boxesParams}`;
+
+      const response = await axios.get(fullApiUrl);
 
       setNewMeme(response.data.data.url);
     } catch (error) {
       console.error("Error sending request:", error);
+    }
+  };
+
+  const postData = {
+    user: 3,
+    meme: newMeme,
+  };
+  console.log(postData);
+  const handleMemePost = async () => {
+    try {
+      const response = await postMeme(postData);
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -61,14 +98,14 @@ function CreateMemePage() {
           ) : (
             <img
               className="absolute top-0 left-0 w-full h-full object-contain"
-              src={oneMeme.url}
-              alt={oneMeme.name}
+              src={meme.url}
+              alt={meme.name}
             />
           )}
         </div>
 
         <div>
-          {Array.from({ length: oneMeme.box_count }).map((_, index) => (
+          {Array.from({ length: meme.box_count }).map((_, index) => (
             <div key={index}>
               <h1>Box {index + 1}</h1>
               <input
@@ -79,7 +116,8 @@ function CreateMemePage() {
               />
             </div>
           ))}
-          <button onClick={() => handleSubmit()}>Generate Meme</button>
+          <button onClick={() => handleSubmit()}>Preview Meme</button>
+          <button onClick={() => handleMemePost()}>Generate Meme</button>
         </div>
       </div>
     </div>
