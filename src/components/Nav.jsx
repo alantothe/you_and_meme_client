@@ -1,6 +1,6 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
-import DogeIcon from "./DogeIcon";
+import DogeIcon from "../assets/DogeIcon";
 
 import {
   Navbar,
@@ -194,7 +194,7 @@ export default function Nav({user,handleLogOut }) {
         {/* ==================== */}
         <div className="flex" style={{ color: "rgb(209, 189, 4)" }}>
 
-          <DogeIcon width="30" height="30" fill="blue" />
+          <DogeIcon width="30" height="30" fill="white" />
 
           <Typography
             onClick={() => navigate("/")}
