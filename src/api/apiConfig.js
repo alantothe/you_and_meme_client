@@ -4,7 +4,7 @@ let apiUrl;
 
 const apiUrls = {
   production: "",
-  development: "http://localhost:4000/api",
+  development: "https://you-and-meme-backend-6abb25257062.herokuapp.com/",
 };
 
 if (window.location.hostname === "localhost") {

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { memes } from "../assets/templates.js";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { postMeme } from "../api/api.js";
 
 function CreateMemePage() {
   const oneMeme = memes[0];
@@ -47,6 +49,21 @@ function CreateMemePage() {
     }
   };
 
+  const postData = {
+    user: 3,
+    meme: newMeme,
+  };
+  console.log(postData);
+  const handleMemePost = async () => {
+    try {
+      const response = await postMeme(postData);
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-200">
       {/* Main title */}
@@ -89,13 +106,8 @@ function CreateMemePage() {
               />
             </div>
           ))}
-          {/* Generate Meme button */}
-          <button
-            onClick={() => handleSubmit()}
-            className="block w-full px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
-          >
-            Generate Meme
-          </button>
+          <button onClick={() => handleSubmit()}>Generate Meme</button>
+          <button onClick={() => handleMemePost()}>Generate Meme</button>
         </div>
       </div>
     </div>
