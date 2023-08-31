@@ -16,7 +16,7 @@ function HomePage() {
   return (
     <div className="bg-gray-800 min-h-screen">
       <h1 className="text-center mb-8 font-bold text-4xl mt-10">
-        Home Page 
+        Welcome! 
       </h1>
       <div className="flex flex-wrap px-48 items-center justify-center">
         {allPosts.map((allPosts, index) => (
