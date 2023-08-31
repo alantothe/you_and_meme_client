@@ -50,7 +50,7 @@ function CreateMemePage() {
   };
 
   const postData = {
-    user: 2,
+    user: 3,
     meme: newMeme,
   };
   console.log(postData);
