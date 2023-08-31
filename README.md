@@ -18,6 +18,10 @@ This React frontend is a part of a meme-sharing platform where users can create 
 
 ### Quick Links
 
+[Deployed Frontend App](Netlify link goes here)
+[Deployed Backend App](https://you-and-meme-backend-6abb25257062.herokuapp.com)
+[Backend Repo](https://github.com/DanSinensky/you_and_meme_backend)
+
 Installation
 
 Clone the repository
