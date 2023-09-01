@@ -1,5 +1,6 @@
 import api from "./apiConfig";
 import jwtDecode from "jwt-decode";
+
 export const loginUser = async (loginData) => {
   try {
     const response = await api.post("/user/login/", loginData);
