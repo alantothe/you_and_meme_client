@@ -7,16 +7,22 @@ import React, { useState } from "react";
 //     passwordConfirmation: "", // I don't think we need this in formData, just a check that password === passwordConfirmation
 //   });
 
-function CommentInput({ currentUserID, postId }) {
-  console.log(currentUserID);
+function CommentInput({ userId, postId }) {
+  console.log(userId);
   console.log(postId);
 
   const [inputData, setInputData] = useState({
-    user: currentUserID,
+    user: userId,
     post: postId,
     body: "",
   });
-  return <div></div>;
+  return (
+    <div>
+      <form>
+        <input type="text" placeholder="Add a comment..." />
+      </form>
+    </div>
+  );
 }
 
 export default CommentInput;

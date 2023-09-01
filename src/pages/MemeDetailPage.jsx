@@ -8,7 +8,7 @@ function MemeDetailPage({ user }) {
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
   const { postId } = useParams();
-  const currentUserID = user.user_id;
+  const { user_id } = user;
 
   useEffect(() => {
     getPost();
@@ -28,7 +28,7 @@ function MemeDetailPage({ user }) {
         <img src={post.meme} alt="meme-photo" />
       </div>
       <div>
-        <CommentInput postId={postId} currentUserID={currentUserID} />
+        <CommentInput postId={postId} userId={user_id} />
       </div>
       {comments.map((comment, index) => (
         <div key={comment.id}>

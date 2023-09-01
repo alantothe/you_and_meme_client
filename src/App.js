@@ -20,6 +20,7 @@ const App = () => {
     const fetchUser = async () => {
       const user = await verifyUser();
       user ? setUser(user) : setUser(null);
+      console.log(user);
     };
     fetchUser();
   }, []);
