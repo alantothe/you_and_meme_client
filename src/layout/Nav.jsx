@@ -155,10 +155,10 @@ function NavList({ user, handleLogOut }) {
         >
           <MenuItem
             className="flex items-center gap-2 rounded-full"
-            style={{ color: "rgb(209, 189, 4)" }}
+            style={{ color: "#8d8d8d" }}
           >
             {createElement(PlusSmallIcon, {
-              className: "h-6 w-6",
+              className: "h-6 w-6 hover:text-meme-teal",
             })}
           </MenuItem>
         </Typography>
