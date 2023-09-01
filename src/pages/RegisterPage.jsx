@@ -1,19 +1,24 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   Button,
   Typography,
 } from "@material-tailwind/react";
+import { registerUser } from "../api/users";
  
 function RegisterPage() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-        username: "",
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-      });
+    username: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "", // I don't think we need this in formData, just a check that password === passwordConfirmation
+  });
+
+  const [passwordMatch, setPasswordMatch] = useState(true);
 
       const handleChange = (event) => {
             const { name, value } = event.target;
@@ -23,10 +28,25 @@ function RegisterPage() {
             }));
           };
 
-  const handleSubmit = () => {
-        // Sign up logic here
-        console.log("Form submitted:", formData);
-      };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    
+    if (formData.password === formData.passwordConfirmation) {
+      // Passwords match, proceed with registration
+      setPasswordMatch(true);
+      const passedFormData = {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      }
+      console.log("Form submitted:", passedFormData);
+      registerUser(passedFormData);
+      navigate("/sign-in");
+    } else {
+      setPasswordMatch(false);
+      
+    }
+  }
 
   return (
     <div className="flex justify-center items-center bg-gray-600"
@@ -34,13 +54,20 @@ function RegisterPage() {
       <Card color="transparent" shadow={false}>
 
         <Typography className="mb-2 text-2xl"variant="h4" color="blue-gray">
-          Sign Up
+      Sign Up
         </Typography>
 
-        <Typography color="gray" className="mt-1 font-normal text-gray-100 font-bold">
-          Enter your details to register.
-        </Typography>
+        {passwordMatch && (
+          <Typography color="gray" className="mt-1 font-normal text-gray-100 font-bold">
+            Enter your details to register.
+          </Typography>
+        )}
 
+        {!passwordMatch && (
+          <Typography color="red" className="mt-1">
+            Passwords do not match. Enter your details to register.
+          </Typography>
+        )}
         <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-4 flex flex-col gap-6">
             <label className="text-gray-100 font-bold"htmlFor="username">Username</label>
@@ -73,8 +100,13 @@ function RegisterPage() {
               required
             />
 
-            <label className="text-gray-100 font-bold" htmlFor="passwordConfirmation">Confirm Password</label>
-            <input className="border-2 border-teal-500 rounded-md bg-teal-50"
+            <label className="text-gray-100 font-bold" htmlFor="passwordConfirmation">
+              Confirm Password
+            </label>
+            <input
+              className={`border-2 border-teal-500 rounded-md bg-teal-50 ${
+                !passwordMatch ? "border-red-500" : ""
+              }`}
               type="password"
               id="passwordConfirmation"
               name="passwordConfirmation"

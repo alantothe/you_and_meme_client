@@ -18,31 +18,39 @@ function MemeSelectionPage() {
   }
 
   return (
-    <div className="meme-selection-page flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-center mb-8 font-bold text-4xl mt-10">
+    <div
+      className="min-h-screen text-yellow-400"
+      style={{ background: "rgb(45, 45, 45)" }}
+    >
+      <h1 className="text-center p-4 mb-4 font-bold text-4xl">
         Meme Selection Page
       </h1>
-
-      <div className="flex flex-wrap px-48 items-center justify-center">
-        {allTemplates.map((meme, index) => {
-          return (
+      <div className="flex justify-center">
+        <div className="flex flex-wrap px-48 items-center justify-center">
+          {allTemplates.map((meme, index) => (
             <div
-              className="w-1/4 mb-12 mt-12 flex flex-col items-center rounded-xl p-4 m-4 shadow-lg cursor-pointer bg-meme-teal xs:w-screen xs:h-auto"
+              className="flex flex-col w-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal rounded-lg border-4 xs:w-screen xs:h-auto"
+              style={{
+                boxShadow:
+                  "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
+              }}
               key={index}
             >
-              <div className=" w-60 h-60 relative">
+              <div className="flex flex-col items-center justify-around h-full w-full">
                 <img
-                  className="absolute top-0 left-0 w-full h-full object-contain"
+                  className="object-contain w-full h-full rounded-lg"
                   src={meme.url}
                   alt={meme.name}
                 />
+                <Button
+                  className="m-2"
+                  onClick={() => navigate(`/create-meme/${meme.id}`)}>
+                  Use Template
+                </Button>
               </div>
-              <Button onClick={() => navigate(`/create-meme/${meme.id}`)}>
-                Use Template
-              </Button>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </div>
   );
