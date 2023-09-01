@@ -49,9 +49,8 @@ function AccountMenu({ user, handleLogOut }) {
             className={`h-3 w-3 transition-transform ${
               isMenuOpen ? "rotate-180" : ""
             }`}
-
             style={{
-              color: user ? "#8d8d8d" : "#04d1bd"
+              color: user ? "#8d8d8d" : "#04d1bd",
             }}
           />
         </Button>
@@ -195,7 +194,7 @@ export default function Nav({ user, handleLogOut }) {
     <div>
       <Navbar className="max-w-full rounded-none bg-meme-teal">
         {/* ==================== */}
-        <div className="flex text-meme-gray" >
+        <div className="flex text-meme-gray">
           <DogeIcon width="30" height="30" fill="white" />
 
           <Typography
