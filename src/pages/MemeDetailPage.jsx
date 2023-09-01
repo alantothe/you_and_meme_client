@@ -15,7 +15,9 @@ function MemeDetailPage() {
   async function getPost() {
     const fetchedPost = await getPostById(postId);
     setPost(fetchedPost);
-    console.log(post.comments);
+    const allComments = fetchedPost.comments;
+    setComments(allComments);
+    console.log(comments);
   }
 
   return (
@@ -23,11 +25,10 @@ function MemeDetailPage() {
       <div className="mb-4 px-44">
         <img src={post.meme} alt="meme-photo" />
       </div>
-      {comments.map((comment) => (
+      {comments.map((comment, index) => (
         <div key={comment.id}>
           {" "}
-          {/* Make sure comment has an id property or use another unique key */}
-          <Comments comment={comment} />
+          <Comments comment={comment} key={index} />
         </div>
       ))}
     </div>
