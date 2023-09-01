@@ -50,6 +50,15 @@ export const getAllTemplates = async () => {
 //   }
 // };
 
+export const getPostById = async (id) => {
+  try {
+    const response = await api.get(`/posts/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // user can delete their own post
 // export const deletePost = async (id) => {
 //   try {

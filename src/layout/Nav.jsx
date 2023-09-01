@@ -55,7 +55,6 @@ function AccountMenu({ user, handleLogOut }) {
             //   color: user ? "green" : "teal-400"
             //   color: user ? "green" : "rgb(209, 189, 4)",
             // }}
-
           />
         </Button>
       </MenuHandler>
@@ -117,7 +116,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "#d1bd04" }}
+            style={{ color: "rgb(209, 189, 4)" }}
           >
             {createElement(PowerIcon, {
               className: "h-4 w-4",
@@ -195,10 +194,7 @@ export default function Nav({ user, handleLogOut }) {
   };
 
   return (
-    <div
-      // className="bg-white"
-    // style={{backgroundColor: "red"}}
-    >
+    <div>
       <Navbar className="max-w-full rounded-none bg-gray-600">
         {/* ==================== */}
         <div className="flex" style={{ color: "rgb(209, 189, 4)" }}>
