@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/users";
 
 function LoginPage() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -21,15 +23,20 @@ function LoginPage() {
     event.preventDefault();
     // Login Logic
     console.log("Login submitted:", formData);
-    loginUser(formData);
+    loginUser(formData.username);
+    navigate("/");
+    // window.location.reload(); // Comment in if necessary to update the icon color
   };
 
   return (
     <div className="login-form">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
+        <label className="text-gray-100 font-bold" htmlFor="username">
+          Username
+        </label>
         <input
+          className="border-2 border-teal-500 rounded-md bg-teal-50"
           type="text"
           id="username"
           name="username"
@@ -38,8 +45,11 @@ function LoginPage() {
           required
         />
 
-        <label htmlFor="password">Password</label>
+        <label className="text-gray-100 font-bold" htmlFor="password">
+          Password
+        </label>
         <input
+          className="border-2 border-teal-500 rounded-md bg-teal-50"
           type="password"
           id="password"
           name="password"
@@ -47,8 +57,11 @@ function LoginPage() {
           onChange={handleChange}
           required
         />
-        <label htmlFor="email">email</label>
+        <label className="text-gray-100 font-bold" htmlFor="email">
+          email
+        </label>
         <input
+          className="border-2 border-teal-500 rounded-md bg-teal-50"
           type="email"
           id="email"
           name="email"
@@ -57,7 +70,9 @@ function LoginPage() {
           required
         />
 
-        <button type="submit">Login</button>
+        <button color="teal" type="submit">
+          Login
+        </button>
       </form>
     </div>
   );

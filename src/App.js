@@ -8,7 +8,7 @@ import MemeDetailPage from "./pages/MemeDetailPage.jsx";
 import MemeSelectionPage from "./pages/MemeSelectionPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
-import Nav from "./components/Nav.jsx";
+import Nav from "./layout/Nav.jsx";
 import { verifyUser } from "./api/users.js";
 import { useNavigate } from "react-router-dom";
 
@@ -52,7 +52,7 @@ const App = () => {
         <Route path="/profile" element={<ProfilePage user={user} />} />
         <Route path="/register" element={<RegisterPage user={user} />} />
         <Route
-          path="/meme-detail-page"
+          path="/meme-detail-page/:postId"
           element={<MemeDetailPage user={user} />}
         />
       </Routes>
