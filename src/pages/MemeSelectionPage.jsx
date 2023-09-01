@@ -29,7 +29,7 @@ function MemeSelectionPage() {
         <div className="flex flex-wrap px-48 items-center justify-center">
           {allTemplates.map((meme, index) => (
             <div
-              className="w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto"
+              className="flex flex-col w-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto"
               style={{
                 boxShadow:
                   "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
@@ -42,7 +42,9 @@ function MemeSelectionPage() {
                   src={meme.url}
                   alt={meme.name}
                 />
-                <Button onClick={() => navigate(`/create-meme/${meme.id}`)}>
+                <Button
+                  className="m-2"
+                  onClick={() => navigate(`/create-meme/${meme.id}`)}>
                   Use Template
                 </Button>
               </div>
