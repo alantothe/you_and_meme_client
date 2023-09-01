@@ -1,5 +1,5 @@
 import React from "react";
-// import Avatar, { genConfig } from "react-nice-avatar";
+import Avatar, { genConfig } from "react-nice-avatar";
 
 function Comments({ comment }) {
   const avatarIdentifier = comment.email || comment.id;
