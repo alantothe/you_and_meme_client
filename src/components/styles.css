@@ -1,0 +1,14 @@
+@media (max-width: 480px) {
+  .small-post-detail {
+    width: 100px;
+    height: 0;
+    padding-bottom: 100%;
+  }
+
+  .small-post-detail img {
+    position: absolute;
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+  }
+}
