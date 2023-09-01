@@ -1,34 +1,30 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getPostsByUser } from "../api/api";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
 
 function ProfilePage() {
-  const navigate = useNavigate();
   const { profileId } = useParams();
 
-  const [allPosts, setAllPosts] = useState([{}]);
+  const [userObject, setUserObject] = useState({});
+  const [allPosts, setAllPosts] = useState([]);
 
   useEffect(() => {
     getPosts();
   }, []);
 
   const getPosts = async () => {
-    const fetchedPosts = await getPostsByUser(profileId);
-    setAllPosts(fetchedPosts);
+    const fetchedUserObject = await getPostsByUser(profileId);
+    setUserObject(fetchedUserObject);
+    setAllPosts(fetchedUserObject.posts);
     console.log(allPosts);
   };
 
   return (
     <div>
-      <div>
-        <div>{allPosts.posts[0].meme}</div>
-      </div>
-      {/* <div>
-        {allPosts.meme.map((allPosts, index) => (
-          <SmallPostDetail allPosts={allPosts} key={index} />
-        ))}
-      </div> */}
+      {allPosts.map((post, index) => (
+        <SmallPostDetail allPosts={post} key={index} />
+      ))}
     </div>
   );
 }
