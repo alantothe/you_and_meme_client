@@ -28,6 +28,7 @@ const App = () => {
     localStorage.removeItem("token");
     setUser(null);
     navigate("/");
+    window.location.reload();
   };
 
   return (

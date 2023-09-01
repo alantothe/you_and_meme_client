@@ -17,6 +17,7 @@ function MemeDetailPage() {
 
   return (
     <div>
+      {/* Testing that the logic is working */}
       <img src={post.meme}></img>
     </div>
   );

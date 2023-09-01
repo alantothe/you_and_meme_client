@@ -17,7 +17,6 @@ function ProfilePage() {
     const fetchedUserObject = await getPostsByUser(profileId);
     setUserObject(fetchedUserObject);
     setAllPosts(fetchedUserObject.posts);
-    console.log(allPosts);
   };
 
   return (
