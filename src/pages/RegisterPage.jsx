@@ -6,6 +6,7 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import { registerUser } from "../api/users";
  
 function RegisterPage() {
   const navigate = useNavigate();
@@ -38,6 +39,12 @@ function RegisterPage() {
         email: formData.email,
         password: formData.password,
       }
+      console.log("Form submitted:", passedFormData);
+      registerUser(passedFormData);
+      navigate("/sign-in");
+    } else {
+      setPasswordMatch(false);
+      
     }
   }
 
