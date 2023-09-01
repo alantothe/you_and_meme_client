@@ -59,6 +59,17 @@ export const getPostById = async (id) => {
   }
 };
 
+export const updatePostByLikes = async (id, likesData) => {
+  try {
+    const response = await api.put(`/posts/${id}/`, {
+      likes: likesData,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // user can delete their own post
 // export const deletePost = async (id) => {
 //   try {

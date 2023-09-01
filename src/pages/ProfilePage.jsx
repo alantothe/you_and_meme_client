@@ -24,7 +24,14 @@ function ProfilePage() {
   const getPosts = async () => {
     const fetchedUserObject = await getPostsByUser(profileId);
     setUserObject(fetchedUserObject);
-    setAllPosts(fetchedUserObject.posts);
+    setAllPosts(sortPosts(fetchedUserObject.posts));
+  };
+
+  const sortPosts = (posts) => {
+    const sortedPosts = posts.sort((a, b) => {
+      return new Date(b.created) - new Date(a.created);
+    });
+    return sortedPosts;
   };
 
   return (

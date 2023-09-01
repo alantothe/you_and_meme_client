@@ -37,7 +37,6 @@ function Comments({ comment }) {
       <Avatar style={{ width: "8rem", height: "8rem" }} {...config} />
       <p>{comment.body}</p>
       <p>{formatDate(comment.updated_at)}</p>
-
     </div>
   );
 }
