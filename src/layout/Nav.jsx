@@ -35,13 +35,12 @@ function AccountMenu({ user, handleLogOut }) {
       <MenuHandler>
         <Button
           variant="text"
-          className="flex items-center gap-1 rounded-full bg-meme-light-gray"
-          // style={{ color: "teal-400" }}
+          className="flex items-center gap-1 rounded-full bg-meme-gray"
         >
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "black" : "teal-400",
+              color: user ? "#8d8d8d" : "#04d1bd",
             },
           })}
 
@@ -51,10 +50,9 @@ function AccountMenu({ user, handleLogOut }) {
               isMenuOpen ? "rotate-180" : ""
             }`}
 
-            // style={{
-            //   color: user ? "green" : "teal-400"
-            //   color: user ? "green" : "rgb(209, 189, 4)",
-            // }}
+            style={{
+              color: user ? "#8d8d8d" : "#04d1bd"
+            }}
           />
         </Button>
       </MenuHandler>
