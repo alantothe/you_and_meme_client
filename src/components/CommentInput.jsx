@@ -1,25 +1,47 @@
 import React, { useState } from "react";
-
-// const [formData, setFormData] = useState({
-//     username: "",
-//     email: "",
-//     password: "",
-//     passwordConfirmation: "", // I don't think we need this in formData, just a check that password === passwordConfirmation
-//   });
+import { createComment } from "../api/comments";
 
 function CommentInput({ userId, postId }) {
-  console.log(userId);
-  console.log(postId);
+  console.log("userID " + userId);
+  console.log(typeof postId);
+  console.log(typeof userId);
 
   const [inputData, setInputData] = useState({
-    user: userId,
-    post: postId,
+    user: 5,
+    post: parseInt(postId),
     body: "",
   });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setInputData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Comment submitted:", inputData);
+    createComment(inputData);
+    // After logging the data, you might want to clear the input.
+    setInputData((prevData) => ({
+      ...prevData,
+      body: "",
+    }));
+  };
+
   return (
     <div>
-      <form>
-        <input type="text" placeholder="Add a comment..." />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="body" // <-- This 'name' attribute is crucial for the handleChange function
+          value={inputData.body}
+          onChange={handleChange}
+          placeholder="Add a comment..."
+        />
         <button type="submit">Post</button>
       </form>
     </div>

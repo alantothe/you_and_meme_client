@@ -30,3 +30,14 @@ export const verifyUser = async () => {
   }
   return console.log("No token found");
 };
+
+export const registerUser = async (registerData) => {
+  try {
+    const response = await api.post("/user/signup/", registerData);
+    // localStorage.setItem("token", response.data.token);
+    // const user = jwtDecode(response.data.token);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+}
