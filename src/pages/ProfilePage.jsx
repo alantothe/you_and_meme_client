@@ -1,17 +1,25 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getPostsByUser } from "../api/api";
+import { getPostsByUser, getUserById } from "../api/api";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
+import { Typography } from "@material-tailwind/react";
 
 function ProfilePage() {
   const { profileId } = useParams();
 
   const [userObject, setUserObject] = useState({});
   const [allPosts, setAllPosts] = useState([]);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
+    fetchUser();
     getPosts();
   }, []);
+
+  const fetchUser = async () => {
+    const fetchedUser = await getUserById(profileId);
+    setUser(fetchedUser);
+  };
 
   const getPosts = async () => {
     const fetchedUserObject = await getPostsByUser(profileId);
@@ -20,7 +28,10 @@ function ProfilePage() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
+      <Typography className="text-6xl my-4">
+        {user.user_string}'s Page
+      </Typography>
       {allPosts.map((post, index) => (
         <SmallPostDetail allPosts={post} key={index} />
       ))}

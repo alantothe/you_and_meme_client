@@ -17,7 +17,10 @@ const HomePage = () => {
   console.log(allPosts);
 
   return (
-    <div className="bg-gray-800 min-h-screen">
+    <div
+      className="min-h-screen text-white"
+      style={{ background: "rgb(45, 45, 45)" }}
+    >
       <h1 className="text-center p-4 mb-4 font-bold text-4xl">
         Welcome to You & Meme!
       </h1>
