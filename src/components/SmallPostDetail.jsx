@@ -18,10 +18,10 @@ function SmallPostDetail({ allPosts }) {
   };
 
   return (
-    <div>
-      <h1>{user.user_string}</h1>
+    <div className="my-4">
+      <h1 className="pl-4">{user.user_string}</h1>
       <div
-        className="w-60 h-60 p-4 m-4 shadow-lg rounded-lg cursor-pointer bg-meme-teal xs:w-screen xs:h-auto"
+        className="w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto"
         style={{
           boxShadow:
             "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
@@ -37,6 +37,10 @@ function SmallPostDetail({ allPosts }) {
             key={allPosts.id}
           />
         </div>
+      </div>
+      <div className="px-4 flex justify-between">
+        <p>{allPosts.likes} likes</p>
+        <p>{allPosts.created.slice(0, 10)}</p>
       </div>
     </div>
   );
