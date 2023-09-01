@@ -18,7 +18,7 @@ const HomePage = () => {
 
   return (
     <div
-      className="min-h-screen text-white"
+      className="min-h-screen text-yellow-400"
       style={{ background: "rgb(45, 45, 45)" }}
     >
       <h1 className="text-center p-4 mb-4 font-bold text-4xl">

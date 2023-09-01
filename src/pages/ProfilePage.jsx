@@ -28,10 +28,14 @@ function ProfilePage() {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div
+      className="flex flex-col items-center text-yellow-400"
+      style={{ background: "rgb(45, 45, 45)" }}
+    >
       <Typography className="text-6xl my-4">
-        {user.user_string}'s Page
+        {user.user_string}'s page
       </Typography>
+      <p>a bio</p>
       {allPosts.map((post, index) => (
         <SmallPostDetail allPosts={post} key={index} />
       ))}
