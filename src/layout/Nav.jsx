@@ -35,12 +35,12 @@ function AccountMenu({ user, handleLogOut }) {
       <MenuHandler>
         <Button
           variant="text"
-          className="flex items-center gap-1 rounded-full bg-meme-gray"
+          className="flex items-center gap-1 rounded-full hover:bg-meme-teal"
         >
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "#8d8d8d" : "#04d1bd",
+              color: user ? "#8d8d8d" : "#565656",
             },
           })}
 
@@ -50,7 +50,7 @@ function AccountMenu({ user, handleLogOut }) {
               isMenuOpen ? "rotate-180" : ""
             }`}
             style={{
-              color: user ? "#8d8d8d" : "#04d1bd",
+              color: user ? "#8d8d8d" : "#565656",
             }}
           />
         </Button>
@@ -154,8 +154,8 @@ function NavList({ user, handleLogOut }) {
           className="font-normal"
         >
           <MenuItem
-            className="flex items-center gap-2 rounded-full"
-            style={{ color: "rgb(209, 189, 4)" }}
+            className="flex items-center gap-2 rounded-full hover:bg-meme-teal"
+            style={{ color: "#8d8d8d" }}
           >
             {createElement(PlusSmallIcon, {
               className: "h-6 w-6",
