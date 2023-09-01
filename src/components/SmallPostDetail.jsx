@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserById, updatePostByLikes } from "../api/api";
 import "./styles.css";
-import { type } from "@testing-library/user-event/dist/type";
 
 function SmallPostDetail({ allPosts }) {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
+  const [likesToggle, setLikesToggle] = useState(false);
 
   useEffect(() => {
     fetchUser();
@@ -21,8 +21,15 @@ function SmallPostDetail({ allPosts }) {
   };
 
   const updateLikes = async () => {
-    await updatePostByLikes(allPosts.id, likes + 1);
-    setLikes(likes + 1);
+    if (likesToggle === false) {
+      await updatePostByLikes(allPosts.id, likes + 1);
+      setLikes(likes + 1);
+      setLikesToggle(true);
+    } else {
+      await updatePostByLikes(allPosts.id, likes - 1);
+      setLikes(likes - 1);
+      setLikesToggle(false);
+    }
   };
 
   return (
@@ -39,11 +46,7 @@ function SmallPostDetail({ allPosts }) {
         }}
       >
         <div className="flex flex-col items-center justify-around h-full w-full">
-          <img
-            className="object-contain w-full h-full"
-            src={allPosts.meme}
-            key={allPosts.id}
-          />
+          <img className="object-contain w-full h-full" src={allPosts.meme} />
         </div>
       </div>
       <div className="px-4 flex justify-between">
