@@ -6,7 +6,7 @@ export const loginUser = async (loginData) => {
     const response = await api.post("/user/login/", loginData);
     localStorage.setItem("token", response.data.token);
     const user = jwtDecode(response.data.token);
-    console.log(user);
+    // console.log(user);
     return user;
   } catch (err) {
     throw err;
@@ -21,7 +21,7 @@ export const verifyUser = async () => {
     try {
       // Decode the token directly
       const user = jwtDecode(token);
-      console.log(user);
+      // console.log(user);
       return user;
     } catch (err) {
       console.error("Error during token verification:", err);

@@ -4,6 +4,7 @@ import SmallPostDetail from "../components/SmallPostDetail.jsx";
 
 const HomePage = () => {
   const [allPosts, setAllPosts] = useState([]);
+
   useEffect(() => {
     fetchPost();
   }, []);
@@ -26,7 +27,9 @@ const HomePage = () => {
       <div className="flex justify-center">
         <div className="flex flex-wrap px-48 items-center justify-center">
           {allPosts.map((post, index) => (
-            <SmallPostDetail allPosts={post} key={index} />
+            <div>
+              <SmallPostDetail allPosts={post} key={index} />
+            </div>
           ))}
         </div>
       </div>
