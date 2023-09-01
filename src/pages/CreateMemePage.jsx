@@ -4,8 +4,9 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { postMeme } from "../api/api.js";
 
-function CreateMemePage() {
+function CreateMemePage({ user }) {
   const { id } = useParams();
+  const userId = user.user_id;
 
   const [meme, setMeme] = useState({});
 
@@ -70,7 +71,7 @@ function CreateMemePage() {
   };
 
   const postData = {
-    user: 2,
+    user: userId,
     meme: newMeme,
   };
   console.log(postData);

@@ -35,13 +35,12 @@ function AccountMenu({ user, handleLogOut }) {
       <MenuHandler>
         <Button
           variant="text"
-          className="flex items-center gap-1 rounded-full"
-          style={{ color: "teal-400" }}
+          className="flex items-center gap-1 rounded-full bg-meme-gray"
         >
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "green" : "teal-400",
+              color: user ? "#8d8d8d" : "#04d1bd",
             },
           })}
 
@@ -51,10 +50,9 @@ function AccountMenu({ user, handleLogOut }) {
               isMenuOpen ? "rotate-180" : ""
             }`}
 
-            // style={{
-            //   color: user ? "green" : "teal-400"
-            //   color: user ? "green" : "rgb(209, 189, 4)",
-            // }}
+            style={{
+              color: user ? "#8d8d8d" : "#04d1bd"
+            }}
           />
         </Button>
       </MenuHandler>
@@ -195,9 +193,9 @@ export default function Nav({ user, handleLogOut }) {
 
   return (
     <div>
-      <Navbar className="max-w-full rounded-none bg-gray-600">
+      <Navbar className="max-w-full rounded-none bg-meme-teal">
         {/* ==================== */}
-        <div className="flex" style={{ color: "rgb(209, 189, 4)" }}>
+        <div className="flex text-meme-gray" >
           <DogeIcon width="30" height="30" fill="white" />
 
           <Typography
