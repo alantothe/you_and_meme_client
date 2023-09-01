@@ -1,23 +1,28 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { getPostsByUser } from "../api/api";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
 
 function ProfilePage() {
-  const [allPosts, setAllPosts] = useState([]);
+  const navigate = useNavigate();
+  const { profileId } = useParams();
+
+  const [allPosts, setAllPosts] = useState([{}]);
+
   useEffect(() => {
-    fetchPosts();
+    getPosts();
   }, []);
-  async function fetchPosts() {
-    // the user id is hardcoded for now, we need to pass down the user id app.js after token is verified
-    const posts = await getPostsByUser(3);
-    setAllPosts(posts);
-    console.log(posts.posts.meme);
-  }
+
+  const getPosts = async () => {
+    const fetchedPosts = await getPostsByUser(profileId);
+    setAllPosts(fetchedPosts);
+    console.log(allPosts);
+  };
 
   return (
     <div>
       <div>
-        <h1>Profile Page</h1>
+        <div>{allPosts.posts[0].meme}</div>
       </div>
       {/* <div>
         {allPosts.meme.map((allPosts, index) => (

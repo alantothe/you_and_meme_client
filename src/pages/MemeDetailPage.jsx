@@ -6,14 +6,14 @@ function MemeDetailPage() {
   const [post, setPost] = useState({});
   const { postId } = useParams();
 
+  useEffect(() => {
+    getPost();
+  }, []);
+
   const getPost = async () => {
     const fetchedPost = await getPostById(postId);
     setPost(fetchedPost);
   };
-
-  useEffect(() => {
-    getPost();
-  }, []);
 
   return (
     <div>
