@@ -25,7 +25,7 @@ import {
   PlusSmallIcon,
 } from "@heroicons/react/24/outline";
 
-//dropdown menu
+// Dropdown menu
 function AccountMenu({ user, handleLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
@@ -130,7 +130,7 @@ function AccountMenu({ user, handleLogOut }) {
   );
 }
 
-// Creates favorites and add post icons
+// Creates add post icon
 function NavList({ user, handleLogOut }) {
   return (
     <div className="flex flex-row items-center justify-end">
