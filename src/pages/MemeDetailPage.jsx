@@ -15,13 +15,14 @@ function MemeDetailPage() {
   async function getPost() {
     const fetchedPost = await getPostById(postId);
     setPost(fetchedPost);
-    const allComments = fetchedPost.comments; // Get comments from fetchedPost, not post
-    setComments(allComments);
+    console.log(post.comments);
   }
 
   return (
-    <div>
-      <img src={post.meme} alt="meme-photo" />
+    <div className="flex flex-col justify-center mx-auto p-4 items-center">
+      <div className="mb-4 px-44">
+        <img src={post.meme} alt="meme-photo" />
+      </div>
       {comments.map((comment) => (
         <div key={comment.id}>
           {" "}
