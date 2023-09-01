@@ -1,8 +1,12 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Card, Button, Typography } from "@material-tailwind/react";
-import { registerUser } from "../api/users";
-
+import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Card,
+  Button,
+  Typography,
+} from "@material-tailwind/react";
+ 
 function RegisterPage() {
   const navigate = useNavigate();
 
@@ -10,18 +14,18 @@ function RegisterPage() {
     username: "",
     email: "",
     password: "",
-    passwordConfirmation: "",
+    passwordConfirmation: "", // I don't think we need this in formData, just a check that password === passwordConfirmation
   });
 
   const [passwordMatch, setPasswordMatch] = useState(true);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+      const handleChange = (event) => {
+            const { name, value } = event.target;
+            setFormData((prevData) => ({
+              ...prevData,
+              [name]: value,
+            }));
+          };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,20 +38,16 @@ function RegisterPage() {
         email: formData.email,
         password: formData.password,
       }
-      console.log("Form submitted:", passedFormData);
-      registerUser(passedFormData); // Assuming this function sends data to your backend
-      navigate("/sign-in");
-    } else {
-      // Passwords don't match, show an error message
-      setPasswordMatch(false);
     }
-  };
+  }
 
   return (
-    <div className="flex justify-center items-center bg-gray-600" style={{ height: "91vh" }}>
+    <div className="flex justify-center items-center bg-gray-600"
+    style={{ height: "91vh" }}>
       <Card color="transparent" shadow={false}>
-        <Typography className="mb-2 text-2xl" variant="h4" color="blue-gray">
-          Sign Up
+
+        <Typography className="mb-2 text-2xl"variant="h4" color="blue-gray">
+      Sign Up
         </Typography>
 
         {passwordMatch && (
@@ -63,11 +63,8 @@ function RegisterPage() {
         )}
         <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-4 flex flex-col gap-6">
-            <label className="text-gray-100 font-bold" htmlFor="username">
-              Username
-            </label>
-            <input
-              className="border-2 border-teal-500 rounded-md bg-teal-50"
+            <label className="text-gray-100 font-bold"htmlFor="username">Username</label>
+            <input className="border-2 border-teal-500 rounded-md bg-teal-50"
               type="text"
               id="username"
               name="username"
@@ -76,11 +73,8 @@ function RegisterPage() {
               required
             />
 
-            <label className="text-gray-100 font-bold" htmlFor="email">
-              Email
-            </label>
-            <input
-              className="border-2 border-teal-500 rounded-md bg-teal-50"
+            <label className="text-gray-100 font-bold" htmlFor="email">Email</label>
+            <input className="border-2 border-teal-500 rounded-md bg-teal-50"
               type="email"
               id="email"
               name="email"
@@ -89,11 +83,8 @@ function RegisterPage() {
               required
             />
 
-            <label className="text-gray-100 font-bold" htmlFor="password">
-              Password
-            </label>
-            <input
-              className="border-2 border-teal-500 rounded-md bg-teal-50"
+            <label className="text-gray-100 font-bold" htmlFor="password">Password</label>
+            <input className="border-2 border-teal-500 rounded-md bg-teal-50"
               type="password"
               id="password"
               name="password"
@@ -124,11 +115,12 @@ function RegisterPage() {
 
           <Typography color="gray" className="mt-4 text-center font-normal text-gray-100 font-bold">
             Already have an account?{" "}
-            <Link to="/login" className="font-bold text-gray-900 hover:text-teal-500">
+            <a href="/login" className="font-bold text-gray-900 hover:text-teal-500">
               Sign In
-            </Link>
+            </a>
           </Typography>
         </form>
+
       </Card>
     </div>
   );
