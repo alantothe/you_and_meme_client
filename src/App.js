@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +22,8 @@ const App = () => {
       const user = await verifyUser();
       user ? setUser(user) : setUser(null);
       console.log(user);
+      const { user_id } = user;
+      setUserId(user_id);
     };
     fetchUser();
   }, []);
@@ -58,7 +61,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage user={user} />} />
         <Route
           path="/meme-detail-page/:postId"
-          element={<MemeDetailPage user={user} />}
+          element={<MemeDetailPage user={user} userId={userId} />}
         />
       </Routes>
     </div>

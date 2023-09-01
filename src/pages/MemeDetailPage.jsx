@@ -4,11 +4,11 @@ import { getPostById } from "../api/api";
 import Comments from "../components/Comments";
 import CommentInput from "../components/CommentInput";
 
-function MemeDetailPage({ user }) {
+function MemeDetailPage({ userId }) {
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
   const { postId } = useParams();
-  const { user_id } = user;
+  console.log(userId);
 
   useEffect(() => {
     getPost();
@@ -28,7 +28,7 @@ function MemeDetailPage({ user }) {
         <img src={post.meme} alt="meme-photo" />
       </div>
       <div>
-        <CommentInput postId={postId} userId={user_id} />
+        <CommentInput postId={postId} userId={userId} />
       </div>
       {comments.map((comment, index) => (
         <div key={comment.id}>
