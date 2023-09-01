@@ -17,17 +17,17 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const verifyToken = async () => {
+    const fetchUser = async () => {
       const user = await verifyUser();
-      user.user_id ? setUser(user) : setUser(null);
+      user ? setUser(user) : setUser(null);
     };
-    verifyToken();
+    fetchUser();
   }, []);
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
     setUser(null);
-    navigate("/sign-in");
+    navigate("/");
   };
 
   return (

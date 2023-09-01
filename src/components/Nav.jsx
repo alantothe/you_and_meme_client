@@ -1,4 +1,4 @@
-import { useState, useEffect, createElement } from "react";
+import React, { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
 import DogeIcon from "../assets/DogeIcon";
 
@@ -35,14 +35,11 @@ function AccountMenu({ user, handleLogOut }) {
       <MenuHandler>
         <Button
           variant="text"
-          className="flex items-center gap-1 rounded-full"
-          style={{ color: "teal-400" }}
+          className="flex items-center gap-1 rounded-full text-teal-400"
         >
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
-            style: {
-              color: user ? "green" : "teal-400",
-            },
+            style: { color: user ? "green" : "red" },
           })}
 
           <ChevronDownIcon
@@ -51,7 +48,6 @@ function AccountMenu({ user, handleLogOut }) {
               isMenuOpen ? "rotate-180" : ""
             }`}
             style={{
-              color: user ? "green" : "teal-400"
               color: user ? "green" : "rgb(209, 189, 4)",
             }}
           />
@@ -110,7 +106,7 @@ function AccountMenu({ user, handleLogOut }) {
         <Typography
           as="a"
           onClick={user ? handleLogOut : undefined}
-          href={user ? undefined : "/sign-in"}
+          href={user ? "#" : "/sign-in"}
         >
           <MenuItem
             onClick={closeMenu}
@@ -147,24 +143,22 @@ function NavList({ user, handleLogOut }) {
         </MenuItem>
       </Typography> */}
 
-      {user && (
-        <Typography
-          as="a"
-          // route to add post
-          href="meme-selection"
-          variant="small"
-          className="font-normal"
+      <Typography
+        as="a"
+        href={user ? "meme-selection" : "/sign-in"} // Fix the conditional href assignment
+        variant="small"
+        className="font-normal"
+      >
+        <MenuItem
+          className="flex items-center gap-2 rounded-full"
+          style={{ color: "rgb(209, 189, 4)" }}
         >
-          <MenuItem
-            className="flex items-center gap-2 rounded-full"
-            style={{ color: "rgb(209, 189, 4)" }}
-          >
-            {createElement(PlusSmallIcon, {
-              className: "h-6 w-6",
-            })}
-          </MenuItem>
-        </Typography>
-      )}
+          {React.createElement(PlusSmallIcon, {
+            className: "h-6 w-6",
+          })}
+        </MenuItem>
+      </Typography>
+
       <AccountMenu user={user} handleLogOut={handleLogOut} />
     </div>
   );
@@ -194,7 +188,7 @@ export default function Nav({ user, handleLogOut }) {
 
   return (
     <div
-      // className="bg-white"
+    // className="bg-white"
     // style={{backgroundColor: "red"}}
     >
       <Navbar className="max-w-full rounded-none bg-gray-600">
