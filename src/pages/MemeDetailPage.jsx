@@ -6,6 +6,7 @@ import Comments from "../components/Comments";
 function MemeDetailPage() {
   const [post, setPost] = useState({});
   const { postId } = useParams();
+
   useEffect(() => {
     getPost();
   }, []);
@@ -18,6 +19,7 @@ function MemeDetailPage() {
 
   return (
     <div>
+      {/* Testing that the logic is working */}
       <img src={post.meme}></img>
       <Comments props={post.comments} />
     </div>

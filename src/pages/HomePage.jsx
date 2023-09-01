@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { getAllPosts } from "../api/api.js";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
 
-function HomePage() {
-  const navigate = useNavigate();
-
+const HomePage = () => {
   const [allPosts, setAllPosts] = useState([]);
   useEffect(() => {
     fetchPost();
@@ -28,13 +25,13 @@ function HomePage() {
       </p>
       <div className="flex justify-center">
         <div className="flex flex-wrap px-48 items-center justify-center">
-          {allPosts.map((allPosts, index) => (
-            <SmallPostDetail allPosts={allPosts} key={index} />
+          {allPosts.map((post, index) => (
+            <SmallPostDetail allPosts={post} key={index} />
           ))}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default HomePage;

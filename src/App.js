@@ -28,6 +28,7 @@ const App = () => {
     localStorage.removeItem("token");
     setUser(null);
     navigate("/");
+    window.location.reload();
   };
 
   return (
@@ -49,7 +50,10 @@ const App = () => {
           path="/meme-selection"
           element={<MemeSelectionPage user={user} />}
         />
-        <Route path="/profile" element={<ProfilePage user={user} />} />
+        <Route
+          path="/profile/:profileId"
+          element={<ProfilePage user={user} />}
+        />
         <Route path="/register" element={<RegisterPage user={user} />} />
         <Route
           path="/meme-detail-page/:postId"
