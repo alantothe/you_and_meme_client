@@ -35,13 +35,13 @@ function AccountMenu({ user, handleLogOut }) {
       <MenuHandler>
         <Button
           variant="text"
-          className="flex items-center gap-1 rounded-full"
-          style={{ color: "teal-400" }}
+          className="flex items-center gap-1 rounded-full bg-meme-light-gray"
+          // style={{ color: "teal-400" }}
         >
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "green" : "teal-400",
+              color: user ? "black" : "teal-400",
             },
           })}
 
@@ -195,9 +195,9 @@ export default function Nav({ user, handleLogOut }) {
 
   return (
     <div>
-      <Navbar className="max-w-full rounded-none bg-gray-600">
+      <Navbar className="max-w-full rounded-none bg-meme-teal">
         {/* ==================== */}
-        <div className="flex" style={{ color: "rgb(209, 189, 4)" }}>
+        <div className="flex text-meme-gray" >
           <DogeIcon width="30" height="30" fill="white" />
 
           <Typography
