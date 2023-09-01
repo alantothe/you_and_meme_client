@@ -8,7 +8,6 @@ function LoginPage() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    email: "",
   });
 
   const handleChange = (event) => {
@@ -23,7 +22,7 @@ function LoginPage() {
     event.preventDefault();
     // Login Logic
     console.log("Login submitted:", formData);
-    loginUser(formData.username);
+    loginUser(formData);
     navigate("/");
     // window.location.reload(); // Comment in if necessary to update the icon color
   };
@@ -54,18 +53,6 @@ function LoginPage() {
           id="password"
           name="password"
           value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <label className="text-gray-100 font-bold" htmlFor="email">
-          email
-        </label>
-        <input
-          className="border-2 border-teal-500 rounded-md bg-teal-50"
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
           onChange={handleChange}
           required
         />

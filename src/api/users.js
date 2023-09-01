@@ -1,17 +1,11 @@
 import api from "./apiConfig";
 import jwtDecode from "jwt-decode";
-
-const getToken = () => {
-  return new Promise((resolve) => {
-    resolve(`Bearer ${localStorage.getItem("token") || null}`);
-  });
-};
-
 export const loginUser = async (loginData) => {
   try {
     const response = await api.post("/user/login/", loginData);
     localStorage.setItem("token", response.data.token);
     const user = jwtDecode(response.data.token);
+    console.log(user);
     return user;
   } catch (err) {
     throw err;
@@ -19,11 +13,19 @@ export const loginUser = async (loginData) => {
 };
 
 export const verifyUser = async () => {
-  const token = await getToken();
+  const token = localStorage.getItem("token");
+
+  // Check if the token is not null
   if (token) {
-    const user = jwtDecode(token);
-    console.log(user);
-    return user;
+    try {
+      // Decode the token directly
+      const user = jwtDecode(token);
+      console.log(user);
+      return user;
+    } catch (err) {
+      console.error("Error during token verification:", err);
+      return false;
+    }
   }
-  return false;
+  return console.log("No token found");
 };
