@@ -1,20 +1,28 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserById } from "../api/api";
+import { getUserById, updatePostByLikes } from "../api/api";
 import "./styles.css";
+import { type } from "@testing-library/user-event/dist/type";
 
 function SmallPostDetail({ allPosts }) {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
+  const [likes, setLikes] = useState(0);
 
   useEffect(() => {
     fetchUser();
+    setLikes(allPosts.likes);
   }, []);
 
   const fetchUser = async () => {
     const fetchedUser = await getUserById(allPosts.user);
     setUser(fetchedUser);
+  };
+
+  const updateLikes = async () => {
+    await updatePostByLikes(allPosts.id, likes + 1);
+    setLikes(likes + 1);
   };
 
   return (
@@ -39,7 +47,7 @@ function SmallPostDetail({ allPosts }) {
         </div>
       </div>
       <div className="px-4 flex justify-between">
-        <p>{allPosts.likes} likes</p>
+        <p onClick={updateLikes}>{likes} likes</p>
         <p>{allPosts.created.slice(0, 10)}</p>
       </div>
     </div>
