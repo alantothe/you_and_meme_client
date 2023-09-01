@@ -27,7 +27,7 @@ function MemeSelectionPage() {
         {allTemplates.map((meme, index) => {
           return (
             <div
-              className="w-1/4 mb-12 mt-12 flex flex-col items-center"
+              className="w-1/4 mb-12 mt-12 flex flex-col items-center rounded-xl p-4 m-4 shadow-lg cursor-pointer bg-meme-teal xs:w-screen xs:h-auto"
               key={index}
             >
               <div className=" w-60 h-60 relative">
