@@ -29,7 +29,7 @@ function MemeSelectionPage() {
         <div className="flex flex-wrap px-48 items-center justify-center">
           {allTemplates.map((meme, index) => (
             <div
-              className="flex flex-col w-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto"
+              className="flex flex-col w-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal rounded-lg border-4 xs:w-screen xs:h-auto"
               style={{
                 boxShadow:
                   "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
@@ -38,7 +38,7 @@ function MemeSelectionPage() {
             >
               <div className="flex flex-col items-center justify-around h-full w-full">
                 <img
-                  className="object-contain w-full h-full"
+                  className="object-contain w-full h-full rounded-lg"
                   src={meme.url}
                   alt={meme.name}
                 />
