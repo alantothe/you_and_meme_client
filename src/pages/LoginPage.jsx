@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/users";
 
 function LoginPage() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    email: "",
   });
 
   const handleChange = (event) => {
@@ -22,14 +23,19 @@ function LoginPage() {
     // Login Logic
     console.log("Login submitted:", formData);
     loginUser(formData);
+    navigate("/");
+    // window.location.reload(); // Comment in if necessary to update the icon color
   };
 
   return (
     <div className="login-form">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <label className="text-gray-100 font-bold" htmlFor="username">Username</label>
-        <input className="border-2 border-teal-500 rounded-md bg-teal-50"
+        <label className="text-gray-100 font-bold" htmlFor="username">
+          Username
+        </label>
+        <input
+          className="border-2 border-teal-500 rounded-md bg-teal-50"
           type="text"
           id="username"
           name="username"
@@ -38,8 +44,11 @@ function LoginPage() {
           required
         />
 
-        <label className="text-gray-100 font-bold" htmlFor="password">Password</label>
-        <input className="border-2 border-teal-500 rounded-md bg-teal-50"
+        <label className="text-gray-100 font-bold" htmlFor="password">
+          Password
+        </label>
+        <input
+          className="border-2 border-teal-500 rounded-md bg-teal-50"
           type="password"
           id="password"
           name="password"
@@ -47,17 +56,10 @@ function LoginPage() {
           onChange={handleChange}
           required
         />
-        <label className="text-gray-100 font-bold" htmlFor="email">email</label>
-        <input className="border-2 border-teal-500 rounded-md bg-teal-50"
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
 
-        <button color="teal"type="submit">Login</button>
+        <button color="teal" type="submit">
+          Login
+        </button>
       </form>
     </div>
   );

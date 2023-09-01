@@ -50,25 +50,11 @@ function AccountMenu({ user, handleLogOut }) {
             className={`h-3 w-3 transition-transform ${
               isMenuOpen ? "rotate-180" : ""
             }`}
-<<<<<<< HEAD
-<<<<<<< HEAD
-            style={{
-              color: user ? "green" : "teal-400",
-              color: user ? "green" : "rgb(209, 189, 4)",
-            }}
-=======
-=======
 
->>>>>>> 468a1f10282bd9a372d328d2f21c423f1eed8efc
             // style={{
             //   color: user ? "green" : "teal-400"
             //   color: user ? "green" : "rgb(209, 189, 4)",
             // }}
-<<<<<<< HEAD
->>>>>>> 2b6d02f267d3fa15c5249d5e4ce390551b029dcb
-=======
-
->>>>>>> 468a1f10282bd9a372d328d2f21c423f1eed8efc
           />
         </Button>
       </MenuHandler>
@@ -130,7 +116,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "#d1bd04" }}
+            style={{ color: "rgb(209, 189, 4)" }}
           >
             {createElement(PowerIcon, {
               className: "h-4 w-4",
@@ -208,10 +194,7 @@ export default function Nav({ user, handleLogOut }) {
   };
 
   return (
-    <div
-      // className="bg-white"
-    // style={{backgroundColor: "red"}}
-    >
+    <div>
       <Navbar className="max-w-full rounded-none bg-gray-600">
         {/* ==================== */}
         <div className="flex" style={{ color: "rgb(209, 189, 4)" }}>

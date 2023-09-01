@@ -86,7 +86,13 @@ function CreateMemePage() {
 
   return (
     <div>
-      <h1>Create Meme Page</h1>
+      <h1
+        div
+        className="flex flex-col items-center justify-start bg-gray-400"
+        style={{ height: "92vh" }}
+      >
+        Create Meme Page
+      </h1>
       <div className="w-1/4 mb-12 mt-12 flex flex-col items-center">
         <div className=" w-60 h-60 relative">
           {newMeme ? (
