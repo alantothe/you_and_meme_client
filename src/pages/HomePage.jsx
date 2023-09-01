@@ -9,10 +9,18 @@ const HomePage = () => {
     fetchPost();
   }, []);
 
-  async function fetchPost() {
+  const fetchPost = async () => {
     const posts = await getAllPosts();
     setAllPosts(posts);
-  }
+    sortPosts(posts);
+  };
+
+  const sortPosts = (posts) => {
+    const sortedPosts = posts.sort((a, b) => {
+      return new Date(b.created) - new Date(a.created);
+    });
+    return sortedPosts;
+  };
 
   console.log(allPosts);
 

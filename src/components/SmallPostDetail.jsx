@@ -32,6 +32,25 @@ function SmallPostDetail({ allPosts }) {
     }
   };
 
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear().toString().slice(2);
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    if (parseInt(hours) === 0) {
+      return `${month}/${day}/${year} 12:${minutes}AM`;
+    } else if (parseInt(hours) < 12) {
+      return `${month}/${day}/${year} ${hours}:${minutes}AM`;
+    } else if (parseInt(hours) === 12) {
+      return `${month}/${day}/${year} 12:${minutes}PM`;
+    } else {
+      return `${month}/${day}/${year} ${hours - 12}:${minutes}PM`;
+    }
+  };
+
   return (
     <div className="my-4">
       <h1 className="pl-4">{user.user_string}</h1>
@@ -50,8 +69,10 @@ function SmallPostDetail({ allPosts }) {
         </div>
       </div>
       <div className="px-4 flex justify-between">
-        <p onClick={updateLikes}>{likes} likes</p>
-        <p>{allPosts.created.slice(0, 10)}</p>
+        <p onClick={updateLikes}>
+          {likes} {likes !== 1 ? "likes" : "like"}
+        </p>
+        <p>{formatTimestamp(allPosts.created)}</p>
       </div>
     </div>
   );
