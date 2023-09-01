@@ -5,23 +5,30 @@ import Comments from "../components/Comments";
 
 function MemeDetailPage() {
   const [post, setPost] = useState({});
+  const [comments, setComments] = useState([]);
   const { postId } = useParams();
 
   useEffect(() => {
     getPost();
   }, []);
 
-  const getPost = async () => {
+  async function getPost() {
     const fetchedPost = await getPostById(postId);
     setPost(fetchedPost);
-    console.log(post.comments);
-  };
+    const allComments = fetchedPost.comments; // Get comments from fetchedPost, not post
+    setComments(allComments);
+  }
 
   return (
     <div>
-      {/* Testing that the logic is working */}
-      <img src={post.meme}></img>
-      <Comments props={post.comments} />
+      <img src={post.meme} alt="meme-photo" />
+      {comments.map((comment) => (
+        <div key={comment.id}>
+          {" "}
+          {/* Make sure comment has an id property or use another unique key */}
+          <Comments comment={comment} />
+        </div>
+      ))}
     </div>
   );
 }
