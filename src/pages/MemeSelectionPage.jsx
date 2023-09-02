@@ -40,7 +40,7 @@ function MemeSelectionPage() {
             >
               <div className="flex flex-col items-center justify-between h-full w-full">
               <div className="w-full flex-grow rounded-lg overflow-hidden">
-                <img className="object-cover w-full h-full" src={meme.url} alt={meme.name} />
+                <img className="object-contain w-full h-full" src={meme.url} alt={meme.name} />
               </div>
                 <Button
                   className="m-2 self-center"
