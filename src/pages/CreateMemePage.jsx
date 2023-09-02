@@ -3,6 +3,7 @@ import { memes } from "../assets/templates.js";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { postMeme } from "../api/api.js";
+import { Typography, Button } from "@material-tailwind/react";
 
 function CreateMemePage({ user }) {
   const { id } = useParams();
@@ -86,49 +87,105 @@ function CreateMemePage({ user }) {
   };
 
   return (
-    <div>
-      <h1
-        div
-        className="flex flex-col items-center justify-start bg-gray-400"
-        style={{ height: "92vh" }}
-      >
+    <div className="my-4"> {/* Wrapping div, similar to SmallPostDetail */}
+      
+      {/* Page Title */}
+      <Typography className="pl-4 text-3xl">
         Create Meme Page
-      </h1>
-      <div className="w-1/4 mb-12 mt-12 flex flex-col items-center">
-        <div className=" w-60 h-60 relative">
+      </Typography>
+      
+      {/* Meme Image Box */}
+      <div
+        className="w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto flex flex-col items-center"
+        style={{
+          boxShadow: "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)"
+        }}
+      >
+        <div className="flex flex-col items-center justify-around h-full w-full">
           {newMeme ? (
-            <img
-              className="absolute top-0 left-0 w-full h-full object-contain"
-              src={newMeme}
-              alt="Generated Meme"
-            />
+            <img className="object-contain w-full h-full" src={newMeme} alt="Generated Meme" />
           ) : (
-            <img
-              className="absolute top-0 left-0 w-full h-full object-contain"
-              src={meme.url}
-              alt={meme.name}
-            />
+            <img className="object-contain w-full h-full" src={meme.url} alt={meme.name} />
           )}
         </div>
-
-        <div>
-          {Array.from({ length: meme.box_count }).map((_, index) => (
-            <div key={index}>
-              <h1>Box {index + 1}</h1>
-              <input
-                type="text"
-                value={formData[`text${index}`]}
-                placeholder={`Enter text for Box ${index + 1}`}
-                onChange={(e) => handleInputChange(index, e)}
-              />
-            </div>
-          ))}
-          <button onClick={() => handleSubmit()}>Preview Meme</button>
-          <button onClick={() => handleMemePost()}>Generate Meme</button>
-        </div>
+      </div>
+  
+      {/* Text boxes and Buttons */}
+      <div className="px-4 flex flex-col items-center">
+        {Array.from({ length: meme.box_count }).map((_, index) => (
+          <div key={index} className="my-2">
+            <Typography>Box {index + 1}</Typography>
+            <input
+              type="text"
+              className="border rounded px-2 py-1"
+              value={formData[`text${index}`]}
+              placeholder={`Enter text for Box ${index + 1}`}
+              onChange={(e) => handleInputChange(index, e)}
+            />
+          </div>
+        ))}
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          onClick={() => handleSubmit()}
+        >
+          Preview Meme
+        </button>
+        <button
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
+          onClick={() => handleMemePost()}
+        >
+          Generate Meme
+        </button>
       </div>
     </div>
   );
 }
-
 export default CreateMemePage;
+  
+
+//   return (
+//     <div>
+//       <h1
+//         div
+//         className="flex flex-col items-center justify-start bg-gray-400"
+//         style={{ height: "92vh" }}
+//       >
+//         Create Meme Page
+//       </h1>
+//       <div className="w-1/4 mb-12 mt-12 flex flex-col items-center">
+//         <div className=" w-60 h-60 relative">
+//           {newMeme ? (
+//             <img
+//               className="absolute top-0 left-0 w-full h-full object-contain"
+//               src={newMeme}
+//               alt="Generated Meme"
+//             />
+//           ) : (
+//             <img
+//               className="absolute top-0 left-0 w-full h-full object-contain"
+//               src={meme.url}
+//               alt={meme.name}
+//             />
+//           )}
+//         </div>
+
+//         <div>
+//           {Array.from({ length: meme.box_count }).map((_, index) => (
+//             <div key={index}>
+//               <h1>Box {index + 1}</h1>
+//               <input
+//                 type="text"
+//                 value={formData[`text${index}`]}
+//                 placeholder={`Enter text for Box ${index + 1}`}
+//                 onChange={(e) => handleInputChange(index, e)}
+//               />
+//             </div>
+//           ))}
+//           <button onClick={() => handleSubmit()}>Preview Meme</button>
+//           <button onClick={() => handleMemePost()}>Generate Meme</button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
