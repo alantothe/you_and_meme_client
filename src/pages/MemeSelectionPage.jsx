@@ -20,7 +20,9 @@ function MemeSelectionPage() {
   return (
     <div
       className="min-h-screen text-yellow-400"
-      style={{ background: "rgb(45, 45, 45)" }}
+      style={{
+        background: "rgb(45, 45, 45)"
+      }}
     >
       <h1 className="text-center p-4 mb-4 font-bold text-4xl">
         Meme Selection Page
@@ -29,21 +31,19 @@ function MemeSelectionPage() {
         <div className="flex flex-wrap px-48 items-center justify-center">
           {allTemplates.map((meme, index) => (
             <div
-              className="flex flex-col w-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal rounded-lg border-4 xs:w-screen xs:h-auto"
+              className="flex flex-col w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal rounded-lg border-4 xs:w-screen xs:h-auto"
               style={{
                 boxShadow:
                   "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
               }}
               key={index}
             >
-              <div className="flex flex-col items-center justify-around h-full w-full">
-                <img
-                  className="object-contain w-full h-full rounded-lg"
-                  src={meme.url}
-                  alt={meme.name}
-                />
+              <div className="flex flex-col items-center justify-between h-full w-full">
+              <div className="w-full flex-grow rounded-lg overflow-hidden">
+                <img className="object-contain w-full h-full" src={meme.url} alt={meme.name} />
+              </div>
                 <Button
-                  className="m-2"
+                  className="m-2 self-center"
                   onClick={() => navigate(`/create-meme/${meme.id}`)}>
                   Use Template
                 </Button>

@@ -11,16 +11,24 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 import Nav from "./layout/Nav.jsx";
 import { verifyUser } from "./api/users.js";
 import { useNavigate } from "react-router-dom";
+import { addUserToRedux } from "./redux/features/userSlice.js";
+import { useDispatch } from "react-redux";
 
 const App = () => {
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchUser = async () => {
       const user = await verifyUser();
-      user ? setUser(user) : setUser(null);
+      if (user) {
+        setUser(user);
+        dispatch(addUserToRedux(user));
+      } else {
+        setUser(null);
+      }
     };
     fetchUser();
   }, []);
