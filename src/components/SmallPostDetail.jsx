@@ -5,7 +5,6 @@ import { updatePostByLikes, deletePost } from "../api/posts.js";
 import { Typography } from "@material-tailwind/react";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { useSelector } from "react-redux";
 import "./styles.css";
 import { addLike, removeLike } from "../redux/features/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
