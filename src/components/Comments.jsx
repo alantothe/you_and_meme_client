@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar, { genConfig } from "react-nice-avatar";
 import { deleteComment } from "../api/comments";
 import { useSelector } from "react-redux";
+import { getUserById } from "../api/api";
 
 function Comments({ comment }) {
   const avatarIdentifier = comment.email || comment.id;
   const config = genConfig(avatarIdentifier);
   const userId = useSelector((state) => state.user.userId);
-  console.log(userId, comment.user);
 
+  const [user, setUser] = useState({});
+  console.log(user.user_string);
+
+  useEffect(() => {
+    fetchUsername();
+  }, []);
+  async function fetchUsername() {
+    const userId = await getUserById(comment.user);
+    setUser(userId);
+  }
+  console.log(comment);
   const deleteCommentById = async () => {
     await deleteComment(comment.id);
     window.location.reload();
@@ -53,7 +64,7 @@ function Comments({ comment }) {
       <div className="flex justify-between">
         <div className="flex items-center">
           <Avatar className="w-8 h-8 mr-2" {...config} />
-          <h1>{comment.id}</h1>
+          <h1>{user ? user.user_string : null}</h1>
         </div>
         {userId === comment.user ? (
           <button onClick={deleteCommentById}>X</button>
