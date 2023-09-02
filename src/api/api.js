@@ -1,7 +1,6 @@
 import api from "./apiConfig.js";
-// FUNCTIONS FROM OUR API
 
-// getPostByUser - profile page
+// Profile Page
 export const getPostsByUser = async (id) => {
   try {
     const response = await api.get(`/users/${id}`);
@@ -11,7 +10,17 @@ export const getPostsByUser = async (id) => {
   }
 };
 
-// getAllPosts - home page
+// Profile Page
+export const deletePost = async (id) => {
+  try {
+    const response = await api.delete(`/posts/${id}/`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Home Page
 export const getAllPosts = async () => {
   try {
     const response = await api.get("/posts");
@@ -21,6 +30,7 @@ export const getAllPosts = async () => {
   }
 };
 
+// Create Meme Page
 export const postMeme = async (postData) => {
   try {
     const response = await api.post("/posts/", postData);
@@ -30,7 +40,7 @@ export const postMeme = async (postData) => {
   }
 };
 
-// getAllTemplates - Selection page
+// Meme Selection Page
 export const getAllTemplates = async () => {
   try {
     const response = await api.get("/memes");
@@ -69,16 +79,6 @@ export const updatePostByLikes = async (id, likesData) => {
     throw error;
   }
 };
-
-// user can delete their own post
-// export const deletePost = async (id) => {
-//   try {
-//     const response = await api.delete(`/posts/${id}`);
-//     return response.data;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
 
 export const getUserById = async (id) => {
   try {
