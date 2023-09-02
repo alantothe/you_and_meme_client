@@ -12,7 +12,6 @@ function SmallPostDetail({ allPosts }) {
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
   const [likesToggle, setLikesToggle] = useState(false);
-  const [postId, setPostId] = useState(allPosts.id);
 
   useEffect(() => {
     fetchUser();
@@ -37,7 +36,7 @@ function SmallPostDetail({ allPosts }) {
   };
 
   const deletePostById = async () => {
-    await deletePost(postId);
+    await deletePost(allPosts.id);
     window.location.reload();
   };
 
