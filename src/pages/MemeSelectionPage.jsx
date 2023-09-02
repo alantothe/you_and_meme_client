@@ -38,14 +38,12 @@ function MemeSelectionPage() {
               }}
               key={index}
             >
-              <div className="flex flex-col items-center justify-around h-full w-full">
-                <img
-                  className="object-cover w-full h-full rounded-lg"
-                  src={meme.url}
-                  alt={meme.name}
-                />
+              <div className="flex flex-col items-center justify-between h-full w-full">
+              <div className="w-full flex-grow rounded-lg overflow-hidden">
+                <img className="object-cover w-full h-full" src={meme.url} alt={meme.name} />
+              </div>
                 <Button
-                  className="m-2"
+                  className="m-2 self-center"
                   onClick={() => navigate(`/create-meme/${meme.id}`)}>
                   Use Template
                 </Button>
