@@ -44,7 +44,7 @@ const App = () => {
     <div>
       <Nav user={user} handleLogOut={handleLogOut} />
       <Routes>
-        <Route path="/" element={<HomePage user={user} />} />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/account-settings"
           element={<AccountSettingsPage user={user} />}
@@ -59,10 +59,7 @@ const App = () => {
           path="/meme-selection"
           element={<MemeSelectionPage user={user} />}
         />
-        <Route
-          path="/profile/:profileId"
-          element={<ProfilePage user={user} />}
-        />
+        <Route path="/profile/:profileId" element={<ProfilePage />} />
         <Route path="/register" element={<RegisterPage user={user} />} />
         <Route
           path="/meme-detail-page/:postId"

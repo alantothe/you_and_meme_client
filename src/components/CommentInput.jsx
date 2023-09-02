@@ -29,6 +29,7 @@ function CommentInput({ postId }) {
       ...prevData,
       body: "",
     }));
+    window.location.reload();
   };
 
   return (
