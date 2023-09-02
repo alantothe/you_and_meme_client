@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserById, updatePostByLikes } from "../api/api";
+import { Typography } from "@material-tailwind/react";
+import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import "./styles.css";
 
 function SmallPostDetail({ allPosts }) {
@@ -53,7 +56,7 @@ function SmallPostDetail({ allPosts }) {
 
   return (
     <div className="my-4">
-      <h1 className="pl-4">{user.user_string}</h1>
+      <Typography className="pl-4">{user.user_string}</Typography>
       <div
         className="w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto"
         style={{
@@ -68,11 +71,24 @@ function SmallPostDetail({ allPosts }) {
           <img className="object-contain w-full h-full" src={allPosts.meme} />
         </div>
       </div>
-      <div className="px-4 flex justify-between">
-        <p onClick={updateLikes}>
-          {likes} {likes !== 1 ? "likes" : "like"}
-        </p>
-        <p>{formatTimestamp(allPosts.created)}</p>
+      <div className="px-4 flex justify-between items-center">
+        <div className="flex items-center">
+          {!likesToggle
+            ? createElement(HeartIcon, {
+                className: "h-5 w-5 mr-2 text-yellow-400 cursor-pointer",
+                strokeWidth: 2,
+                onClick: updateLikes,
+              })
+            : createElement(HeartIconSolid, {
+                className: "h-5 w-5 mr-2 text-red-500 cursor-pointer",
+                strokeWidth: 2,
+                onClick: updateLikes,
+              })}
+          <Typography>
+            {likes} {likes !== 1 ? "likes" : "like"}
+          </Typography>
+        </div>
+        <Typography>{formatTimestamp(allPosts.created)}</Typography>
       </div>
     </div>
   );
