@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getUserById, getPostsByUser } from "../api/users.js";
+import { getPostsByUser, getUserById } from "../api/users.js";
+import { deletePost } from "../api/posts.js";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
 import { Typography } from "@material-tailwind/react";
 
 function ProfilePage() {
   const { profileId } = useParams();
-
   const [userObject, setUserObject] = useState({});
   const [allPosts, setAllPosts] = useState([]);
   const [user, setUser] = useState({});

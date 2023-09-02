@@ -1,40 +1,22 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserById } from "../api/users.js";
-import { updatePostByLikes, deletePost } from "../api/posts.js";
+import { getUserById, updatePostByLikes } from "../api/api";
 import { Typography } from "@material-tailwind/react";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { useSelector } from "react-redux";
 import "./styles.css";
-import { addLike, removeLike } from "../redux/features/userSlice.js";
-import { useDispatch, useSelector } from "react-redux";
+
 function SmallPostDetail({ allPosts }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const likesArray = useSelector((state) => state.user.likes);
-  console.log(likesArray);
 
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
-  const [likesToggle, setLikesToggle] = useState();
-  const userId = useSelector((state) => state.user.userId);
-  console.log(userId);
+  const [likesToggle, setLikesToggle] = useState(false);
 
   useEffect(() => {
     fetchUser();
     setLikes(allPosts.likes);
-    checkLikes();
   }, []);
-
-  function checkLikes() {
-    if (likesArray.includes(allPosts.id)) {
-      setLikesToggle(true);
-    } else {
-      setLikesToggle(false);
-    }
-  }
 
   const fetchUser = async () => {
     const fetchedUser = await getUserById(allPosts.user);
@@ -42,71 +24,39 @@ function SmallPostDetail({ allPosts }) {
   };
 
   const updateLikes = async () => {
-    if (!userId) {
-      navigate("/sign-in");
-    } else if (likesToggle === false) {
+    if (likesToggle === false) {
       await updatePostByLikes(allPosts.id, likes + 1);
       setLikes(likes + 1);
       setLikesToggle(true);
-      dispatch(addLike(allPosts.id));
     } else {
       await updatePostByLikes(allPosts.id, likes - 1);
       setLikes(likes - 1);
       setLikesToggle(false);
-      dispatch(removeLike(allPosts.id));
     }
-  };
-
-  const deletePostById = async () => {
-    await deletePost(allPosts.id);
-    window.location.reload();
   };
 
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     const year = date.getFullYear().toString().slice(2);
-    const month = date.getMonth();
-    const day = date.getDate();
-    const hours = date.getHours();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
 
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    if (hours === 0) {
-      return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
-    } else if (hours < 12) {
-      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
-    } else if (hours === 12) {
-      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+    if (parseInt(hours) === 0) {
+      return `${month}/${day}/${year} 12:${minutes}AM`;
+    } else if (parseInt(hours) < 12) {
+      return `${month}/${day}/${year} ${hours}:${minutes}AM`;
+    } else if (parseInt(hours) === 12) {
+      return `${month}/${day}/${year} 12:${minutes}PM`;
     } else {
-      return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+      return `${month}/${day}/${year} ${hours - 12}:${minutes}PM`;
     }
   };
 
   return (
     <div className="my-4">
-      <div className="flex justify-between items-center px-4">
-        <Typography>{user.user_string}</Typography>
-        {userId === allPosts.user ? (
-          <button className="text-meme-teal" onClick={deletePostById}>
-            X
-          </button>
-        ) : null}
-      </div>
-
+      <Typography className="pl-4">{user.user_string}</Typography>
       <div
         className="w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto"
         style={{

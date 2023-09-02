@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Avatar, { genConfig } from "react-nice-avatar";
 import { getUserById } from "../api/users.js";
+import { deleteComment } from "../api/comments.js";
+import { useSelector } from "react-redux";
 
 function Comments({ comment }) {
   const avatarIdentifier = comment.email || comment.id;
   const config = genConfig(avatarIdentifier);
+  const userId = useSelector((state) => state.user.userId);
 
-  // fetch user by id
   const [user, setUser] = useState({});
   console.log(user.user_string);
 
@@ -17,8 +19,20 @@ function Comments({ comment }) {
     const userId = await getUserById(comment.user);
     setUser(userId);
   }
+  console.log(comment);
+  const deleteCommentById = async () => {
+    await deleteComment(comment.id);
+    window.location.reload();
+  };
 
-  const formatDate = (timestamp) => {
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear().toString().slice(2);
+    const month = date.getMonth();
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
     const months = [
       "January",
       "February",
@@ -34,22 +48,30 @@ function Comments({ comment }) {
       "December",
     ];
 
-    const date = timestamp.split("T")[0];
-    const time = timestamp.split("T")[1].split(".")[0];
-
-    const year = date.split("-")[0];
-    const month = months[parseInt(date.split("-")[1], 10) - 1];
-    const day = parseInt(date.split("-")[2], 10);
-
-    return `${month} ${day}, ${year}, ${time}`;
+    if (hours === 0) {
+      return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+    } else if (hours < 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+    } else if (hours === 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+    } else {
+      return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+    }
   };
 
   return (
-    <div>
-      <h1>{user ? user.user_string : null}</h1>
-      <Avatar style={{ width: "8rem", height: "8rem" }} {...config} />
-      <p>{comment.body}</p>
-      <p>{formatDate(comment.updated_at)}</p>
+    <div className="mt-4">
+      <div className="flex justify-between">
+        <div className="flex items-center">
+          <Avatar className="w-8 h-8 mr-2" {...config} />
+          <h1 className="text-yellow-400">{user ? user.user_string : null}</h1>
+        </div>
+        {userId === comment.user ? (
+          <button onClick={deleteCommentById}>X</button>
+        ) : null}
+      </div>
+      <p className="text-white">{comment.body}</p>
+      <p className="text-yellow-400">{formatTimestamp(comment.updated_at)}</p>
     </div>
   );
 }
