@@ -8,3 +8,12 @@ export const createComment = async (inputData) => {
     throw err;
   }
 };
+
+export const deleteComment = async (id) => {
+  try {
+    const response = await api.delete(`/comments/${id}/`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
