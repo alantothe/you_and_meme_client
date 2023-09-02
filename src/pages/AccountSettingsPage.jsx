@@ -1,28 +1,37 @@
-import React, { useState } from 'react';
-
-const mockdata = {
-  username: "danish", 
-  email: "danish@gmail.com",
-  password: "danish123"
-}
+import React, { useState, useEffect } from 'react';
  
-const AccountSettingsPage = () => { 
-  const [username, setUsername] = useState(mockdata.username);
-  const [email, setEmail] = useState(mockdata.email);
-  const [currentPassword, setCurrentPassword] = useState('mockdata.Password');
-  const [newPassword, setNewPassword] = useState('');
+const AccountSettingsPage = ({user}) => { 
+
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
+  const [passwordMatch, setPasswordMatch] = useState(true);
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-  
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+  const [userData, setUserData] = useState({
+    username: '',
+    email: '',
+    password: ''
+  })
 
-  const handleNewPasswordChange = (event) => {
-    setNewPassword(event.target.value);
+  useEffect(() => {
+    if (user) {
+      setUserData({
+        username: user.username || '',
+        email: user.email || '',
+        password: user.password || ''
+      });
+    }
+  }, [user]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setUserData({
+      ...userData,
+      [name]: value,
+    })
+  }
+
+  const handlePasswordConfirmationChange = (event) => {
+    setPasswordConfirmation(event.target.value);
   };
 
   const handleEditClick = () => {
@@ -30,8 +39,18 @@ const AccountSettingsPage = () => {
   };
 
   const handleUpdateClick = () => {
-    setIsEditMode(false);
-    console.log('Updated:', { username, email, newPassword });
+    console.log('Updated:', userData.username, userData.email, userData.password)
+    if (userData.password === passwordConfirmation) {
+      setIsEditMode(false);
+      setPasswordMatch(true);
+      user = {
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+      }
+    } else {
+      setPasswordMatch(false);
+    }
   };
 
   return (
@@ -44,32 +63,28 @@ const AccountSettingsPage = () => {
             <div className="flex items-center justify-end">Username:</div>
             <div className="flex items-center">
               {isEditMode ? (
-                <input type="text" value={username} onChange={handleUsernameChange} />
+                <input type="text" value={userData.username} name="username" onChange={handleChange} />
               ) : (
-                <span>{username}</span> 
+                <span>{userData.username}</span> 
               )}
             </div>
             <div className="flex items-center justify-end">Email:</div>
             <div className="flex items-center">
               {isEditMode ? (
-                <input type="email" value={email} onChange={handleEmailChange} />
+                <input type="email" value={userData.email} name="email" onChange={handleChange} />
               ) : (
-                <span>{email}</span> 
-              )}
-            </div>
-            <div className="flex items-center justify-end">Current Password:</div>
-            <div className="flex items-center">
-              {isEditMode ? (
-                <input type="password" value={currentPassword} disabled />
-              ) : (
-                <span>********</span> 
+                <span>{userData.email}</span> 
               )}
             </div>
             {isEditMode && (
               <>
-                <div className="flex items-center justify-end">New Password:</div>
+                <div className="flex items-center justify-end">Password:</div>
                 <div className="flex items-center">
-                  <input type="password" value={newPassword} onChange={handleNewPasswordChange} />
+                    <input type="password" value={userData.password} name="password" onChange={handleChange} />
+                </div>  
+                <div className="flex items-center justify-end">Confirm Password:</div>
+                <div className="flex items-center">
+                  <input type="password" value={passwordConfirmation} onChange={handlePasswordConfirmationChange} />
                 </div>
               </>
             )}
