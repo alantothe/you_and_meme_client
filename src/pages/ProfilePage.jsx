@@ -43,9 +43,15 @@ function ProfilePage() {
         {user.user_string}'s page
       </Typography>
       <p>a bio</p>
-      {allPosts.map((post, index) => (
-        <SmallPostDetail allPosts={post} key={index} />
-      ))}
+      <div className="flex justify-center">
+        <div className="flex flex-wrap px-48 items-center justify-center">
+          {allPosts.map((post, index) => (
+            <div>
+              <SmallPostDetail allPosts={post} key={index} />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
