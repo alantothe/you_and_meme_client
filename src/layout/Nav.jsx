@@ -29,7 +29,6 @@ import {
 function AccountMenu({ user, handleLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
-
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen}>
       <MenuHandler>
@@ -129,6 +128,7 @@ function AccountMenu({ user, handleLogOut }) {
 
 // Creates add post icon
 function NavList({ user, handleLogOut }) {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-row items-center justify-end">
       {/* <Typography
@@ -136,7 +136,7 @@ function NavList({ user, handleLogOut }) {
         href="/favorites"
         variant="small"
         className="font-normal"
-      >
+        >
         <MenuItem
           className="flex items-center gap-2 rounded-full"
           style={{ color: "rgb(96, 20, 30)" }}
@@ -147,9 +147,7 @@ function NavList({ user, handleLogOut }) {
 
       {user && (
         <Typography
-          as="a"
-          // route to add post
-          href="meme-selection"
+          onClick={() => navigate("/meme-selection")}
           variant="small"
           className="font-normal"
         >
