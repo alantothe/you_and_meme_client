@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getPostsByUser, getUserById } from "../api/api";
+import { getPostsByUser, getUserById, deletePost } from "../api/api";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
 import { Typography } from "@material-tailwind/react";
 
-function ProfilePage() {
+function ProfilePage({ loggedInUser }) {
   const { profileId } = useParams();
-
   const [userObject, setUserObject] = useState({});
   const [allPosts, setAllPosts] = useState([]);
   const [user, setUser] = useState({});
@@ -33,6 +32,13 @@ function ProfilePage() {
     });
     return sortedPosts;
   };
+
+  // Check if the logged in user matches the profile page user, in which you can then delete the posts
+  // if (profileId === loggedInUser.user_id) {
+  //   console.log("match");
+  // } else {
+  //   console.log("mismatch");
+  // }
 
   return (
     <div

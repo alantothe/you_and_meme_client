@@ -53,7 +53,7 @@ const App = () => {
         />
         <Route
           path="/profile/:profileId"
-          element={<ProfilePage user={user} />}
+          element={<ProfilePage loggedInUser={user} />}
         />
         <Route path="/register" element={<RegisterPage user={user} />} />
         <Route

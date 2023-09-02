@@ -1,6 +1,6 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserById, updatePostByLikes, deletePost } from "../api/api";
+import { getUserById, updatePostByLikes } from "../api/api";
 import { Typography } from "@material-tailwind/react";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
@@ -12,7 +12,6 @@ function SmallPostDetail({ allPosts }) {
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
   const [likesToggle, setLikesToggle] = useState(false);
-  const [postId, setPostId] = useState(allPosts.id);
 
   useEffect(() => {
     fetchUser();
@@ -36,11 +35,6 @@ function SmallPostDetail({ allPosts }) {
     }
   };
 
-  const deletePostById = async () => {
-    await deletePost(postId);
-    window.location.reload();
-  };
-
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     const year = date.getFullYear().toString().slice(2);
@@ -62,13 +56,7 @@ function SmallPostDetail({ allPosts }) {
 
   return (
     <div className="my-4">
-      <div className="flex justify-between items-center px-4">
-        <Typography>{user.user_string}</Typography>
-        <button className="text-meme-teal" onClick={deletePostById}>
-          X
-        </button>
-      </div>
-
+      <Typography className="pl-4">{user.user_string}</Typography>
       <div
         className="w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto"
         style={{
