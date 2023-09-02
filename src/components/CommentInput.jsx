@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { createComment } from "../api/comments";
+import { useSelector } from "react-redux";
 
-function CommentInput({ userId, postId }) {
-  console.log("userID " + userId);
-  console.log(typeof postId);
-  console.log(typeof userId);
+function CommentInput({ postId }) {
+  const userId = useSelector((state) => state.user.userId);
+  console.log(userId);
 
   const [inputData, setInputData] = useState({
     user: userId,

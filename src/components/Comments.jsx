@@ -4,6 +4,7 @@ import Avatar, { genConfig } from "react-nice-avatar";
 function Comments({ comment }) {
   const avatarIdentifier = comment.email || comment.id;
   const config = genConfig(avatarIdentifier);
+  console.log(comment);
 
   const formatDate = (timestamp) => {
     const months = [
