@@ -7,7 +7,7 @@ function CommentInput({ userId, postId }) {
   console.log(typeof userId);
 
   const [inputData, setInputData] = useState({
-    user: 5,
+    user: userId,
     post: parseInt(postId),
     body: "",
   });
