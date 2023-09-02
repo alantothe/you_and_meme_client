@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 function CommentInput({ postId }) {
   const userId = useSelector((state) => state.user.userId);
-  console.log(userId);
 
   const [inputData, setInputData] = useState({
     user: userId,
