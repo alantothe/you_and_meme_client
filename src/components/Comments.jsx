@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Avatar, { genConfig } from "react-nice-avatar";
-import { getUserById } from "../api/api";
+import { getUserById } from "../api/users.js";
 
 function Comments({ comment }) {
   const avatarIdentifier = comment.email || comment.id;

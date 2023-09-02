@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { memes } from "../assets/templates.js";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { postMeme } from "../api/api.js";
+import { postMeme } from "../api/posts.js";
 import { Typography } from "@material-tailwind/react";
 
 function CreateMemePage({ user }) {
@@ -83,36 +83,44 @@ function CreateMemePage({ user }) {
       const response = await postMeme(postData);
 
       console.log(response);
-      navigate(`/profile/${userId}`)
+      navigate(`/profile/${userId}`);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="my-4 flex flex-col items-center justify-center"> {/* Wrapping div, similar to SmallPostDetail */}
-      
+    <div className="my-4 flex flex-col items-center justify-center">
+      {" "}
+      {/* Wrapping div, similar to SmallPostDetail */}
       {/* Page Title */}
       <Typography className="text-center pl-4 text-3xl text-meme-light-gray">
         Create Your Own Meme!
       </Typography>
-      
       {/* Meme Image Box */}
       <div
         className="w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto flex flex-col items-center"
         style={{
-          boxShadow: "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)"
+          boxShadow:
+            "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
         }}
       >
         <div className="flex flex-col items-center justify-center h-full w-full">
           {newMeme ? (
-            <img className="object-contain w-full h-full" src={newMeme} alt="Generated Meme" />
+            <img
+              className="object-contain w-full h-full"
+              src={newMeme}
+              alt="Generated Meme"
+            />
           ) : (
-            <img className="object-contain w-full h-full" src={meme.url} alt={meme.name} />
+            <img
+              className="object-contain w-full h-full"
+              src={meme.url}
+              alt={meme.name}
+            />
           )}
         </div>
       </div>
-  
       {/* Text boxes and Buttons */}
       <div className="px-4 flex flex-col items-center text-meme-light-gray">
         {Array.from({ length: meme.box_count }).map((_, index) => (
@@ -143,5 +151,4 @@ function CreateMemePage({ user }) {
     </div>
   );
 }
-export default CreateMemePage;  
-
+export default CreateMemePage;

@@ -34,7 +34,7 @@ const App = () => {
   }, []);
 
   const handleLogOut = () => {
-    localStorage.removeItem("token");
+    localStorage.clear();
     setUser(null);
     navigate("/");
     window.location.reload();
