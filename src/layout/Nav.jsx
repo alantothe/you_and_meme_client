@@ -147,9 +147,7 @@ function NavList({ user, handleLogOut }) {
 
       {user && (
         <Typography
-          as="a"
-          // route to add post
-          href="meme-selection"
+          onClick={() => navigate("/")}
           variant="small"
           className="font-normal"
         >
