@@ -7,14 +7,13 @@ const userSlice = createSlice({
     userId: null,
   },
   reducers: {
-    setUser: (state, action) => {
+    addUserToRedux: (state, action) => {
       state.user = action.payload;
+      state.userId = action.payload.user_id;
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
-
-export const selectUser = (state) => state.user.user;
+export const { addUserToRedux } = userSlice.actions;
 
 export default userSlice.reducer;
