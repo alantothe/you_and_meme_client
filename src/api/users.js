@@ -21,7 +21,7 @@ export const verifyUser = async () => {
     try {
       // Decode the token directly
       const user = jwtDecode(token);
-      // console.log(user);
+      console.log(user);
       return user;
     } catch (err) {
       console.error("Error during token verification:", err);
@@ -40,4 +40,4 @@ export const registerUser = async (registerData) => {
   } catch (err) {
     throw err;
   }
-}
+};
