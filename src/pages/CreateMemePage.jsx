@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { memes } from "../assets/templates.js";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { postMeme } from "../api/api.js";
-import { Typography, Button } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 
 function CreateMemePage({ user }) {
   const { id } = useParams();
   const userId = user.user_id;
+
+  const navigate = useNavigate();
 
   const [meme, setMeme] = useState({});
 
@@ -81,6 +83,7 @@ function CreateMemePage({ user }) {
       const response = await postMeme(postData);
 
       console.log(response);
+      navigate(`/profile/${userId}`)
     } catch (error) {
       console.error(error);
     }
@@ -111,7 +114,7 @@ function CreateMemePage({ user }) {
       </div>
   
       {/* Text boxes and Buttons */}
-      <div className="px-4 flex flex-col items-center">
+      <div className="px-4 flex flex-col items-center text-meme-light-gray">
         {Array.from({ length: meme.box_count }).map((_, index) => (
           <div key={index} className="my-2">
             <Typography>Box {index + 1}</Typography>
