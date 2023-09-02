@@ -90,8 +90,8 @@ function CreateMemePage({ user }) {
     <div className="my-4"> {/* Wrapping div, similar to SmallPostDetail */}
       
       {/* Page Title */}
-      <Typography className="pl-4 text-3xl">
-        Create Meme Page
+      <Typography className="pl-4 text-3xl text-meme-light-gray">
+        Create Your Own Meme!
       </Typography>
       
       {/* Meme Image Box */}
@@ -101,7 +101,7 @@ function CreateMemePage({ user }) {
           boxShadow: "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)"
         }}
       >
-        <div className="flex flex-col items-center justify-around h-full w-full">
+        <div className="flex flex-col items-center justify-center h-full w-full">
           {newMeme ? (
             <img className="object-contain w-full h-full" src={newMeme} alt="Generated Meme" />
           ) : (
@@ -140,52 +140,5 @@ function CreateMemePage({ user }) {
     </div>
   );
 }
-export default CreateMemePage;
-  
-
-//   return (
-//     <div>
-//       <h1
-//         div
-//         className="flex flex-col items-center justify-start bg-gray-400"
-//         style={{ height: "92vh" }}
-//       >
-//         Create Meme Page
-//       </h1>
-//       <div className="w-1/4 mb-12 mt-12 flex flex-col items-center">
-//         <div className=" w-60 h-60 relative">
-//           {newMeme ? (
-//             <img
-//               className="absolute top-0 left-0 w-full h-full object-contain"
-//               src={newMeme}
-//               alt="Generated Meme"
-//             />
-//           ) : (
-//             <img
-//               className="absolute top-0 left-0 w-full h-full object-contain"
-//               src={meme.url}
-//               alt={meme.name}
-//             />
-//           )}
-//         </div>
-
-//         <div>
-//           {Array.from({ length: meme.box_count }).map((_, index) => (
-//             <div key={index}>
-//               <h1>Box {index + 1}</h1>
-//               <input
-//                 type="text"
-//                 value={formData[`text${index}`]}
-//                 placeholder={`Enter text for Box ${index + 1}`}
-//                 onChange={(e) => handleInputChange(index, e)}
-//               />
-//             </div>
-//           ))}
-//           <button onClick={() => handleSubmit()}>Preview Meme</button>
-//           <button onClick={() => handleMemePost()}>Generate Meme</button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
+export default CreateMemePage;  
 
