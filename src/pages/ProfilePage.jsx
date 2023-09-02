@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getPostsByUser, getUserById, deletePost } from "../api/api";
+import { getPostsByUser, getUserById } from "../api/users.js";
+import { deletePost } from "../api/posts.js";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
 import { Typography } from "@material-tailwind/react";
 

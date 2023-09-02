@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Avatar, { genConfig } from "react-nice-avatar";
-import { deleteComment } from "../api/comments";
+import { getUserById } from "../api/users.js";
+import { deleteComment } from "../api/comments.js";
 import { useSelector } from "react-redux";
-import { getUserById } from "../api/api";
 
 function Comments({ comment }) {
   const avatarIdentifier = comment.email || comment.id;
