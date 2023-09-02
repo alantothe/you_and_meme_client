@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllPosts } from "../api/api.js";
+import { getAllPosts } from "../api/posts.js";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
 import { Typography } from "@material-tailwind/react";
 

@@ -1,24 +1,39 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserById, updatePostByLikes, deletePost } from "../api/api";
+import { getUserById } from "../api/users.js";
+import { updatePostByLikes, deletePost } from "../api/posts.js";
 import { Typography } from "@material-tailwind/react";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { useSelector } from "react-redux";
 import "./styles.css";
-
+import { addLike, removeLike } from "../redux/features/userSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 function SmallPostDetail({ allPosts }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const likesArray = useSelector((state) => state.user.likes);
+  console.log(likesArray);
 
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
-  const [likesToggle, setLikesToggle] = useState(false);
+  const [likesToggle, setLikesToggle] = useState();
   const userId = useSelector((state) => state.user.userId);
+  console.log(userId);
 
   useEffect(() => {
     fetchUser();
     setLikes(allPosts.likes);
+    checkLikes();
   }, []);
+
+  function checkLikes() {
+    if (likesArray.includes(allPosts.id)) {
+      setLikesToggle(true);
+    } else {
+      setLikesToggle(false);
+    }
+  }
 
   const fetchUser = async () => {
     const fetchedUser = await getUserById(allPosts.user);
@@ -26,14 +41,18 @@ function SmallPostDetail({ allPosts }) {
   };
 
   const updateLikes = async () => {
-    if (likesToggle === false) {
+    if (!userId) {
+      navigate("/sign-in");
+    } else if (likesToggle === false) {
       await updatePostByLikes(allPosts.id, likes + 1);
       setLikes(likes + 1);
       setLikesToggle(true);
+      dispatch(addLike(allPosts.id));
     } else {
       await updatePostByLikes(allPosts.id, likes - 1);
       setLikes(likes - 1);
       setLikesToggle(false);
+      dispatch(removeLike(allPosts.id));
     }
   };
 

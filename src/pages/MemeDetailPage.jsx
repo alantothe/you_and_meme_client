@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getPostById } from "../api/api";
+import { getPostById } from "../api/posts.js";
 import Comments from "../components/Comments";
 import CommentInput from "../components/CommentInput";
 

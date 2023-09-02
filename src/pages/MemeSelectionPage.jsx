@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import { getAllTemplates } from "../api/api.js";
+import { getAllTemplates } from "../api/memes.js";
 
 function MemeSelectionPage() {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ function MemeSelectionPage() {
     <div
       className="min-h-screen text-yellow-400"
       style={{
-        background: "rgb(45, 45, 45)"
+        background: "rgb(45, 45, 45)",
       }}
     >
       <h1 className="text-center p-4 mb-4 font-bold text-4xl">
@@ -39,12 +39,17 @@ function MemeSelectionPage() {
               key={index}
             >
               <div className="flex flex-col items-center justify-between h-full w-full">
-              <div className="w-full flex-grow rounded-lg overflow-hidden">
-                <img className="object-contain w-full h-full" src={meme.url} alt={meme.name} />
-              </div>
+                <div className="w-full flex-grow rounded-lg overflow-hidden">
+                  <img
+                    className="object-contain w-full h-full"
+                    src={meme.url}
+                    alt={meme.name}
+                  />
+                </div>
                 <Button
                   className="m-2 self-center"
-                  onClick={() => navigate(`/create-meme/${meme.id}`)}>
+                  onClick={() => navigate(`/create-meme/${meme.id}`)}
+                >
                   Use Template
                 </Button>
               </div>

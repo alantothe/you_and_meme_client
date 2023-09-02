@@ -41,3 +41,21 @@ export const registerUser = async (registerData) => {
     throw err;
   }
 };
+
+export const getUserById = async (id) => {
+  try {
+    const response = await api.get(`/users/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getPostsByUser = async (id) => {
+  try {
+    const response = await api.get(`/users/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
