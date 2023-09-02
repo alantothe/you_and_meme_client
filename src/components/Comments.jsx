@@ -64,14 +64,14 @@ function Comments({ comment }) {
       <div className="flex justify-between">
         <div className="flex items-center">
           <Avatar className="w-8 h-8 mr-2" {...config} />
-          <h1>{user ? user.user_string : null}</h1>
+          <h1 className="text-yellow-400">{user ? user.user_string : null}</h1>
         </div>
         {userId === comment.user ? (
           <button onClick={deleteCommentById}>X</button>
         ) : null}
       </div>
-      <p>{comment.body}</p>
-      <p>{formatTimestamp(comment.updated_at)}</p>
+      <p className="text-white">{comment.body}</p>
+      <p className="text-yellow-400">{formatTimestamp(comment.updated_at)}</p>
     </div>
   );
 }

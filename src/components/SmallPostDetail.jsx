@@ -4,6 +4,7 @@ import { getUserById, updatePostByLikes, deletePost } from "../api/api";
 import { Typography } from "@material-tailwind/react";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
+import { useSelector } from "react-redux";
 import "./styles.css";
 
 function SmallPostDetail({ allPosts }) {
@@ -12,6 +13,7 @@ function SmallPostDetail({ allPosts }) {
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
   const [likesToggle, setLikesToggle] = useState(false);
+  const userId = useSelector((state) => state.user.userId);
 
   useEffect(() => {
     fetchUser();
@@ -43,19 +45,34 @@ function SmallPostDetail({ allPosts }) {
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     const year = date.getFullYear().toString().slice(2);
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const hours = String(date.getHours()).padStart(2, "0");
+    const month = date.getMonth();
+    const day = date.getDate();
+    const hours = date.getHours();
     const minutes = String(date.getMinutes()).padStart(2, "0");
 
-    if (parseInt(hours) === 0) {
-      return `${month}/${day}/${year} 12:${minutes}AM`;
-    } else if (parseInt(hours) < 12) {
-      return `${month}/${day}/${year} ${hours}:${minutes}AM`;
-    } else if (parseInt(hours) === 12) {
-      return `${month}/${day}/${year} 12:${minutes}PM`;
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    if (hours === 0) {
+      return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+    } else if (hours < 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+    } else if (hours === 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
     } else {
-      return `${month}/${day}/${year} ${hours - 12}:${minutes}PM`;
+      return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
     }
   };
 
@@ -63,9 +80,11 @@ function SmallPostDetail({ allPosts }) {
     <div className="my-4">
       <div className="flex justify-between items-center px-4">
         <Typography>{user.user_string}</Typography>
-        <button className="text-meme-teal" onClick={deletePostById}>
-          X
-        </button>
+        {userId === allPosts.user ? (
+          <button className="text-meme-teal" onClick={deletePostById}>
+            X
+          </button>
+        ) : null}
       </div>
 
       <div

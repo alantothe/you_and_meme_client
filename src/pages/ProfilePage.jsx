@@ -4,7 +4,7 @@ import { getPostsByUser, getUserById, deletePost } from "../api/api";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
 import { Typography } from "@material-tailwind/react";
 
-function ProfilePage({ loggedInUser }) {
+function ProfilePage() {
   const { profileId } = useParams();
   const [userObject, setUserObject] = useState({});
   const [allPosts, setAllPosts] = useState([]);
@@ -32,13 +32,6 @@ function ProfilePage({ loggedInUser }) {
     });
     return sortedPosts;
   };
-
-  // Check if the logged in user matches the profile page user, in which you can then delete the posts
-  // if (profileId === loggedInUser.user_id) {
-  //   console.log("match");
-  // } else {
-  //   console.log("mismatch");
-  // }
 
   return (
     <div
