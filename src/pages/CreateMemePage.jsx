@@ -87,10 +87,10 @@ function CreateMemePage({ user }) {
   };
 
   return (
-    <div className="my-4"> {/* Wrapping div, similar to SmallPostDetail */}
+    <div className="my-4 flex flex-col items-center justify-center"> {/* Wrapping div, similar to SmallPostDetail */}
       
       {/* Page Title */}
-      <Typography className="pl-4 text-3xl text-meme-light-gray">
+      <Typography className="text-center pl-4 text-3xl text-meme-light-gray">
         Create Your Own Meme!
       </Typography>
       
@@ -125,7 +125,7 @@ function CreateMemePage({ user }) {
           </div>
         ))}
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          className="bg-meme-teal hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mt-4"
           onClick={() => handleSubmit()}
         >
           Preview Meme
