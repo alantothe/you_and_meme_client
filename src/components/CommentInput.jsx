@@ -29,6 +29,7 @@ function CommentInput({ postId }) {
       ...prevData,
       body: "",
     }));
+    console.log("Comment submitted:", inputData);
     window.location.reload();
   };
 
