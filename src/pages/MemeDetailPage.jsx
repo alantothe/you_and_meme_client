@@ -23,12 +23,19 @@ function MemeDetailPage() {
     const fetchedPost = await getPostById(postId);
     setPost(fetchedPost);
     const allComments = fetchedPost.comments;
-    setComments(allComments);
+    setComments(sortComments(allComments));
   };
 
   const getUsername = async () => {
     const fetchedUser = await getUserById(post.user);
     setUsername(fetchedUser.user_string);
+  };
+
+  const sortComments = (comments) => {
+    const sortedComments = comments.sort((a, b) => {
+      return new Date(b.created) - new Date(a.created);
+    });
+    return sortedComments;
   };
 
   const navToProfile = () => {

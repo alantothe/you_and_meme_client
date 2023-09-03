@@ -6,6 +6,7 @@ import { Typography } from "@material-tailwind/react";
 const HomePage = () => {
   const [allPosts, setAllPosts] = useState([]);
   console.log(allPosts);
+
   useEffect(() => {
     fetchPost();
   }, []);
