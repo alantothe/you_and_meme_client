@@ -118,19 +118,20 @@ function ProfilePostDetail({ allPosts }) {
 
   const updateLikes = async () => {
     if (!userId) {
+      // You can't like a post if you are not logged in
       navigate("/sign-in");
     } else if (likesToggle === false) {
-      await updatePostByLikes(allPosts.id, likes + 1);
-      setLikes(likes + 1);
-      setLikesToggle(true);
-      dispatch(addLike(allPosts.id));
-      addToLikedPosts();
+      await updatePostByLikes(allPosts.id, 1); // Updates in back end
+      setLikes(likes + 1); // Updates in front end
+      setLikesToggle(true); // So you can't like it again
+      dispatch(addLike(allPosts.id)); // Updates in Redux store
+      addToLikedPosts(); // Adds post to user's liked posts so that if it is liked, they can log and back in and they can't like it again
     } else {
-      await updatePostByLikes(allPosts.id, likes - 1);
-      setLikes(likes - 1);
-      setLikesToggle(false);
-      dispatch(removeLike(allPosts.id));
-      removeFromLikedPosts();
+      await updatePostByLikes(allPosts.id, -1); // Updates in back end
+      setLikes(likes - 1); // Updates in front end
+      setLikesToggle(false); // So you can't unlike it again
+      dispatch(removeLike(allPosts.id)); // Updates in Redux store
+      removeFromLikedPosts(); // Adds post to user's liked posts so that if it is not liked, they can log and back in and it still shows they don't like it
     }
   };
 
@@ -186,7 +187,7 @@ function ProfilePostDetail({ allPosts }) {
       <div
         className="w-80 mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
         style={{
-          width: "600px",
+          width: "26vw",
           boxShadow:
             "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
         }}

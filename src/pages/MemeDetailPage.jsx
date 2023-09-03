@@ -11,12 +11,12 @@ function MemeDetailPage() {
 
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState();
   const { postId } = useParams();
 
   useEffect(() => {
     getPost();
-    getUsername();
+    // getUsername();
   }, []);
 
   const getPost = async () => {
@@ -26,10 +26,10 @@ function MemeDetailPage() {
     setComments(sortComments(allComments));
   };
 
-  const getUsername = async () => {
-    const fetchedUser = await getUserById(post.user);
-    setUsername(fetchedUser.user_string);
-  };
+  // const getUsername = async () => {
+  //   const fetchedUser = await getUserById(post.user);
+  //   setUsername(fetchedUser.user_string);
+  // };
 
   const sortComments = (comments) => {
     const sortedComments = comments.sort((a, b) => {
@@ -52,7 +52,7 @@ function MemeDetailPage() {
         style={{ width: "480px" }}
         onClick={navToProfile}
       >
-        {username}
+        {/* username */}
       </Typography>
       <div className="mb-4" style={{ width: "480px" }}>
         <img src={post.meme} alt="meme-photo" />

@@ -38,20 +38,22 @@ function ProfilePage() {
       className="flex flex-col items-center text-yellow-400"
       style={{ background: "rgb(45, 45, 45)" }}
     >
-      <div className="flex">
+      <div className="flex items-center">
         <Avatar src={user.avatar} round={true} size="40" />
-        <Typography className="text-6xl my-4">{user.user_string}</Typography>
+        <Typography className="text-6xl my-4 ml-4">
+          {user.user_string}
+        </Typography>
       </div>
       <p>a bio</p>
-      <div className="flex justify-center">
-        <div className="flex flex-wrap px-48 items-center justify-center">
-          {allPosts.map((post, index) => (
-            <div>
-              <ProfilePostDetail allPosts={post} key={index} />
-            </div>
-          ))}
-        </div>
+      {/* <div className="flex justify-center"> */}
+      <div className="flex flex-row flex-wrap items-start justify-center">
+        {allPosts.map((post, index) => (
+          <div className="flex flex-stretch">
+            <ProfilePostDetail allPosts={post} key={index} />
+          </div>
+        ))}
       </div>
+      {/* </div> */}
     </div>
   );
 }
