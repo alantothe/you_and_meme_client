@@ -1,6 +1,6 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserById } from "../api/users.js";
+import { getUserById, updateUserLikedPosts } from "../api/users.js";
 import { updatePostByLikes, deletePost } from "../api/posts.js";
 import { Typography } from "@material-tailwind/react";
 import {
@@ -120,6 +120,7 @@ function ProfilePostDetail({ allPosts }) {
       setLikes(likes + 1);
       setLikesToggle(true);
       dispatch(addLike(allPosts.id));
+      addToLikedPosts();
     } else {
       await updatePostByLikes(allPosts.id, likes - 1);
       setLikes(likes - 1);
@@ -131,6 +132,10 @@ function ProfilePostDetail({ allPosts }) {
   const deletePostById = async () => {
     await deletePost(allPosts.id);
     window.location.reload();
+  };
+
+  const addToLikedPosts = async () => {
+    await updateUserLikedPosts(userId, allPosts.id);
   };
 
   // const formatTimestamp = (timestamp) => {

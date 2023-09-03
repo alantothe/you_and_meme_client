@@ -59,3 +59,14 @@ export const getPostsByUser = async (id) => {
     throw error;
   }
 };
+
+export const updateUserLikedPosts = async (id, likedPosts) => {
+  try {
+    const response = await api.put(`/users/${id}/add_to_liked_posts/`, {
+      likedPosts: [likedPosts],
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
