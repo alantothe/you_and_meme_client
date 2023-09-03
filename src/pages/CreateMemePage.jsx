@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { memes } from "../assets/templates.js";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { postMeme } from "../api/posts.js";
 import { Typography } from "@material-tailwind/react";
 
-<<<<<<< HEAD
-function CreateMemePage() {
-  const oneMeme = memes[0];
-=======
 function CreateMemePage({ user }) {
   const { id } = useParams();
   const userId = user.user_id;
@@ -31,15 +27,14 @@ function CreateMemePage({ user }) {
       setMeme({});
     }
   }
->>>>>>> 79a51d13b47a451d486e8026e27433e9b27ac08c
 
   const initialTextFields = {};
-  for (let i = 0; i < oneMeme.box_count; i++) {
+  for (let i = 0; i < meme.box_count; i++) {
     initialTextFields[`text${i}`] = "";
   }
 
   const [formData, setFormData] = useState({
-    template_id: oneMeme.id,
+    template_id: id,
     username: "alantothe",
     password: "Fresh1260!",
     ...initialTextFields,
@@ -57,17 +52,20 @@ function CreateMemePage({ user }) {
 
   const handleSubmit = async () => {
     try {
-      const formParams = new URLSearchParams(formData).toString();
+      // Dynamically generate the parameters for boxes.
+      let boxesParams = "";
+      for (let i = 0; i < meme.box_count; i++) {
+        boxesParams += `&boxes[${i}][text]=${encodeURIComponent(
+          formData[`text${i}`]
+        )}`;
+      }
 
-      const response = await axios.post(
-        "https://api.imgflip.com/caption_image",
-        formParams,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const baseApiUrl = "https://api.imgflip.com/caption_image";
+      const authParams = `template_id=${formData.template_id}&username=${formData.username}&password=${formData.password}`;
+
+      const fullApiUrl = `${baseApiUrl}?${authParams}${boxesParams}`;
+
+      const response = await axios.get(fullApiUrl);
 
       setNewMeme(response.data.data.url);
     } catch (error) {
@@ -76,11 +74,7 @@ function CreateMemePage({ user }) {
   };
 
   const postData = {
-<<<<<<< HEAD
-    user: 3,
-=======
     user: userId,
->>>>>>> 79a51d13b47a451d486e8026e27433e9b27ac08c
     meme: newMeme,
   };
   console.log(postData);
@@ -96,22 +90,6 @@ function CreateMemePage({ user }) {
   };
 
   return (
-<<<<<<< HEAD
-    <div className="flex flex-col items-center justify-start bg-gray-400"
-    style={{ height: "92vh" }}>
-      {/* Main title */}
-      <h1 className="text-3xl font-semibold flex justify-center items-center"
-        style={{ height: "10vh" }}>
-        Create Meme Page
-      </h1>
-      {/* Meme container */}
-      <div className="w-3/4 p-6 rounded shadow-md bg-gray-600">
-        {/* Meme preview */}
-        <div className="w-96 h-96 mx-auto relative">
-          {newMeme ? (
-            <img
-              className="absolute top-0 left-0 w-full h-full object-cover"
-=======
     <div className="my-4 flex flex-col items-center justify-center">
       {" "}
       {/* Wrapping div, similar to SmallPostDetail */}
@@ -131,58 +109,11 @@ function CreateMemePage({ user }) {
           {newMeme ? (
             <img
               className="object-contain w-full h-full"
->>>>>>> 79a51d13b47a451d486e8026e27433e9b27ac08c
               src={newMeme}
               alt="Generated Meme"
             />
           ) : (
             <img
-<<<<<<< HEAD
-              className="absolute top-0 left-0 w-full h-full object-cover"
-              src={oneMeme.url}
-              alt={oneMeme.name}
-            />
-          )}
-        </div>
-        {/* Text boxes */}
-        <div className="mt-4">
-          {Array.from({ length: oneMeme.box_count }).map((_, index) => (
-            <div key={index} className="mb-4">
-              <label
-                htmlFor={`text${index}`}
-                className="block mb-1 text-lg font-semibold"
-              >
-                Box {index + 1}
-              </label>
-              <input
-                type="text"
-                id={`text${index}`}
-                value={formData[`text${index}`]}
-                placeholder={`Enter text for Box ${index + 1}`}
-                onChange={(e) => handleInputChange(index, e)}
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-900"
-              />
-            </div>
-          ))}
-          <div className="flex justify-evenly">
-
-            <button 
-              onClick={() => handleSubmit()}
-              className="bg-teal-400 text-gray-900 px-4 py-2 rounded"
-            >
-              Preview Meme
-            </button>
-
-            <button
-              onClick={() => handleMemePost()}
-              className="bg-yellow-500 text-gray-900 px-4 py-2 rounded"  
-            >
-              Generate Meme
-            </button>
-
-          </div>
-        </div>
-=======
               className="object-contain w-full h-full"
               src={meme.url}
               alt={meme.name}
@@ -216,14 +147,8 @@ function CreateMemePage({ user }) {
         >
           Generate Meme
         </button>
->>>>>>> 79a51d13b47a451d486e8026e27433e9b27ac08c
       </div>
     </div>
   );
 }
-<<<<<<< HEAD
-
 export default CreateMemePage;
-=======
-export default CreateMemePage;
->>>>>>> 79a51d13b47a451d486e8026e27433e9b27ac08c
