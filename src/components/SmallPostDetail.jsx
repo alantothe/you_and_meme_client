@@ -74,17 +74,9 @@ function SmallPostDetail({ allPosts }) {
 
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
+  const [avatar, setAvatar] = useState("");
   const [likesToggle, setLikesToggle] = useState();
   const userId = useSelector((state) => state.user.userId);
-  console.log(user);
-
-  const mockAvatar =
-    "https://res.cloudinary.com/dzjr3skhe/image/upload/v1693696048/yl6pdqk1fohrh920j5mq.png";
-
-  // this is  fake but will be real later
-  //user.avatar = "";
-  //{user.avatar} will be placed next to user.user_string
-  //<img src={user.avatar} alt="user avatar" className="w-10 h-10 rounded-full" />
 
   useEffect(() => {
     fetchUser();
@@ -126,40 +118,6 @@ function SmallPostDetail({ allPosts }) {
     window.location.reload();
   };
 
-  // const formatTimestamp = (timestamp) => {
-  //   const date = new Date(timestamp);
-  //   const year = date.getFullYear().toString().slice(2);
-  //   const month = date.getMonth();
-  //   const day = date.getDate();
-  //   const hours = date.getHours();
-  //   const minutes = String(date.getMinutes()).padStart(2, "0");
-
-  //   const months = [
-  //     "January",
-  //     "February",
-  //     "March",
-  //     "April",
-  //     "May",
-  //     "June",
-  //     "July",
-  //     "August",
-  //     "September",
-  //     "October",
-  //     "November",
-  //     "December",
-  //   ];
-
-  //   if (hours === 0) {
-  //     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
-  //   } else if (hours < 12) {
-  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
-  //   } else if (hours === 12) {
-  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
-  //   } else {
-  //     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
-  //   }
-  // };
-
   return (
     <div className="my-4">
       <div
@@ -172,7 +130,10 @@ function SmallPostDetail({ allPosts }) {
       >
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center">
-            <Avatar src={mockAvatar} round={true} size="40" />
+            {user && user.avatar ? (
+              <Avatar src={user.avatar} round={true} size="40" />
+            ) : null}
+
             <Typography className="font-black pl-2">
               {user.user_string}
             </Typography>
@@ -236,3 +197,36 @@ function SmallPostDetail({ allPosts }) {
 }
 
 export default SmallPostDetail;
+// const formatTimestamp = (timestamp) => {
+//   const date = new Date(timestamp);
+//   const year = date.getFullYear().toString().slice(2);
+//   const month = date.getMonth();
+//   const day = date.getDate();
+//   const hours = date.getHours();
+//   const minutes = String(date.getMinutes()).padStart(2, "0");
+
+//   const months = [
+//     "January",
+//     "February",
+//     "March",
+//     "April",
+//     "May",
+//     "June",
+//     "July",
+//     "August",
+//     "September",
+//     "October",
+//     "November",
+//     "December",
+//   ];
+
+//   if (hours === 0) {
+//     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+//   } else if (hours < 12) {
+//     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+//   } else if (hours === 12) {
+//     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+//   } else {
+//     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+//   }
+// };
