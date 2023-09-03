@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllPosts } from "../api/posts.js";
-import SmallPostDetail from "../components/SmallPostDetail.jsx";
+import HomePostDetail from "../components/HomePostDetail.jsx";
 import { Typography } from "@material-tailwind/react";
 
 const HomePage = () => {
@@ -37,7 +37,7 @@ const HomePage = () => {
       </Typography>
       <div className="flex flex-col items-center w-full">
         {allPosts.map((post, index) => (
-          <SmallPostDetail allPosts={post} key={index} />
+          <HomePostDetail allPosts={post} key={index} />
         ))}
       </div>
     </div>

@@ -12,6 +12,7 @@ const userSlice = createSlice({
     addUserToRedux: (state, action) => {
       state.user = action.payload;
       state.userId = action.payload.user_id;
+      state.likes = action.payload.likedPosts;
     },
     addLike: (state, action) => {
       state.likes.push(action.payload); // Pushing the ID into the array
