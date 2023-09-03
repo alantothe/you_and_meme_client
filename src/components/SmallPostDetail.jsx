@@ -95,6 +95,7 @@ function SmallPostDetail({ allPosts }) {
   const fetchUser = async () => {
     const fetchedUser = await getUserById(allPosts.user);
     setUser(fetchedUser);
+    console.log(fetchedUser);
   };
 
   const updateLikes = async () => {
@@ -134,7 +135,10 @@ function SmallPostDetail({ allPosts }) {
               <Avatar src={user.avatar} round={true} size="40" />
             ) : null}
 
-            <Typography className="font-black pl-2">
+            <Typography
+              onClick={() => navigate(`/profile/${allPosts.user}`)}
+              className="font-black pl-2"
+            >
               {user.user_string}
             </Typography>
           </div>
