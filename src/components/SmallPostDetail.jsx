@@ -23,11 +23,15 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
-export function DialogDefault({ owner }) {
+export function DialogDefault({ owner, deletePostById }) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
 
+  const handleOnClick = () => {
+    deletePostById();
+    setOpen(!open);
+  };
   if (!owner) return null;
 
   return (
@@ -40,8 +44,8 @@ export function DialogDefault({ owner }) {
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>Would you Like to Delete Your Post?</DialogHeader>
         <DialogBody divider>Please Confirm or Cancel</DialogBody>
-        <DialogFooter>
-          <Button variant="gradient" color="red" onClick={handleOpen}>
+        <DialogFooter className="">
+          <Button variant="gradient" color="red" onClick={handleOnClick}>
             <span>Confirm</span>
           </Button>
           <Button
@@ -61,31 +65,24 @@ export function DialogDefault({ owner }) {
 function SmallPostDetail({ allPosts }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(allPosts);
+  console.log(allPosts.comments);
   const [open, setOpen] = useState(false);
   const toggleIsOpen = () => setOpen((cur) => !cur);
 
   const likesArray = useSelector((state) => state.user.likes);
-  console.log(likesArray);
 
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
+  const [avatar, setAvatar] = useState("");
   const [likesToggle, setLikesToggle] = useState();
   const userId = useSelector((state) => state.user.userId);
-  console.log(user);
-
-  const mockAvatar =
-    "https://res.cloudinary.com/dzjr3skhe/image/upload/v1693696048/yl6pdqk1fohrh920j5mq.png";
-
-  // this is  fake but will be real later
-  //user.avatar = "";
-  //{user.avatar} will be placed next to user.user_string
-  //<img src={user.avatar} alt="user avatar" className="w-10 h-10 rounded-full" />
 
   useEffect(() => {
     fetchUser();
     setLikes(allPosts.likes);
     checkLikes();
+    const results = lastThreeComments();
+    console.log("comments" + results);
   }, []);
 
   function checkLikes() {
@@ -101,6 +98,18 @@ function SmallPostDetail({ allPosts }) {
     setUser(fetchedUser);
   };
 
+  // const fetchUsersFromComments = async () => {
+  //   const fetchedUser = await getUserById();
+
+  function lastThreeComments() {
+    let lastThree = [];
+    if (allPosts.comments.length > 3) {
+      lastThree = allPosts.comments.slice(allPosts.comments.length - 3);
+      return lastThree;
+    } else {
+      return (lastThree = allPosts.comments);
+    }
+  }
   const updateLikes = async () => {
     if (!userId) {
       navigate("/sign-in");
@@ -122,40 +131,6 @@ function SmallPostDetail({ allPosts }) {
     window.location.reload();
   };
 
-  // const formatTimestamp = (timestamp) => {
-  //   const date = new Date(timestamp);
-  //   const year = date.getFullYear().toString().slice(2);
-  //   const month = date.getMonth();
-  //   const day = date.getDate();
-  //   const hours = date.getHours();
-  //   const minutes = String(date.getMinutes()).padStart(2, "0");
-
-  //   const months = [
-  //     "January",
-  //     "February",
-  //     "March",
-  //     "April",
-  //     "May",
-  //     "June",
-  //     "July",
-  //     "August",
-  //     "September",
-  //     "October",
-  //     "November",
-  //     "December",
-  //   ];
-
-  //   if (hours === 0) {
-  //     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
-  //   } else if (hours < 12) {
-  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
-  //   } else if (hours === 12) {
-  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
-  //   } else {
-  //     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
-  //   }
-  // };
-
   return (
     <div className="my-4">
       <div
@@ -168,12 +143,21 @@ function SmallPostDetail({ allPosts }) {
       >
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center">
-            <Avatar src={mockAvatar} round={true} size="40" />
-            <Typography className="font-black pl-2">
+            {user && user.avatar ? (
+              <Avatar src={user.avatar} round={true} size="40" />
+            ) : null}
+
+            <Typography
+              onClick={() => navigate(`/profile/${allPosts.user}`)}
+              className="font-black pl-2"
+            >
               {user.user_string}
             </Typography>
           </div>
-          <DialogDefault owner={userId === allPosts.user} />
+          <DialogDefault
+            owner={userId === allPosts.user}
+            deletePostById={deletePostById}
+          />
         </div>
         <div className="flex flex-col items-center m-0 p-0">
           <img
@@ -222,10 +206,54 @@ function SmallPostDetail({ allPosts }) {
             {likes} {likes !== 1 ? "likes" : "like"}
           </Typography>
         </div>
-        <div></div>
+        <div className="flex">
+          <Typography className="pl-2 font-black">alantothe</Typography>
+          <Typography className=" pl-2 font-thin">lmaoo</Typography>
+        </div>
+        <div className="flex">
+          <Typography className=" pl-2 font-black">dantothe</Typography>
+          <Typography className=" pl-2 font-thin">good one</Typography>
+        </div>
+        <div className="flex">
+          <Typography className=" pl-2 font-black">alantothe</Typography>
+          <Typography className=" pl-2 font-thin">lmaoo</Typography>
+        </div>
       </div>
     </div>
   );
 }
 
 export default SmallPostDetail;
+// const formatTimestamp = (timestamp) => {
+//   const date = new Date(timestamp);
+//   const year = date.getFullYear().toString().slice(2);
+//   const month = date.getMonth();
+//   const day = date.getDate();
+//   const hours = date.getHours();
+//   const minutes = String(date.getMinutes()).padStart(2, "0");
+
+//   const months = [
+//     "January",
+//     "February",
+//     "March",
+//     "April",
+//     "May",
+//     "June",
+//     "July",
+//     "August",
+//     "September",
+//     "October",
+//     "November",
+//     "December",
+//   ];
+
+//   if (hours === 0) {
+//     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+//   } else if (hours < 12) {
+//     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+//   } else if (hours === 12) {
+//     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+//   } else {
+//     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+//   }
+// };
