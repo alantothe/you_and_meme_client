@@ -23,11 +23,15 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
-export function DialogDefault({ owner }) {
+export function DialogDefault({ owner, deletePostById }) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
 
+  const handleOnClick = () => {
+    deletePostById();
+    setOpen(!open);
+  };
   if (!owner) return null;
 
   return (
@@ -40,8 +44,8 @@ export function DialogDefault({ owner }) {
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>Would you Like to Delete Your Post?</DialogHeader>
         <DialogBody divider>Please Confirm or Cancel</DialogBody>
-        <DialogFooter>
-          <Button variant="gradient" color="red" onClick={handleOpen}>
+        <DialogFooter className="">
+          <Button variant="gradient" color="red" onClick={handleOnClick}>
             <span>Confirm</span>
           </Button>
           <Button
@@ -173,7 +177,10 @@ function SmallPostDetail({ allPosts }) {
               {user.user_string}
             </Typography>
           </div>
-          <DialogDefault owner={userId === allPosts.user} />
+          <DialogDefault
+            owner={userId === allPosts.user}
+            deletePostById={deletePostById}
+          />
         </div>
         <div className="flex flex-col items-center m-0 p-0">
           <img
