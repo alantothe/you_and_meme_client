@@ -45,8 +45,9 @@ function HomePostDetail({ allPosts }) {
   }, []);
 
   function checkLikes() {
-    if (!likesArray) return;
-    else if (likesArray.includes(allPosts.id)) {
+    // if (!likesArray) return;
+    // else
+    if (likesArray.includes(allPosts.id)) {
       setLikesToggle(true);
     } else {
       setLikesToggle(false);
