@@ -19,11 +19,11 @@ import {
   Button,
   Dialog,
   DialogHeader,
-  DialogBody,
+  // DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
 
-export function DialogDefault({ owner }) {
+function DeletePostPopUp({ owner, deletePostById }) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -31,18 +31,27 @@ export function DialogDefault({ owner }) {
   if (!owner) return null;
 
   return (
-    <>
+    <div>
       <EllipsisHorizontalIcon
         className="h-7 w-7 mr-4 text-yellow-400 cursor-pointer"
         strokeWidth={2}
         onClick={handleOpen}
       />
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Would you Like to Delete Your Post?</DialogHeader>
-        <DialogBody divider>Please Confirm or Cancel</DialogBody>
+        <DialogHeader className="flex justify-center">
+          Are you sure you want to delete your post?
+        </DialogHeader>
+        {/* <DialogBody divider>Please Confirm or Cancel</DialogBody> */}
         <DialogFooter>
-          <Button variant="gradient" color="red" onClick={handleOpen}>
-            <span>Confirm</span>
+          <Button
+            variant="gradient"
+            color="red"
+            onClick={() => {
+              handleOpen();
+              deletePostById();
+            }}
+          >
+            Confirm
           </Button>
           <Button
             variant="text"
@@ -50,11 +59,11 @@ export function DialogDefault({ owner }) {
             onClick={handleOpen}
             className="mr-1"
           >
-            <span>Cancel</span>
+            Cancel
           </Button>
         </DialogFooter>
       </Dialog>
-    </>
+    </div>
   );
 }
 
@@ -89,7 +98,8 @@ function SmallPostDetail({ allPosts }) {
   }, []);
 
   function checkLikes() {
-    if (likesArray.includes(allPosts.id)) {
+    if (!likesArray) return;
+    else if (likesArray.includes(allPosts.id)) {
       setLikesToggle(true);
     } else {
       setLikesToggle(false);
@@ -173,7 +183,10 @@ function SmallPostDetail({ allPosts }) {
               {user.user_string}
             </Typography>
           </div>
-          <DialogDefault owner={userId === allPosts.user} />
+          <DeletePostPopUp
+            owner={userId === allPosts.user}
+            deletePostById={deletePostById}
+          />
         </div>
         <div className="flex flex-col items-center m-0 p-0">
           <img
@@ -222,7 +235,6 @@ function SmallPostDetail({ allPosts }) {
             {likes} {likes !== 1 ? "likes" : "like"}
           </Typography>
         </div>
-        <div></div>
       </div>
     </div>
   );
