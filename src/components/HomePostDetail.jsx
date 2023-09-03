@@ -32,7 +32,8 @@ function HomePostDetail({ allPosts }) {
   const [likes, setLikes] = useState(0);
   const [likesToggle, setLikesToggle] = useState();
   const userId = useSelector((state) => state.user.userId);
-  console.log(user);
+  const [avatar, setAvatar] = useState("");
+  console.log(user.avatar);
 
   const mockAvatar =
     "https://res.cloudinary.com/dzjr3skhe/image/upload/v1693696048/yl6pdqk1fohrh920j5mq.png";
@@ -49,8 +50,6 @@ function HomePostDetail({ allPosts }) {
   }, []);
 
   function checkLikes() {
-    // if (!likesArray) return;
-    // else
     if (likesArray.includes(allPosts.id)) {
       setLikesToggle(true);
     } else {
@@ -93,40 +92,6 @@ function HomePostDetail({ allPosts }) {
     navigate(`/profile/${allPosts.user}`);
   };
 
-  // const formatTimestamp = (timestamp) => {
-  //   const date = new Date(timestamp);
-  //   const year = date.getFullYear().toString().slice(2);
-  //   const month = date.getMonth();
-  //   const day = date.getDate();
-  //   const hours = date.getHours();
-  //   const minutes = String(date.getMinutes()).padStart(2, "0");
-
-  //   const months = [
-  //     "January",
-  //     "February",
-  //     "March",
-  //     "April",
-  //     "May",
-  //     "June",
-  //     "July",
-  //     "August",
-  //     "September",
-  //     "October",
-  //     "November",
-  //     "December",
-  //   ];
-
-  //   if (hours === 0) {
-  //     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
-  //   } else if (hours < 12) {
-  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
-  //   } else if (hours === 12) {
-  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
-  //   } else {
-  //     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
-  //   }
-  // };
-
   return (
     <div className="my-4">
       <div
@@ -139,12 +104,10 @@ function HomePostDetail({ allPosts }) {
       >
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center cursor-pointer">
-            <Avatar
-              src={mockAvatar}
-              round={true}
-              size="40"
-              onClick={navToProfile}
-            />
+            {user && user.avatar ? (
+              <Avatar src={user.avatar} round={true} size="40" />
+            ) : null}
+
             <Typography className="font-black pl-2" onClick={navToProfile}>
               {user.user_string}
             </Typography>
@@ -203,3 +166,37 @@ function HomePostDetail({ allPosts }) {
 }
 
 export default HomePostDetail;
+
+// const formatTimestamp = (timestamp) => {
+//   const date = new Date(timestamp);
+//   const year = date.getFullYear().toString().slice(2);
+//   const month = date.getMonth();
+//   const day = date.getDate();
+//   const hours = date.getHours();
+//   const minutes = String(date.getMinutes()).padStart(2, "0");
+
+//   const months = [
+//     "January",
+//     "February",
+//     "March",
+//     "April",
+//     "May",
+//     "June",
+//     "July",
+//     "August",
+//     "September",
+//     "October",
+//     "November",
+//     "December",
+//   ];
+
+//   if (hours === 0) {
+//     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+//   } else if (hours < 12) {
+//     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+//   } else if (hours === 12) {
+//     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+//   } else {
+//     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+//   }
+// };
