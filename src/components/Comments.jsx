@@ -3,6 +3,7 @@ import Avatar, { genConfig } from "react-nice-avatar";
 import { getUserById } from "../api/users.js";
 import { deleteComment } from "../api/comments.js";
 import { useSelector } from "react-redux";
+import { Typography } from "@material-tailwind/react";
 
 function Comments({ comment }) {
   const avatarIdentifier = comment.email || comment.id;
@@ -15,11 +16,12 @@ function Comments({ comment }) {
   useEffect(() => {
     fetchUsername();
   }, []);
-  async function fetchUsername() {
+
+  const fetchUsername = async () => {
     const userId = await getUserById(comment.user);
     setUser(userId);
-  }
-  console.log(comment);
+  };
+
   const deleteCommentById = async () => {
     await deleteComment(comment.id);
     window.location.reload();
@@ -60,18 +62,22 @@ function Comments({ comment }) {
   };
 
   return (
-    <div className="mt-4">
+    <div className="mt-4" style={{ width: "480px" }}>
       <div className="flex justify-between">
         <div className="flex items-center">
           <Avatar className="w-8 h-8 mr-2" {...config} />
-          <h1 className="text-yellow-400">{user ? user.user_string : null}</h1>
+          <Typography className="text-yellow-400">
+            {user.user_string}
+          </Typography>
         </div>
         {userId === comment.user ? (
           <button onClick={deleteCommentById}>X</button>
         ) : null}
       </div>
-      <p className="text-white">{comment.body}</p>
-      <p className="text-yellow-400">{formatTimestamp(comment.updated_at)}</p>
+      <Typography className="text-white ml-10">{comment.body}</Typography>
+      <Typography variant="small" className="text-yellow-400 text-right">
+        {formatTimestamp(comment.updated_at)}
+      </Typography>
     </div>
   );
 }
