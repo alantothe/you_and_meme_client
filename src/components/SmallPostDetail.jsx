@@ -3,14 +3,67 @@ import { useNavigate } from "react-router-dom";
 import { getUserById } from "../api/users.js";
 import { updatePostByLikes, deletePost } from "../api/posts.js";
 import { Typography } from "@material-tailwind/react";
-import { HeartIcon } from "@heroicons/react/24/outline";
+import {
+  HeartIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
+  PaperAirplaneIcon,
+  EllipsisHorizontalIcon,
+} from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import "./styles.css";
 import { addLike, removeLike } from "../redux/features/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
+import Avatar from "react-avatar";
+
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
+
+export function DialogDefault({ owner }) {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(!open);
+
+  if (!owner) return null;
+
+  return (
+    <>
+      <EllipsisHorizontalIcon
+        className="h-7 w-7 mr-4 text-yellow-400 cursor-pointer"
+        strokeWidth={2}
+        onClick={handleOpen}
+      />
+      <Dialog open={open} handler={handleOpen}>
+        <DialogHeader>Would you Like to Delete Your Post?</DialogHeader>
+        <DialogBody divider>Please Confirm or Cancel</DialogBody>
+        <DialogFooter>
+          <Button variant="gradient" color="red" onClick={handleOpen}>
+            <span>Confirm</span>
+          </Button>
+          <Button
+            variant="text"
+            color="black"
+            onClick={handleOpen}
+            className="mr-1"
+          >
+            <span>Cancel</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
+    </>
+  );
+}
+
 function SmallPostDetail({ allPosts }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  console.log(allPosts);
+  const [open, setOpen] = useState(false);
+  const toggleIsOpen = () => setOpen((cur) => !cur);
 
   const likesArray = useSelector((state) => state.user.likes);
   console.log(likesArray);
@@ -19,7 +72,15 @@ function SmallPostDetail({ allPosts }) {
   const [likes, setLikes] = useState(0);
   const [likesToggle, setLikesToggle] = useState();
   const userId = useSelector((state) => state.user.userId);
-  console.log(userId);
+  console.log(user);
+
+  const mockAvatar =
+    "https://res.cloudinary.com/dzjr3skhe/image/upload/v1693696048/yl6pdqk1fohrh920j5mq.png";
+
+  // this is  fake but will be real later
+  //user.avatar = "";
+  //{user.avatar} will be placed next to user.user_string
+  //<img src={user.avatar} alt="user avatar" className="w-10 h-10 rounded-full" />
 
   useEffect(() => {
     fetchUser();
@@ -61,83 +122,107 @@ function SmallPostDetail({ allPosts }) {
     window.location.reload();
   };
 
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    const year = date.getFullYear().toString().slice(2);
-    const month = date.getMonth();
-    const day = date.getDate();
-    const hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, "0");
+  // const formatTimestamp = (timestamp) => {
+  //   const date = new Date(timestamp);
+  //   const year = date.getFullYear().toString().slice(2);
+  //   const month = date.getMonth();
+  //   const day = date.getDate();
+  //   const hours = date.getHours();
+  //   const minutes = String(date.getMinutes()).padStart(2, "0");
 
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
+  //   const months = [
+  //     "January",
+  //     "February",
+  //     "March",
+  //     "April",
+  //     "May",
+  //     "June",
+  //     "July",
+  //     "August",
+  //     "September",
+  //     "October",
+  //     "November",
+  //     "December",
+  //   ];
 
-    if (hours === 0) {
-      return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
-    } else if (hours < 12) {
-      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
-    } else if (hours === 12) {
-      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
-    } else {
-      return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
-    }
-  };
+  //   if (hours === 0) {
+  //     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+  //   } else if (hours < 12) {
+  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+  //   } else if (hours === 12) {
+  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+  //   } else {
+  //     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+  //   }
+  // };
 
   return (
     <div className="my-4">
-      <div className="flex justify-between items-center px-4">
-        <Typography>{user.user_string}</Typography>
-        {userId === allPosts.user ? (
-          <button className="text-meme-teal" onClick={deletePostById}>
-            X
-          </button>
-        ) : null}
-      </div>
-
       <div
-        className="w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto"
+        className="w-80 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-gray-700 border-2 xs:w-screen overflow-hidden"
         style={{
+          width: "600px",
           boxShadow:
             "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
         }}
-        onClick={() => {
-          navigate(`/meme-detail-page/${allPosts.id}`);
-        }}
       >
-        <div className="flex flex-col items-center justify-around h-full w-full">
-          <img className="object-contain w-full h-full" src={allPosts.meme} />
+        <div className="flex justify-between items-center pl-2 py-3">
+          <div className="flex items-center">
+            <Avatar src={mockAvatar} round={true} size="40" />
+            <Typography className="font-black pl-2">
+              {user.user_string}
+            </Typography>
+          </div>
+          <DialogDefault owner={userId === allPosts.user} />
         </div>
-      </div>
-      <div className="px-4 flex justify-between items-center">
-        <div className="flex items-center">
-          {!likesToggle
-            ? createElement(HeartIcon, {
-                className: "h-5 w-5 mr-2 text-yellow-400 cursor-pointer",
-                strokeWidth: 2,
-                onClick: updateLikes,
-              })
-            : createElement(HeartIconSolid, {
-                className: "h-5 w-5 mr-2 text-red-500 cursor-pointer",
-                strokeWidth: 2,
-                onClick: updateLikes,
-              })}
-          <Typography>
+        <div className="flex flex-col items-center m-0 p-0">
+          <img
+            className="m-0 p-0"
+            src={allPosts.meme}
+            style={{
+              width: "600px",
+              height: "auto", // Keep aspect ratio
+              objectFit: "contain",
+            }}
+            onClick={() => {
+              navigate(`/meme-detail-page/${allPosts.id}`);
+            }}
+          />
+        </div>
+        <div className="px-4 flex justify-between items-center">
+          <div className="flex items-center py-5 ">
+            {!likesToggle
+              ? createElement(HeartIcon, {
+                  className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+                  strokeWidth: 2,
+                  onClick: updateLikes,
+                })
+              : createElement(HeartIconSolid, {
+                  className: "h-7 w-7 mr-2 text-red-500 cursor-pointer",
+                  strokeWidth: 2,
+                  onClick: updateLikes,
+                })}
+            {createElement(ChatBubbleOvalLeftEllipsisIcon, {
+              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+              strokeWidth: 2,
+              onClick: () => {
+                navigate(`/meme-detail-page/${allPosts.id}`);
+              },
+            })}
+            {createElement(PaperAirplaneIcon, {
+              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+              strokeWidth: 2,
+              onClick: () => {
+                navigate("/development");
+              },
+            })}
+          </div>
+          {/* <Typography>{formatTimestamp(allPosts.created)}</Typography> */}
+          <Typography className="font-black">
             {likes} {likes !== 1 ? "likes" : "like"}
           </Typography>
         </div>
-        <Typography>{formatTimestamp(allPosts.created)}</Typography>
+        <div></div>
       </div>
     </div>
   );

@@ -1,28 +1,43 @@
-import React, { useState } from 'react';
-
-const mockdata = {
-  username: "danish", 
-  email: "danish@gmail.com",
-  password: "danish123"
-}
+import React, { useState, useEffect } from 'react';
+import {
+  Card,
+  Checkbox,
+  Button,
+  Typography,
+} from "@material-tailwind/react";
  
-const AccountSettingsPage = () => { 
-  const [username, setUsername] = useState(mockdata.username);
-  const [email, setEmail] = useState(mockdata.email);
-  const [currentPassword, setCurrentPassword] = useState('mockdata.Password');
-  const [newPassword, setNewPassword] = useState('');
+const AccountSettingsPage = ({user}) => { 
+
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
+  const [passwordMatch, setPasswordMatch] = useState(true);
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-  
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+  const [userData, setUserData] = useState({
+    username: '',
+    email: '',
+    password: ''
+  })
 
-  const handleNewPasswordChange = (event) => {
-    setNewPassword(event.target.value);
+  useEffect(() => {
+    if (user) {
+      setUserData({
+        username: user.username || '',
+        email: user.email || '',
+        password: user.password || ''
+      });
+    }
+  }, [user]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setUserData({
+      ...userData,
+      [name]: value,
+    })
+  }
+
+  const handlePasswordConfirmationChange = (event) => {
+    setPasswordConfirmation(event.target.value);
   };
 
   const handleEditClick = () => {
@@ -30,52 +45,53 @@ const AccountSettingsPage = () => {
   };
 
   const handleUpdateClick = () => {
-    setIsEditMode(false);
-    console.log('Updated:', { username, email, newPassword });
+    console.log('Updated:', userData.username, userData.email, userData.password)
+    if (userData.password === passwordConfirmation) {
+      setIsEditMode(false);
+      setPasswordMatch(true);
+      user = {
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+      }
+    } else {
+      setPasswordMatch(false);
+    }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-red-600">
-  
-      <div className="bg-blue-400 p-6 rounded-lg shadow-md w-2/3">
-        <div className="text-center">
-          <h1 className="text-5xl font-bold mb-4 mt-8">Account Settings</h1>
-          <div className="grid grid-cols-2 gap-4 text-2xl">
-            <div className="flex items-center justify-end">Username:</div>
-            <div className="flex items-center">
-              {isEditMode ? (
-                <input type="text" value={username} onChange={handleUsernameChange} />
+    <>
+    <Card color="bg-gray-600" shadow={false}>
+    <Typography variant="h4" color="white">
+      Account Settings
+    </Typography>
+    <form className="mt-8 mb-2 w-80 w-screen">
+          <div className="flex flex-col gap-6 flex justify-center items-center bg-gray-600">
+            <label htmlFor='username'>Username</label>
+            {isEditMode ? (
+                <input type="text" value={userData.username} name="username" onChange={handleChange} />
               ) : (
-                <span>{username}</span> 
-              )}
-            </div>
-            <div className="flex items-center justify-end">Email:</div>
-            <div className="flex items-center">
-              {isEditMode ? (
-                <input type="email" value={email} onChange={handleEmailChange} />
+                <span>{userData.username}</span> 
+            )}
+            <label htmlFor='email'>Email</label>
+            {isEditMode ? (
+                <input type="email" value={userData.email} name="email" onChange={handleChange} />
               ) : (
-                <span>{email}</span> 
-              )}
-            </div>
-            <div className="flex items-center justify-end">Current Password:</div>
-            <div className="flex items-center">
-              {isEditMode ? (
-                <input type="password" value={currentPassword} disabled />
-              ) : (
-                <span>********</span> 
-              )}
-            </div>
+                <span>{userData.email}</span> 
+            )}
             {isEditMode && (
               <>
-                <div className="flex items-center justify-end">New Password:</div>
+                <label htmlFor='password'>Password</label>
                 <div className="flex items-center">
-                  <input type="password" value={newPassword} onChange={handleNewPasswordChange} />
+                    <input type="password" value={userData.password} name="password" onChange={handleChange} />
+                </div>  
+                <label htmlFor='confirm-password'>Confirm Password</label>
+                <div className="flex items-center">
+                  <input type="password" value={passwordConfirmation} name="confirm-password" onChange={handlePasswordConfirmationChange} />
                 </div>
               </>
             )}
-          </div>
-          
-          {isEditMode ? (
+            {isEditMode ? (
             <div className="mt-4">
               <button className="px-4 py-2 mr-2 bg-blue-700 text-white rounded" onClick={handleUpdateClick}>Update</button>
               <button className="px-4 py-2 bg-gray-300 rounded" onClick={() => setIsEditMode(false)}>Cancel</button>
@@ -83,9 +99,10 @@ const AccountSettingsPage = () => {
           ) : (
             <button className="px-4 py-2 bg-green-700 text-white rounded" onClick={handleEditClick}>Edit</button>
           )}
-        </div>
       </div>
-    </div>
+    </form>
+  </Card>
+    </>
   );
 };
 

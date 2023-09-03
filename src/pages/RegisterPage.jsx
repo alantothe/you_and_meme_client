@@ -3,18 +3,43 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Button, Typography } from "@material-tailwind/react";
 import { registerUser } from "../api/users";
+import { useDropzone } from "react-dropzone";
+import Avatar from "react-avatar";
 
 function RegisterPage() {
   const navigate = useNavigate();
-
+  const [avatarURL, setAvatarURL] = useState(null);
+  const [passwordMatch, setPasswordMatch] = useState(true);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
-    passwordConfirmation: "", // I don't think we need this in formData, just a check that password === passwordConfirmation
+    passwordConfirmation: "",
   });
 
-  const [passwordMatch, setPasswordMatch] = useState(true);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: "image/*",
+    onDrop: async (acceptedFiles) => {
+      // Upload to Cloudinary
+      const formData = new FormData();
+      formData.append("file", acceptedFiles[0]);
+      formData.append("upload_preset", "fzfav2ym");
+
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/dzjr3skhe/image/upload`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+        setAvatarURL(data.secure_url);
+      } catch (error) {
+        console.error("Error uploading the image:", error);
+      }
+    },
+  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -28,12 +53,12 @@ function RegisterPage() {
     event.preventDefault();
 
     if (formData.password === formData.passwordConfirmation) {
-      // Passwords match, proceed with registration
       setPasswordMatch(true);
       const passedFormData = {
         username: formData.username,
         email: formData.email,
         password: formData.password,
+        avatar: avatarURL, // Add the avatarURL here
       };
       console.log("Form submitted:", passedFormData);
       registerUser(passedFormData);
@@ -44,10 +69,7 @@ function RegisterPage() {
   };
 
   return (
-    <div
-      className="flex justify-center items-center bg-gray-600"
-      style={{ height: "91vh" }}
-    >
+    <div className="flex justify-center items-center bg-gray-600">
       <Card color="transparent" shadow={false}>
         <Typography className="mb-2 text-2xl" variant="h4" color="blue-gray">
           Sign Up
@@ -125,6 +147,28 @@ function RegisterPage() {
               onChange={handleChange}
               required
             />
+
+            <label className="text-gray-100 font-bold">
+              Upload your avatar:
+            </label>
+            <div
+              {...getRootProps()}
+              className={`dropzone ${
+                isDragActive ? "dropzoneActive" : ""
+              } border-2 border-teal-500 rounded-md bg-teal-50 p-2 text-center`}
+            >
+              <input {...getInputProps()} />
+              {isDragActive ? (
+                <p>Drop the files here ...</p>
+              ) : (
+                <p>Drag and drop some files here, or click to select files</p>
+              )}
+            </div>
+            {avatarURL && (
+              <div className="mt-4">
+                <Avatar src={avatarURL} round={true} size="100" />
+              </div>
+            )}
           </div>
 
           <Button
