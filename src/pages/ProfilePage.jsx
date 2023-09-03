@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getPostsByUser, getUserById } from "../api/users.js";
-import { deletePost } from "../api/posts.js";
-import SmallPostDetail from "../components/SmallPostDetail.jsx";
+import ProfilePostDetail from "../components/ProfilePostDetail.jsx";
 import { Avatar, Typography } from "@material-tailwind/react";
 
 function ProfilePage() {
@@ -48,7 +47,7 @@ function ProfilePage() {
         <div className="flex flex-wrap px-48 items-center justify-center">
           {allPosts.map((post, index) => (
             <div>
-              <SmallPostDetail allPosts={post} key={index} />
+              <ProfilePostDetail allPosts={post} key={index} />
             </div>
           ))}
         </div>

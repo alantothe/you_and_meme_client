@@ -1,6 +1,10 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserById } from "../api/users.js";
+import {
+  getUserById,
+  addUserLikedPosts,
+  removeUserLikedPosts,
+} from "../api/users.js";
 import { updatePostByLikes, deletePost } from "../api/posts.js";
 import { Typography } from "@material-tailwind/react";
 import {
@@ -19,34 +23,39 @@ import {
   Button,
   Dialog,
   DialogHeader,
-  DialogBody,
+  // DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
 
-export function DialogDefault({ owner, deletePostById }) {
+function DeletePostPopUp({ owner, deletePostById }) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
 
-  const handleOnClick = () => {
-    deletePostById();
-    setOpen(!open);
-  };
   if (!owner) return null;
 
   return (
-    <>
+    <div>
       <EllipsisHorizontalIcon
         className="h-7 w-7 mr-4 text-yellow-400 cursor-pointer"
         strokeWidth={2}
         onClick={handleOpen}
       />
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Would you Like to Delete Your Post?</DialogHeader>
-        <DialogBody divider>Please Confirm or Cancel</DialogBody>
-        <DialogFooter className="">
-          <Button variant="gradient" color="red" onClick={handleOnClick}>
-            <span>Confirm</span>
+        <DialogHeader className="flex justify-center">
+          Are you sure you want to delete your post?
+        </DialogHeader>
+        {/* <DialogBody divider>Please Confirm or Cancel</DialogBody> */}
+        <DialogFooter>
+          <Button
+            variant="gradient"
+            color="red"
+            onClick={() => {
+              handleOpen();
+              deletePostById();
+            }}
+          >
+            Confirm
           </Button>
           <Button
             variant="text"
@@ -54,38 +63,47 @@ export function DialogDefault({ owner, deletePostById }) {
             onClick={handleOpen}
             className="mr-1"
           >
-            <span>Cancel</span>
+            Cancel
           </Button>
         </DialogFooter>
       </Dialog>
-    </>
+    </div>
   );
 }
 
-function SmallPostDetail({ allPosts }) {
+function ProfilePostDetail({ allPosts }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(allPosts.comments);
+  console.log(allPosts);
   const [open, setOpen] = useState(false);
   const toggleIsOpen = () => setOpen((cur) => !cur);
 
   const likesArray = useSelector((state) => state.user.likes);
+  console.log(likesArray);
 
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
-  const [avatar, setAvatar] = useState("");
   const [likesToggle, setLikesToggle] = useState();
   const userId = useSelector((state) => state.user.userId);
+  console.log(user);
+
+  const mockAvatar =
+    "https://res.cloudinary.com/dzjr3skhe/image/upload/v1693696048/yl6pdqk1fohrh920j5mq.png";
+
+  // this is  fake but will be real later
+  //user.avatar = "";
+  //{user.avatar} will be placed next to user.user_string
+  //<img src={user.avatar} alt="user avatar" className="w-10 h-10 rounded-full" />
 
   useEffect(() => {
     fetchUser();
     setLikes(allPosts.likes);
     checkLikes();
-    const results = lastThreeComments();
-    console.log("comments" + results);
   }, []);
 
   function checkLikes() {
+    // if (!likesArray) return;
+    // else
     if (likesArray.includes(allPosts.id)) {
       setLikesToggle(true);
     } else {
@@ -98,18 +116,6 @@ function SmallPostDetail({ allPosts }) {
     setUser(fetchedUser);
   };
 
-  // const fetchUsersFromComments = async () => {
-  //   const fetchedUser = await getUserById();
-
-  function lastThreeComments() {
-    let lastThree = [];
-    if (allPosts.comments.length > 3) {
-      lastThree = allPosts.comments.slice(allPosts.comments.length - 3);
-      return lastThree;
-    } else {
-      return (lastThree = allPosts.comments);
-    }
-  }
   const updateLikes = async () => {
     if (!userId) {
       navigate("/sign-in");
@@ -118,11 +124,13 @@ function SmallPostDetail({ allPosts }) {
       setLikes(likes + 1);
       setLikesToggle(true);
       dispatch(addLike(allPosts.id));
+      addToLikedPosts();
     } else {
       await updatePostByLikes(allPosts.id, likes - 1);
       setLikes(likes - 1);
       setLikesToggle(false);
       dispatch(removeLike(allPosts.id));
+      removeFromLikedPosts();
     }
   };
 
@@ -131,10 +139,52 @@ function SmallPostDetail({ allPosts }) {
     window.location.reload();
   };
 
+  const addToLikedPosts = async () => {
+    await addUserLikedPosts(userId, allPosts.id);
+  };
+
+  const removeFromLikedPosts = async () => {
+    await removeUserLikedPosts(userId, allPosts.id);
+  };
+
+  // const formatTimestamp = (timestamp) => {
+  //   const date = new Date(timestamp);
+  //   const year = date.getFullYear().toString().slice(2);
+  //   const month = date.getMonth();
+  //   const day = date.getDate();
+  //   const hours = date.getHours();
+  //   const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  //   const months = [
+  //     "January",
+  //     "February",
+  //     "March",
+  //     "April",
+  //     "May",
+  //     "June",
+  //     "July",
+  //     "August",
+  //     "September",
+  //     "October",
+  //     "November",
+  //     "December",
+  //   ];
+
+  //   if (hours === 0) {
+  //     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+  //   } else if (hours < 12) {
+  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+  //   } else if (hours === 12) {
+  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+  //   } else {
+  //     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+  //   }
+  // };
+
   return (
     <div className="my-4">
       <div
-        className="w-80 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-gray-700 border-2 xs:w-screen overflow-hidden"
+        className="w-80 mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
         style={{
           width: "600px",
           boxShadow:
@@ -143,18 +193,12 @@ function SmallPostDetail({ allPosts }) {
       >
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center">
-            {user && user.avatar ? (
-              <Avatar src={user.avatar} round={true} size="40" />
-            ) : null}
-
-            <Typography
-              onClick={() => navigate(`/profile/${allPosts.user}`)}
-              className="font-black pl-2"
-            >
+            <Avatar src={mockAvatar} round={true} size="40" />
+            <Typography className="font-black pl-2">
               {user.user_string}
             </Typography>
           </div>
-          <DialogDefault
+          <DeletePostPopUp
             owner={userId === allPosts.user}
             deletePostById={deletePostById}
           />
@@ -206,54 +250,9 @@ function SmallPostDetail({ allPosts }) {
             {likes} {likes !== 1 ? "likes" : "like"}
           </Typography>
         </div>
-        <div className="flex">
-          <Typography className="pl-2 font-black">alantothe</Typography>
-          <Typography className=" pl-2 font-thin">lmaoo</Typography>
-        </div>
-        <div className="flex">
-          <Typography className=" pl-2 font-black">dantothe</Typography>
-          <Typography className=" pl-2 font-thin">good one</Typography>
-        </div>
-        <div className="flex">
-          <Typography className=" pl-2 font-black">alantothe</Typography>
-          <Typography className=" pl-2 font-thin">lmaoo</Typography>
-        </div>
       </div>
     </div>
   );
 }
 
-export default SmallPostDetail;
-// const formatTimestamp = (timestamp) => {
-//   const date = new Date(timestamp);
-//   const year = date.getFullYear().toString().slice(2);
-//   const month = date.getMonth();
-//   const day = date.getDate();
-//   const hours = date.getHours();
-//   const minutes = String(date.getMinutes()).padStart(2, "0");
-
-//   const months = [
-//     "January",
-//     "February",
-//     "March",
-//     "April",
-//     "May",
-//     "June",
-//     "July",
-//     "August",
-//     "September",
-//     "October",
-//     "November",
-//     "December",
-//   ];
-
-//   if (hours === 0) {
-//     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
-//   } else if (hours < 12) {
-//     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
-//   } else if (hours === 12) {
-//     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
-//   } else {
-//     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
-//   }
-// };
+export default ProfilePostDetail;
