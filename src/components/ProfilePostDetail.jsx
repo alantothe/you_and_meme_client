@@ -67,7 +67,7 @@ function DeletePostPopUp({ owner, deletePostById }) {
   );
 }
 
-function SmallPostDetail({ allPosts }) {
+function ProfilePostDetail({ allPosts }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   console.log(allPosts);
@@ -169,7 +169,7 @@ function SmallPostDetail({ allPosts }) {
   return (
     <div className="my-4">
       <div
-        className="w-80 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-gray-700 border-2 xs:w-screen overflow-hidden"
+        className="w-80 mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
         style={{
           width: "600px",
           boxShadow:
@@ -240,4 +240,4 @@ function SmallPostDetail({ allPosts }) {
   );
 }
 
-export default SmallPostDetail;
+export default ProfilePostDetail;
