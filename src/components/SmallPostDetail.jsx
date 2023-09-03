@@ -65,12 +65,11 @@ export function DialogDefault({ owner, deletePostById }) {
 function SmallPostDetail({ allPosts }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(allPosts);
+  console.log(allPosts.comments);
   const [open, setOpen] = useState(false);
   const toggleIsOpen = () => setOpen((cur) => !cur);
 
   const likesArray = useSelector((state) => state.user.likes);
-  console.log(likesArray);
 
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
@@ -82,6 +81,8 @@ function SmallPostDetail({ allPosts }) {
     fetchUser();
     setLikes(allPosts.likes);
     checkLikes();
+    const results = lastThreeComments();
+    console.log("comments" + results);
   }, []);
 
   function checkLikes() {
@@ -95,9 +96,20 @@ function SmallPostDetail({ allPosts }) {
   const fetchUser = async () => {
     const fetchedUser = await getUserById(allPosts.user);
     setUser(fetchedUser);
-    console.log(fetchedUser);
   };
 
+  // const fetchUsersFromComments = async () => {
+  //   const fetchedUser = await getUserById();
+
+  function lastThreeComments() {
+    let lastThree = [];
+    if (allPosts.comments.length > 3) {
+      lastThree = allPosts.comments.slice(allPosts.comments.length - 3);
+      return lastThree;
+    } else {
+      return (lastThree = allPosts.comments);
+    }
+  }
   const updateLikes = async () => {
     if (!userId) {
       navigate("/sign-in");
@@ -194,7 +206,18 @@ function SmallPostDetail({ allPosts }) {
             {likes} {likes !== 1 ? "likes" : "like"}
           </Typography>
         </div>
-        <div></div>
+        <div className="flex">
+          <Typography className="pl-2 font-black">alantothe</Typography>
+          <Typography className=" pl-2 font-thin">lmaoo</Typography>
+        </div>
+        <div className="flex">
+          <Typography className=" pl-2 font-black">dantothe</Typography>
+          <Typography className=" pl-2 font-thin">good one</Typography>
+        </div>
+        <div className="flex">
+          <Typography className=" pl-2 font-black">alantothe</Typography>
+          <Typography className=" pl-2 font-thin">lmaoo</Typography>
+        </div>
       </div>
     </div>
   );

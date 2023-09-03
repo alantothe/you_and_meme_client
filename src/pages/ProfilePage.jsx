@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getPostsByUser, getUserById } from "../api/users.js";
 import { deletePost } from "../api/posts.js";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
-import { Typography } from "@material-tailwind/react";
+import { Avatar, Typography } from "@material-tailwind/react";
 
 function ProfilePage() {
   const { profileId } = useParams();
@@ -39,9 +39,10 @@ function ProfilePage() {
       className="flex flex-col items-center text-yellow-400"
       style={{ background: "rgb(45, 45, 45)" }}
     >
-      <Typography className="text-6xl my-4">
-        {user.user_string}'s page
-      </Typography>
+      <div className="flex">
+        <Avatar src={user.avatar} round={true} size="40" />
+        <Typography className="text-6xl my-4">{user.user_string}</Typography>
+      </div>
       <p>a bio</p>
       <div className="flex justify-center">
         <div className="flex flex-wrap px-48 items-center justify-center">
