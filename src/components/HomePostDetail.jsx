@@ -1,6 +1,10 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserById, updateUserLikedPosts } from "../api/users.js";
+import {
+  getUserById,
+  addUserLikedPosts,
+  removeUserLikedPosts,
+} from "../api/users.js";
 import { updatePostByLikes } from "../api/posts.js";
 import { Typography } from "@material-tailwind/react";
 import {
@@ -73,16 +77,17 @@ function HomePostDetail({ allPosts }) {
       setLikes(likes - 1);
       setLikesToggle(false);
       dispatch(removeLike(allPosts.id));
+      removeFromLikedPosts();
     }
   };
 
   const addToLikedPosts = async () => {
-    await updateUserLikedPosts(userId, allPosts.id);
+    await addUserLikedPosts(userId, allPosts.id);
   };
 
-  // const removeFromLikedPosts = async () => {
-  //   await updateUserLikedPosts(userId, [allPosts.id]);
-  // };
+  const removeFromLikedPosts = async () => {
+    await removeUserLikedPosts(userId, allPosts.id);
+  };
 
   const navToProfile = () => {
     navigate(`/profile/${allPosts.user}`);

@@ -60,10 +60,21 @@ export const getPostsByUser = async (id) => {
   }
 };
 
-export const updateUserLikedPosts = async (id, likedPosts) => {
+export const addUserLikedPosts = async (id, likedPosts) => {
   try {
     const response = await api.put(`/users/${id}/add_to_liked_posts/`, {
       likedPosts: [likedPosts],
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const removeUserLikedPosts = async (id, likedPosts) => {
+  try {
+    const response = await api.put(`/users/${id}/remove_from_liked_posts/`, {
+      likedPosts: likedPosts,
     });
     return response.data;
   } catch (error) {
