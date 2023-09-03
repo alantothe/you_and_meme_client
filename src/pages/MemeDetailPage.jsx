@@ -1,17 +1,42 @@
-// import React from "react";
-// import DetailComponent from "../components/DetailComponent.jsx";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { getPostById } from "../api/posts.js";
+import Comments from "../components/Comments";
+import CommentInput from "../components/CommentInput";
 
+function MemeDetailPage() {
+  const [post, setPost] = useState({});
+  const [comments, setComments] = useState([]);
+  const { postId } = useParams();
 
+  useEffect(() => {
+    getPost();
+  }, []);
 
-// function MemeDetailPage() {
+  async function getPost() {
+    const fetchedPost = await getPostById(postId);
+    setPost(fetchedPost);
+    const allComments = fetchedPost.comments;
+    setComments(allComments);
+    console.log(comments);
+  }
 
+  return (
+    <div className="flex flex-col justify-center mx-auto p-4 items-center">
+      <div className="mb-4 px-44">
+        <img src={post.meme} alt="meme-photo" />
+      </div>
+      <div>
+        <CommentInput postId={postId} />
+      </div>
+      {comments.map((comment, index) => (
+        <div key={comment.id}>
+          {" "}
+          <Comments comment={comment} key={index} />
+        </div>
+      ))}
+    </div>
+  );
+}
 
-// //   return (
-// //     <div>
-// //       <h1>Meme Detail Page</h1>
-// //       <DetailComponent onePost={onePost} comments={comments} />
-// //     </div>
-// //   );
-// // }
-
-// export default MemeDetailPage;
+export default MemeDetailPage;

@@ -25,23 +25,21 @@ import {
   PlusSmallIcon,
 } from "@heroicons/react/24/outline";
 
-//dropdown menu
+// Dropdown menu
 function AccountMenu({ user, handleLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
-
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen}>
       <MenuHandler>
         <Button
           variant="text"
-          className="flex items-center gap-1 rounded-full"
-          style={{ color: "teal-400" }}
+          className="flex items-center gap-1 rounded-full hover:bg-meme-teal"
         >
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "green" : "teal-400",
+              color: user ? "#8d8d8d" : "#565656",
             },
           })}
 
@@ -50,12 +48,9 @@ function AccountMenu({ user, handleLogOut }) {
             className={`h-3 w-3 transition-transform ${
               isMenuOpen ? "rotate-180" : ""
             }`}
-
-            // style={{
-            //   color: user ? "green" : "teal-400"
-            //   color: user ? "green" : "rgb(209, 189, 4)",
-            // }}
-
+            style={{
+              color: user ? "#8d8d8d" : "#565656",
+            }}
           />
         </Button>
       </MenuHandler>
@@ -78,7 +73,7 @@ function AccountMenu({ user, handleLogOut }) {
         )}
 
         {user && (
-          <Typography as="a" href="/development">
+          <Typography as="a" href="/account-settings">
             <MenuItem
               onClick={closeMenu}
               className={"flex items-center gap-2 rounded"}
@@ -117,7 +112,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "#d1bd04" }}
+            style={{ color: "rgb(209, 189, 4)" }}
           >
             {createElement(PowerIcon, {
               className: "h-4 w-4",
@@ -131,8 +126,9 @@ function AccountMenu({ user, handleLogOut }) {
   );
 }
 
-// Creates favorites and add post icons
+// Creates add post icon
 function NavList({ user, handleLogOut }) {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-row items-center justify-end">
       {/* <Typography
@@ -140,7 +136,7 @@ function NavList({ user, handleLogOut }) {
         href="/favorites"
         variant="small"
         className="font-normal"
-      >
+        >
         <MenuItem
           className="flex items-center gap-2 rounded-full"
           style={{ color: "rgb(96, 20, 30)" }}
@@ -151,15 +147,13 @@ function NavList({ user, handleLogOut }) {
 
       {user && (
         <Typography
-          as="a"
-          // route to add post
-          href="meme-selection"
+          onClick={() => navigate("/meme-selection")}
           variant="small"
           className="font-normal"
         >
           <MenuItem
-            className="flex items-center gap-2 rounded-full"
-            style={{ color: "rgb(209, 189, 4)" }}
+            className="flex items-center gap-2 rounded-full hover:bg-meme-teal"
+            style={{ color: "#565656" }}
           >
             {createElement(PlusSmallIcon, {
               className: "h-6 w-6",
@@ -195,13 +189,10 @@ export default function Nav({ user, handleLogOut }) {
   };
 
   return (
-    <div
-      // className="bg-white"
-    // style={{backgroundColor: "red"}}
-    >
-      <Navbar className="max-w-full rounded-none bg-gray-600">
+    <div>
+      <Navbar className="max-w-full rounded-none bg-meme-teal">
         {/* ==================== */}
-        <div className="flex" style={{ color: "rgb(209, 189, 4)" }}>
+        <div className="flex text-meme-gray">
           <DogeIcon width="30" height="30" fill="white" />
 
           <Typography

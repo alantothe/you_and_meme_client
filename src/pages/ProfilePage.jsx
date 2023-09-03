@@ -1,29 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { getPostsByUser } from "../api/api";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { getPostsByUser, getUserById } from "../api/users.js";
+import { deletePost } from "../api/posts.js";
 import SmallPostDetail from "../components/SmallPostDetail.jsx";
+import { Typography } from "@material-tailwind/react";
 
 function ProfilePage() {
+  const { profileId } = useParams();
+  const [userObject, setUserObject] = useState({});
   const [allPosts, setAllPosts] = useState([]);
+  const [user, setUser] = useState({});
+
   useEffect(() => {
-    fetchPosts();
+    fetchUser();
+    getPosts();
   }, []);
-  async function fetchPosts() {
-    // the user id is hardcoded for now, we need to pass down the user id app.js after token is verified
-    const posts = await getPostsByUser(3);
-    setAllPosts(posts);
-    console.log(posts.posts.meme);
-  }
+
+  const fetchUser = async () => {
+    const fetchedUser = await getUserById(profileId);
+    setUser(fetchedUser);
+  };
+
+  const getPosts = async () => {
+    const fetchedUserObject = await getPostsByUser(profileId);
+    setUserObject(fetchedUserObject);
+    setAllPosts(sortPosts(fetchedUserObject.posts));
+  };
+
+  const sortPosts = (posts) => {
+    const sortedPosts = posts.sort((a, b) => {
+      return new Date(b.created) - new Date(a.created);
+    });
+    return sortedPosts;
+  };
 
   return (
-    <div>
-      <div>
-        <h1>Profile Page</h1>
+    <div
+      className="flex flex-col items-center text-yellow-400"
+      style={{ background: "rgb(45, 45, 45)" }}
+    >
+      <Typography className="text-6xl my-4">
+        {user.user_string}'s page
+      </Typography>
+      <p>a bio</p>
+      <div className="flex justify-center">
+        <div className="flex flex-wrap px-48 items-center justify-center">
+          {allPosts.map((post, index) => (
+            <div>
+              <SmallPostDetail allPosts={post} key={index} />
+            </div>
+          ))}
+        </div>
       </div>
-      {/* <div>
-        {allPosts.meme.map((allPosts, index) => (
-          <SmallPostDetail allPosts={allPosts} key={index} />
-        ))}
-      </div> */}
     </div>
   );
 }

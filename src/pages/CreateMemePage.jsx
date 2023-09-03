@@ -1,11 +1,37 @@
 import React, { useState } from "react";
 import { memes } from "../assets/templates.js";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { postMeme } from "../api/api.js";
+import { useParams, useNavigate } from "react-router-dom";
+import { postMeme } from "../api/posts.js";
+import { Typography } from "@material-tailwind/react";
 
+<<<<<<< HEAD
 function CreateMemePage() {
   const oneMeme = memes[0];
+=======
+function CreateMemePage({ user }) {
+  const { id } = useParams();
+  const userId = user.user_id;
+
+  const navigate = useNavigate();
+
+  const [meme, setMeme] = useState({});
+
+  useEffect(() => {
+    fetchMeme(id);
+  }, []);
+
+  function fetchMeme(memeId) {
+    const foundMeme = memes.find((m) => m.id === memeId);
+    if (foundMeme) {
+      setMeme(foundMeme);
+      console.log("yoo we found it ");
+    } else {
+      console.log("no meme bruh");
+      setMeme({});
+    }
+  }
+>>>>>>> 79a51d13b47a451d486e8026e27433e9b27ac08c
 
   const initialTextFields = {};
   for (let i = 0; i < oneMeme.box_count; i++) {
@@ -50,7 +76,11 @@ function CreateMemePage() {
   };
 
   const postData = {
+<<<<<<< HEAD
     user: 3,
+=======
+    user: userId,
+>>>>>>> 79a51d13b47a451d486e8026e27433e9b27ac08c
     meme: newMeme,
   };
   console.log(postData);
@@ -59,12 +89,14 @@ function CreateMemePage() {
       const response = await postMeme(postData);
 
       console.log(response);
+      navigate(`/profile/${userId}`);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
+<<<<<<< HEAD
     <div className="flex flex-col items-center justify-start bg-gray-400"
     style={{ height: "92vh" }}>
       {/* Main title */}
@@ -79,11 +111,33 @@ function CreateMemePage() {
           {newMeme ? (
             <img
               className="absolute top-0 left-0 w-full h-full object-cover"
+=======
+    <div className="my-4 flex flex-col items-center justify-center">
+      {" "}
+      {/* Wrapping div, similar to SmallPostDetail */}
+      {/* Page Title */}
+      <Typography className="text-center pl-4 text-3xl text-meme-light-gray">
+        Create Your Own Meme!
+      </Typography>
+      {/* Meme Image Box */}
+      <div
+        className="w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal border-4 xs:w-screen xs:h-auto flex flex-col items-center"
+        style={{
+          boxShadow:
+            "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
+        }}
+      >
+        <div className="flex flex-col items-center justify-center h-full w-full">
+          {newMeme ? (
+            <img
+              className="object-contain w-full h-full"
+>>>>>>> 79a51d13b47a451d486e8026e27433e9b27ac08c
               src={newMeme}
               alt="Generated Meme"
             />
           ) : (
             <img
+<<<<<<< HEAD
               className="absolute top-0 left-0 w-full h-full object-cover"
               src={oneMeme.url}
               alt={oneMeme.name}
@@ -128,9 +182,48 @@ function CreateMemePage() {
 
           </div>
         </div>
+=======
+              className="object-contain w-full h-full"
+              src={meme.url}
+              alt={meme.name}
+            />
+          )}
+        </div>
+      </div>
+      {/* Text boxes and Buttons */}
+      <div className="px-4 flex flex-col items-center text-meme-light-gray">
+        {Array.from({ length: meme.box_count }).map((_, index) => (
+          <div key={index} className="my-2">
+            <Typography>Box {index + 1}</Typography>
+            <input
+              type="text"
+              className="border rounded px-2 py-1"
+              value={formData[`text${index}`]}
+              placeholder={`Enter text for Box ${index + 1}`}
+              onChange={(e) => handleInputChange(index, e)}
+            />
+          </div>
+        ))}
+        <button
+          className="bg-meme-teal hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mt-4"
+          onClick={() => handleSubmit()}
+        >
+          Preview Meme
+        </button>
+        <button
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
+          onClick={() => handleMemePost()}
+        >
+          Generate Meme
+        </button>
+>>>>>>> 79a51d13b47a451d486e8026e27433e9b27ac08c
       </div>
     </div>
   );
 }
+<<<<<<< HEAD
 
 export default CreateMemePage;
+=======
+export default CreateMemePage;
+>>>>>>> 79a51d13b47a451d486e8026e27433e9b27ac08c

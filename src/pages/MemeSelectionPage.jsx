@@ -1,96 +1,64 @@
-import React from "react";
-import { memes } from "../assets/templates.js";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import { getAllTemplates } from "../api/memes.js";
 
 function MemeSelectionPage() {
   const navigate = useNavigate();
+  const [allTemplates, setAllTemplates] = useState([]);
+
+  useEffect(() => {
+    fetchAllTemplates();
+    console.log(allTemplates);
+  }, []);
+
+  async function fetchAllTemplates() {
+    const templates = await getAllTemplates();
+    setAllTemplates(templates);
+  }
 
   return (
-    <div className="meme-selection-page flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-center mb-8 font-bold text-4xl mt-10">
+    <div
+      className="min-h-screen text-yellow-400"
+      style={{
+        background: "rgb(45, 45, 45)",
+      }}
+    >
+      <h1 className="text-center p-4 mb-4 font-bold text-4xl">
         Meme Selection Page
       </h1>
-
-      <div className="flex flex-wrap px-48 items-center justify-center">
-        {memes.map((meme, index) => {
-          return (
+      <div className="flex justify-center">
+        <div className="flex flex-wrap px-48 items-center justify-center">
+          {allTemplates.map((meme, index) => (
             <div
-              className="w-1/4 mb-12 mt-12 flex flex-col items-center"
+              className="flex flex-col w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal rounded-lg border-4 xs:w-screen xs:h-auto"
+              style={{
+                boxShadow:
+                  "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
+              }}
               key={index}
             >
-              <div className=" w-60 h-60 relative">
-                <img
-                  className="absolute top-0 left-0 w-full h-full object-contain"
-                  src={meme.url}
-                  alt={meme.name}
-                />
+              <div className="flex flex-col items-center justify-between h-full w-full">
+                <div className="w-full flex-grow rounded-lg overflow-hidden">
+                  <img
+                    className="object-contain w-full h-full"
+                    src={meme.url}
+                    alt={meme.name}
+                  />
+                </div>
+                <Button
+                  className="m-2 self-center"
+                  onClick={() => navigate(`/create-meme/${meme.id}`)}
+                >
+                  Use Template
+                </Button>
               </div>
-              <Button onClick={() => navigate(`/create-meme/${meme.id}`)}>
-                Use Template
-              </Button>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
 export default MemeSelectionPage;
-
-// this code below will not work unless the backend json for the templates also includes
-//the proper ID needed for the imgfilp api
-// as of now it goes in orders from 1, 2, 3 .....
-
-// import React, { useEffect, useState } from "react";
-// import { Button } from "@material-tailwind/react";
-// import { useNavigate } from "react-router-dom";
-// import { getAllTemplates } from "../api/ourApi/api.js";
-
-// function MemeSelectionPage() {
-//   const navigate = useNavigate();
-//   const [allTemplates, setAllTemplates] = useState([]);
-
-//   useEffect(() => {
-//     fetchAllTemplates();
-//     console.log(allTemplates);
-//   }, []);
-
-//   async function fetchAllTemplates() {
-//     const templates = await getAllTemplates();
-//     setAllTemplates(templates);
-//   }
-
-//   return (
-//     <div className="meme-selection-page flex flex-col items-center justify-center min-h-screen">
-//       <h1 className="text-center mb-8 font-bold text-4xl mt-10">
-//         Meme Selection Page
-//       </h1>
-
-//       <div className="flex flex-wrap px-48 items-center justify-center">
-//         {allTemplates.map((meme, index) => {
-//           return (
-//             <div
-//               className="w-1/4 mb-12 mt-12 flex flex-col items-center"
-//               key={index}
-//             >
-//               <div className=" w-60 h-60 relative">
-//                 <img
-//                   className="absolute top-0 left-0 w-full h-full object-contain"
-//                   src={meme.url}
-//                   alt={meme.name}
-//                 />
-//               </div>
-//               <Button onClick={() => navigate(`/create-meme/${meme.id}`)}>
-//                 Use Template
-//               </Button>
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default MemeSelectionPage;

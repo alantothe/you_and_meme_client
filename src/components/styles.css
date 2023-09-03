@@ -1,6 +1,6 @@
-@media (max-width: 480px) {
+@media (max-width: 650px) {
   .small-post-detail {
-    width: 100px;
+    width: 100%;
     height: 0;
     padding-bottom: 100%;
   }
@@ -10,5 +10,9 @@
     object-fit: cover;
     width: 100px;
     height: 100px;
+    left: 50%; /* Center the image horizontally */
+    transform: translateX(
+      -50%
+    ); /* Move the image half its width to the left for centering */
   }
 }
