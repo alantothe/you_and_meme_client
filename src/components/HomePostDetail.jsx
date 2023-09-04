@@ -34,6 +34,7 @@ function HomePostDetail({ allPosts }) {
   const toggleLike = () => {
     if (!userId) {
       navigate("/sign-in");
+      return;
     }
 
     // If not currently liked, like the post
