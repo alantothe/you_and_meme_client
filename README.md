@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# React/Django Meme App - Frontend README
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
 
-## Available Scripts
+This React frontend is a part of a meme-sharing platform where users can create memes using a meme generator, post them, and comment on them. The frontend interacts with both an external meme API and a Django backend.
 
-In the project directory, you can run:
+### Quick Links
 
-### `npm start`
+[Deployed Frontend App](Netlify link goes here)
+[Deployed Backend App](https://you-and-meme-backend-6abb25257062.herokuapp.com)
+[Backend Repo](https://github.com/DanSinensky/you_and_meme_backend)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Clone the repository
 
-### `npm test`
+```
+git clone <repository_url>
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Install npm packages
 
-### `npm run build`
+```
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Start the React development server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Project Structure
 
-### `npm run eject`
+- src/api/api.js: Houses the API functions that interact with the backend and external meme API
+- src/components/: Contains all the React components for the application
+  API Functions
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Routes
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Endpoint            | Description                                                 |
+| ------------------- | ----------------------------------------------------------- |
+| `/`                 | Homepage                                                    |
+| `/register`         | Sign-up for new users                                       |
+| `/sign-in`          | Sign-in Page                                                |
+| `/profile`          | Use Profile Page                                            |
+| `/account-settings` | Account Settings Page for one user                          |
+| `/meme-selection`   | Shows all memes for user to select to create their own meme |
+| `/create-meme/:id`  | Create a meme                                               |
+| `/meme/:postID`     | Meme Detail Page - shows one meme w/ corresponding comments |
+| `/meme-detail-page` | Meme Detail page - shows one meme w/ correspoding comments  |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### State Management
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- We are using React's built-in useState and useEffect for managing the component state and side-effects, respectively.
 
-## Learn More
+### Material Tailwind CSS
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Material Tailwind CSS is used for styling the application. It is a UI kit that is built on top of Tailwind CSS and Material UI. It provides a set of React components that are styled using Tailwind CSS classes. It also provides a set of Tailwind CSS classes that can be used to style any custom components.
+  [More on Material Tailwind here](https://www.material-tailwind.com)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Contributors
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Contributors to this project include: <br>
+  [Alan Malpartida](Alan's LinkedIn) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) |
+- Please reach out to us via LinkedIn
