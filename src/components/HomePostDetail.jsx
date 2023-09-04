@@ -49,8 +49,6 @@ function HomePostDetail({ allPosts }) {
   }, []);
 
   function checkLikes() {
-    // if (!likesArray) return;
-    // else
     if (likesArray.includes(allPosts.id)) {
       setLikesToggle(true);
     } else {
@@ -67,13 +65,13 @@ function HomePostDetail({ allPosts }) {
     if (!userId) {
       navigate("/sign-in");
     } else if (likesToggle === false) {
-      await updatePostByLikes(allPosts.id, likes + 1);
+      await updatePostByLikes(allPosts.id, 1);
       setLikes(likes + 1);
       setLikesToggle(true);
       dispatch(addLike(allPosts.id));
       addToLikedPosts();
     } else {
-      await updatePostByLikes(allPosts.id, likes - 1);
+      await updatePostByLikes(allPosts.id, -1);
       setLikes(likes - 1);
       setLikesToggle(false);
       dispatch(removeLike(allPosts.id));
@@ -128,11 +126,10 @@ function HomePostDetail({ allPosts }) {
   // };
 
   return (
-    <div className="my-4">
+    <div className="flex justify-center my-4 w-screen">
       <div
-        className="w-80 mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
+        className="w-1/3 mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
         style={{
-          width: "600px",
           boxShadow:
             "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
         }}
@@ -145,30 +142,29 @@ function HomePostDetail({ allPosts }) {
               size="40"
               onClick={navToProfile}
             />
+
             <Typography className="font-black pl-2" onClick={navToProfile}>
               {user.user_string}
             </Typography>
           </div>
         </div>
+
         <div className="flex flex-col items-center m-0 p-0">
           <img
             className="m-0 p-0"
             src={allPosts.meme}
-            style={{
-              width: "600px",
-              height: "auto", // Keep aspect ratio
-              objectFit: "contain",
-            }}
             onClick={() => {
               navigate(`/meme-detail-page/${allPosts.id}`);
             }}
           />
         </div>
+
         <div className="px-4 flex justify-between items-center">
           <div className="flex items-center py-5 ">
             {!likesToggle
               ? createElement(HeartIcon, {
-                  className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+                  className:
+                    "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:text-yellow-600",
                   strokeWidth: 2,
                   onClick: updateLikes,
                 })
@@ -178,21 +174,25 @@ function HomePostDetail({ allPosts }) {
                   onClick: updateLikes,
                 })}
             {createElement(ChatBubbleOvalLeftEllipsisIcon, {
-              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:text-yellow-600",
               strokeWidth: 2,
               onClick: () => {
                 navigate(`/meme-detail-page/${allPosts.id}`);
               },
             })}
             {createElement(PaperAirplaneIcon, {
-              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:text-yellow-600",
               strokeWidth: 2,
               onClick: () => {
                 navigate("/development");
               },
             })}
           </div>
+
           {/* <Typography>{formatTimestamp(allPosts.created)}</Typography> */}
+
           <Typography className="font-black">
             {likes} {likes !== 1 ? "likes" : "like"}
           </Typography>

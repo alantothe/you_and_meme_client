@@ -23,7 +23,6 @@ import {
   Button,
   Dialog,
   DialogHeader,
-  // DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
 
@@ -45,9 +44,9 @@ function DeletePostPopUp({ owner, deletePostById }) {
         <DialogHeader className="flex justify-center">
           Are you sure you want to delete your post?
         </DialogHeader>
-        {/* <DialogBody divider>Please Confirm or Cancel</DialogBody> */}
         <DialogFooter>
           <Button
+            className="outline-none"
             variant="gradient"
             color="red"
             onClick={() => {
@@ -58,10 +57,10 @@ function DeletePostPopUp({ owner, deletePostById }) {
             Confirm
           </Button>
           <Button
+            className="ml-2 outline-none"
             variant="text"
             color="black"
             onClick={handleOpen}
-            className="mr-1"
           >
             Cancel
           </Button>
@@ -101,15 +100,13 @@ function ProfilePostDetail({ allPosts }) {
     checkLikes();
   }, []);
 
-  function checkLikes() {
-    // if (!likesArray) return;
-    // else
+  const checkLikes = () => {
     if (likesArray.includes(allPosts.id)) {
       setLikesToggle(true);
     } else {
       setLikesToggle(false);
     }
-  }
+  };
 
   const fetchUser = async () => {
     const fetchedUser = await getUserById(allPosts.user);
@@ -185,7 +182,7 @@ function ProfilePostDetail({ allPosts }) {
   return (
     <div className="my-4">
       <div
-        className="w-80 mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
+        className="mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
         style={{
           width: "26vw",
           boxShadow:
@@ -195,29 +192,28 @@ function ProfilePostDetail({ allPosts }) {
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center">
             <Avatar src={mockAvatar} round={true} size="40" />
+
             <Typography className="font-black pl-2">
               {user.user_string}
             </Typography>
           </div>
+
           <DeletePostPopUp
             owner={userId === allPosts.user}
             deletePostById={deletePostById}
           />
         </div>
+
         <div className="flex flex-col items-center m-0 p-0">
           <img
-            className="m-0 p-0"
+            className="m-0 p-0 cursor-pointer"
             src={allPosts.meme}
-            style={{
-              width: "600px",
-              height: "auto", // Keep aspect ratio
-              objectFit: "contain",
-            }}
             onClick={() => {
               navigate(`/meme-detail-page/${allPosts.id}`);
             }}
           />
         </div>
+
         <div className="px-4 flex justify-between items-center">
           <div className="flex items-center py-5 ">
             {!likesToggle

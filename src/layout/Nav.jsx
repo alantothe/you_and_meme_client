@@ -21,7 +21,6 @@ import {
   Cog6ToothIcon,
   PowerIcon,
   Bars2Icon,
-  HeartIcon,
   PlusSmallIcon,
 } from "@heroicons/react/24/outline";
 
@@ -126,7 +125,6 @@ function AccountMenu({ user, handleLogOut }) {
   );
 }
 
-// Creates add post icon
 function NavList({ user, handleLogOut }) {
   const navigate = useNavigate();
   return (
@@ -166,7 +164,6 @@ function NavList({ user, handleLogOut }) {
   );
 }
 
-//real below
 export default function Nav({ user, handleLogOut }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
@@ -179,32 +176,29 @@ export default function Nav({ user, handleLogOut }) {
     );
   }, []);
 
-  // When productType button is clicked, it will navigate to the url, with above useEffect re-rendering page
-  const handleFeedFilter = async (e) => {
-    if (e.target.id === "most-liked") {
-    } else if (e.target.id === "friends") {
-    } else if (e.target.id === "newest") {
-      // navigate("/filter/all");
-    }
-  };
+  // const handleFeedFilter = async (e) => {
+  //   if (e.target.id === "most-liked") {
+  //   } else if (e.target.id === "friends") {
+  //   } else if (e.target.id === "newest") {
+  //   }
+  // };
 
   return (
     <div>
       <Navbar className="max-w-full rounded-none bg-meme-teal">
-        {/* ==================== */}
         <div className="flex text-meme-gray">
-          <DogeIcon width="30" height="30" fill="white" />
+          <div className="flex w-full">
+            <DogeIcon width="30" height="30" fill="white" />
 
-          <Typography
-            onClick={() => navigate("/")}
-            className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl"
-          >
-            You & Meme
-          </Typography>
+            <Typography
+              onClick={() => navigate("/")}
+              className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl"
+            >
+              You & Meme
+            </Typography>
+          </div>
 
-          {/* Favorites and shopping cart icons */}
           <div className="flex justify-end w-1/6 top-2/4 hidden lg:block">
-            {/* USER GOES HERE */}
             <NavList user={user} handleLogOut={handleLogOut} />
           </div>
 
@@ -219,29 +213,11 @@ export default function Nav({ user, handleLogOut }) {
             <Bars2Icon className="h-6 w-6" />
           </IconButton>
         </div>
-        {/* ==================== */}
 
         <Collapse open={isNavOpen} className="overflow-scroll">
           <NavList user={user} handleLogOut={handleLogOut} />
         </Collapse>
       </Navbar>
-
-      {/* <div
-        className="flex justify-center border-b border-t"
-        style={{ borderColor: "rgb(209, 189, 4)" }}
-      >
-        <Button
-          id="newest"
-          variant="text"
-          onClick={handleFeedFilter}
-          style={{
-            color: "rgb(209, 189, 4)",
-            fontFamily: "'HelpUsGiambattista', sans-serif",
-          }}
-        >
-          Newest Posts
-        </Button>
-      </div> */}
     </div>
   );
 }

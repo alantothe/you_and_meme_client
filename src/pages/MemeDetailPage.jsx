@@ -52,7 +52,7 @@ function MemeDetailPage() {
         style={{ width: "480px" }}
         onClick={navToProfile}
       >
-        {/* username */}
+        {/* {username} */}
       </Typography>
       <div className="mb-4" style={{ width: "480px" }}>
         <img src={post.meme} alt="meme-photo" />
