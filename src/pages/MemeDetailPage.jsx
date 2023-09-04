@@ -28,12 +28,13 @@ function MemeDetailPage() {
   const [likes, setLikes] = useState(() => post.likes || 0);
   const [user, setUser] = useState({});
   const [userAvatar, setUserAvatar] = useState({});
+  const [commentsToggle, setCommentsToggle] = useState(false);
 
   console.log(entireUser.id);
 
   useEffect(() => {
     getPostAndUser();
-  }, []);
+  }, [commentsToggle]);
 
   useEffect(() => {
     setLikes(post.likes || 0);
@@ -48,7 +49,6 @@ function MemeDetailPage() {
   console.log(post);
   //---------
   const [comments, setComments] = useState([]);
-  const [commentsToggle, setCommentsToggle] = useState(false);
   const [username, setUsername] = useState();
   const { postId } = useParams();
 
