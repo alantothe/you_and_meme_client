@@ -5,17 +5,10 @@ import { getUserById } from "../api/users.js";
 import Comments from "../components/Comments";
 import CommentInput from "../components/CommentInput";
 import { useSelector, useDispatch } from "react-redux";
-import { Typography, avatar } from "@material-tailwind/react";
-
-import {
-  HeartIcon,
-  ChatBubbleOvalLeftEllipsisIcon,
-  PaperAirplaneIcon,
-} from "@heroicons/react/24/outline";
-import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-
+import { Typography } from "@material-tailwind/react";
 import Avatar from "react-avatar";
-
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
+import { HeartIcon } from "@heroicons/react/24/outline";
 import {
   add1Like,
   minus1Like,
@@ -25,12 +18,18 @@ import {
 } from "../redux/features/user/userThunks.js";
 
 function MemeDetailPage() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const entireUser = useSelector((state) => state.user?.entireUser);
   const [post, setPost] = useState({});
-  console.log(entireUser.id);
-  const initialToggle = entireUser?.likedPosts?.includes(post.id) || false;
   const [likesToggle, setLikesToggle] = useState(initialToggle);
   const [likes, setLikes] = useState(() => post.likes || 0);
+  const [user, setUser] = useState({});
+  const initialToggle = entireUser?.likedPosts?.includes(post.id) || false;
+
+  console.log(entireUser.id);
+
   useEffect(() => {
     getPostAndUser();
   }, []);
@@ -38,22 +37,19 @@ function MemeDetailPage() {
   useEffect(() => {
     setLikes(post.likes || 0);
   }, [post.likes]);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
 
   const userId = entireUser?.user; // The logged in user's id
 
   // Check if this post is in the user's likedPosts array to determine the initial toggle state
 
-  const [user, setUser] = useState({});
-
   console.log(post);
   //---------
   const [comments, setComments] = useState([]);
+  const [commentsToggle, setCommentsToggle] = useState(false);
   const [username, setUsername] = useState();
   const { postId } = useParams();
-  const [userAvatar, setUserAvatar] = useState();
 
   const getPostAndUser = async () => {
     const fetchedPost = await getPostById(postId);
@@ -65,11 +61,6 @@ function MemeDetailPage() {
     setUserAvatar(fetchedUser);
     console.log(fetchedUser);
   };
-
-  // const getUsername = async () => {
-  //   const fetchedUser = await getUserById(post.user);
-  //   setUsername(fetchedUser.user_string);
-  // };
 
   const sortComments = (comments) => {
     const sortedComments = comments.sort((a, b) => {
@@ -87,7 +78,6 @@ function MemeDetailPage() {
 
     // If not currently liked, like the post.
     if (!likesToggle) {
-      console.log("toggleLike called");
       setLikes((prevLikes) => prevLikes + 1);
       setLikesToggle(true);
       dispatch(add1Like(post.id));
@@ -96,7 +86,6 @@ function MemeDetailPage() {
     }
     // If currently liked, unlike the post.
     else {
-      console.log("toggleUnlike called");
       setLikes((prevLikes) => prevLikes - 1);
       setLikesToggle(false);
       dispatch(minus1Like(post.id));
@@ -170,7 +159,35 @@ function MemeDetailPage() {
         </Typography>
       </div>
 
-      <CommentInput postId={postId} />
+      <div className="px-4 flex justify-between items-center">
+        <div className="flex items-center py-5 ">
+          {!likesToggle
+            ? createElement(HeartIcon, {
+                className:
+                  "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
+                strokeWidth: 2,
+                onClick: toggleLike,
+              })
+            : createElement(HeartIconSolid, {
+                className:
+                  "h-7 w-7 mr-2 text-red-500 cursor-pointer hover:opacity-50",
+                strokeWidth: 2,
+                onClick: toggleLike,
+              })}
+        </div>
+
+        {/* <Typography>{formatTimestamp(allPosts.created)}</Typography> */}
+
+        <Typography className="font-black">
+          {likes} {likes !== 1 ? "likes" : "like"}
+        </Typography>
+      </div>
+
+      <CommentInput
+        postId={postId}
+        commentsToggle={commentsToggle}
+        setCommentsToggle={setCommentsToggle}
+      />
 
       {comments.map((comment, index) => (
         <div key={comment.id}>

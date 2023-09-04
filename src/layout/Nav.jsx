@@ -42,24 +42,28 @@ function AccountMenu({ user, handleLogOut }) {
       <MenuHandler>
         <Button
           variant="text"
-          className="flex items-center gap-1 rounded-full hover:bg-meme-teal"
+          className="flex items-center gap-1 hover:bg-meme-teal"
         >
-          {createElement(UserCircleIcon, {
-            className: "h-[24px] w-[24px]",
-            style: {
-              color: user ? "rgb(45, 45, 45)" : "#facc15",
-            },
-          })}
+          <div className="flex items-center">
+            {createElement(UserCircleIcon, {
+              className: `h-[24px] w-[24px] ${
+                user
+                  ? "text-meme-gray hover:text-meme-dark-gray"
+                  : "text-meme-dark-gray hover:text-meme-gray"
+              }`,
+            })}
 
-          <ChevronDownIcon
-            strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${
-              isMenuOpen ? "rotate-180" : ""
-            }`}
-            style={{
-              color: user ? "rgb(45, 45, 45)" : "#facc15",
-            }}
-          />
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`h-3 w-3 transition-transform ${
+                isMenuOpen ? "rotate-180" : ""
+              } ${
+                user
+                  ? "text-meme-gray hover:text-meme-dark-gray"
+                  : "text-meme-dark-gray hover:text-meme-gray"
+              }`}
+            />
+          </div>
         </Button>
       </MenuHandler>
 
@@ -134,26 +138,22 @@ function AccountMenu({ user, handleLogOut }) {
   );
 }
 
-function NavList({ user, handleLogOut }) {
+function NavList({ user, handleLogOut, navToMemeSelection }) {
   const navigate = useNavigate();
+
   return (
     <div className="flex flex-row items-center justify-end">
-      {user && (
-        <Typography
-          onClick={() => navigate("/meme-selection")}
-          variant="small"
-          className="font-normal"
-        >
-          <MenuItem
-            className="flex items-center gap-2 rounded-full hover:bg-meme-teal"
-            style={{ color: "rgb(45, 45, 45)" }}
-          >
-            {createElement(PlusSmallIcon, {
-              className: "h-6 w-6",
-            })}
-          </MenuItem>
-        </Typography>
-      )}
+      <Typography onClick={navToMemeSelection} variant="small">
+        <MenuItem className="flex items-center gap-2 hover:bg-meme-teal">
+          {createElement(PlusSmallIcon, {
+            className: `h-6 w-6 border-x border-y rounded-md ${
+              user
+                ? "text-meme-gray border-meme-gray hover:text-meme-dark-gray hover:border-meme-dark-gray"
+                : "text-meme-dark-gray border-meme-dark-gray hover:text-meme-gray hover:border-meme-gray"
+            }`,
+          })}
+        </MenuItem>
+      </Typography>
       <AccountMenu user={user} handleLogOut={handleLogOut} />
     </div>
   );
@@ -171,6 +171,13 @@ export default function Nav({ user, handleLogOut }) {
     );
   }, []);
 
+  const navToMemeSelection = () => {
+    if (!user) {
+      navigate("/sign-in");
+      return;
+    }
+    navigate("/meme-selection");
+  };
   // const handleFeedFilter = async (e) => {
   //   if (e.target.id === "most-liked") {
   //   } else if (e.target.id === "friends") {
@@ -201,7 +208,11 @@ export default function Nav({ user, handleLogOut }) {
           </div>
 
           <div className="flex justify-end w-1/6 top-2/4 hidden lg:block">
-            <NavList user={user} handleLogOut={handleLogOut} />
+            <NavList
+              user={user}
+              handleLogOut={handleLogOut}
+              navToMemeSelection={navToMemeSelection}
+            />
           </div>
 
           {/* Responsive menu change (NavList > Bars2Icon) when Collapse is open (determined by useEffect above) */}
@@ -209,15 +220,18 @@ export default function Nav({ user, handleLogOut }) {
             size="sm"
             variant="text"
             onClick={toggleIsNavOpen}
-            className="ml-auto mr-2 lg:hidden my-auto"
-            style={{ color: "#d1bd04" }}
+            className="ml-auto mr-2 lg:hidden my-auto text-meme-dark-gray"
           >
             <Bars2Icon className="h-6 w-6" />
           </IconButton>
         </div>
 
         <Collapse open={isNavOpen} className="overflow-scroll">
-          <NavList user={user} handleLogOut={handleLogOut} />
+          <NavList
+            user={user}
+            handleLogOut={handleLogOut}
+            navToMemeSelection={navToMemeSelection}
+          />
         </Collapse>
       </Navbar>
     </div>

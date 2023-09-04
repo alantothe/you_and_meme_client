@@ -99,7 +99,10 @@ function ProfilePostDetail({ allPosts }) {
   };
 
   const toggleLike = () => {
-    if (!allPosts?.id || !userId) return;
+    if (!userId) {
+      navigate("/sign-in");
+      return;
+    }
 
     // If not currently liked, like the post.
     if (!likesToggle) {

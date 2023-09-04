@@ -125,7 +125,12 @@ function Comments({ comment }) {
   return (
     <div
       className="mt-4 bg-dark-meme-gray p-2 rounded"
-      style={{ width: "480px", border: "1px solid rgb(86, 86, 86)" }}
+      style={{
+        width: "480px",
+        border: "1px solid rgb(86, 86, 86)",
+        boxShadow:
+          "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
+      }}
     >
       <div className="flex justify-between">
         <div className="flex items-center hover:opacity-50">
