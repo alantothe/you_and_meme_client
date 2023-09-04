@@ -180,7 +180,7 @@ export default function Nav({ user, handleLogOut }) {
 
   return (
     <div>
-      <Navbar className="max-w-full rounded-none bg-meme-teal px-0 py-4">
+      <Navbar className="max-w-full rounded-none bg-meme-teal px-0 py-4 border-meme-teal">
         <div className="flex" style={{ color: "rgb(45, 45, 45)" }}>
           <div
             className="flex items-center w-full"
