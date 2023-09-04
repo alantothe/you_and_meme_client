@@ -104,7 +104,7 @@ function HomePostDetail({ allPosts }) {
 
         <div className="flex flex-col items-center m-0 p-0 cursor-pointer">
           <img
-            className="m-0 p-0"
+            className="m-0 p-0 w-full"
             src={allPosts.meme}
             onClick={() => {
               navigate(`/meme-detail-page/${allPosts.id}`);
