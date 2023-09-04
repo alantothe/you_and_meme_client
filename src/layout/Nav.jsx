@@ -1,6 +1,7 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
 import DogeIcon from "../assets/DogeIcon";
+import dog from "../assets/dog.svg";
 
 import {
   Navbar,
@@ -131,20 +132,6 @@ function NavList({ user, handleLogOut }) {
   const navigate = useNavigate();
   return (
     <div className="flex flex-row items-center justify-end">
-      {/* <Typography
-        as="a"
-        href="/favorites"
-        variant="small"
-        className="font-normal"
-        >
-        <MenuItem
-          className="flex items-center gap-2 rounded-full"
-          style={{ color: "rgb(96, 20, 30)" }}
-        >
-          {createElement(HeartIcon, { className: "h-6 w-6" })}
-        </MenuItem>
-      </Typography> */}
-
       {user && (
         <Typography
           onClick={() => navigate("/meme-selection")}
@@ -190,10 +177,10 @@ export default function Nav({ user, handleLogOut }) {
 
   return (
     <div>
-      <Navbar className="max-w-full rounded-none bg-meme-teal">
+      <Navbar className="max-w-full rounded-none bg-meme-teal border-meme-teal">
         {/* ==================== */}
         <div className="flex text-meme-gray">
-          <DogeIcon width="30" height="30" fill="white" />
+          <img className="h-14 w-14" src={dog} />
 
           <Typography
             onClick={() => navigate("/")}

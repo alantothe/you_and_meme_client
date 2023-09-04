@@ -9,7 +9,7 @@ export const getAllPosts = async () => {
     throw error;
   }
 };
-
+//this only recieves new value
 export const updatePostByLikes = async (id, likesData) => {
   try {
     const response = await api.put(`/posts/${id}/`, {
