@@ -9,11 +9,17 @@ function ProfilePage() {
   const [userObject, setUserObject] = useState({});
   const [allPosts, setAllPosts] = useState([]);
   const [user, setUser] = useState({});
+  const [firstColumn, setFirstColumn] = useState([]);
+  const [secondColumn, setSecondColumn] = useState([]);
+  const [thirdColumn, setThirdColumn] = useState([]);
 
   useEffect(() => {
     fetchUser();
     getPosts();
-  }, []);
+    firstArray();
+    secondArray();
+    thirdArray();
+  }, [allPosts]);
 
   const fetchUser = async () => {
     const fetchedUser = await getUserById(profileId);
@@ -33,22 +39,87 @@ function ProfilePage() {
     return sortedPosts;
   };
 
+  const firstArray = () => {
+    let n = 0;
+    const indexes = [];
+    const array = [];
+
+    while (n <= allPosts.length - 1) {
+      indexes.push(n);
+      n += 3;
+    }
+
+    indexes.forEach((index) => {
+      array.push(allPosts[index]);
+    });
+    setFirstColumn(array);
+  };
+
+  const secondArray = () => {
+    let n = 1;
+    const indexes = [];
+    const array = [];
+
+    while (n <= allPosts.length - 1) {
+      indexes.push(n);
+      n += 3;
+    }
+
+    indexes.forEach((index) => {
+      array.push(allPosts[index]);
+    });
+    setSecondColumn(array);
+  };
+
+  const thirdArray = () => {
+    let n = 2;
+    const indexes = [];
+    const array = [];
+
+    while (n <= allPosts.length - 1) {
+      indexes.push(n);
+      n += 3;
+    }
+
+    indexes.forEach((index) => {
+      array.push(allPosts[index]);
+    });
+    setThirdColumn(array);
+  };
+
   return (
     <div
       className="flex flex-col items-center text-yellow-400"
       style={{ background: "rgb(45, 45, 45)" }}
     >
-      <div className="flex">
+      <div
+        className="flex items-center justify-center w-screen"
+        style={{
+          // marginLeft: "33vw"
+          background: "rgb(30, 30, 30)",
+        }}
+      >
         <Avatar src={user.avatar} round={true} size="40" />
-        <Typography className="text-6xl my-4">{user.user_string}</Typography>
+
+        <Typography className="text-5xl my-4 ml-4">
+          {user.user_string}
+        </Typography>
       </div>
-      <p>a bio</p>
+      {/* <p>a bio</p> */}
       <div className="flex justify-center">
-        <div className="flex flex-wrap px-48 items-center justify-center">
-          {allPosts.map((post, index) => (
-            <div>
-              <ProfilePostDetail allPosts={post} key={index} />
-            </div>
+        <div className="flex flex-col">
+          {firstColumn.map((post, index) => (
+            <ProfilePostDetail allPosts={post} key={index} />
+          ))}
+        </div>
+        <div className="flex flex-col">
+          {secondColumn.map((post, index) => (
+            <ProfilePostDetail allPosts={post} key={index} />
+          ))}
+        </div>
+        <div className="flex flex-col">
+          {thirdColumn.map((post, index) => (
+            <ProfilePostDetail allPosts={post} key={index} />
           ))}
         </div>
       </div>
