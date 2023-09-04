@@ -91,7 +91,7 @@ function HomePostDetail({ allPosts }) {
   const navToProfile = () => {
     navigate(`/profile/${allPosts.user}`);
   };
-  
+
   return (
     <div className="flex justify-center my-4 w-screen">
       <div
@@ -164,6 +164,24 @@ function HomePostDetail({ allPosts }) {
             {likes} {likes !== 1 ? "likes" : "like"}
           </Typography>
         </div>
+        {allPosts.comments.length === 1 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >
+              View 1 comment...
+            </span>
+          </div>
+        ) : null}
+        {allPosts.comments.length > 1 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >{`View all ${allPosts.comments.length} comments...`}</span>
+          </div>
+        ) : null}
       </div>
     </div>
   );

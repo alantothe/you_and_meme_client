@@ -26,7 +26,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
-function DeletePostPopUp({ owner, deletePostById }) {
+const DeletePostPopUp = ({ owner, deletePostById }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -68,7 +68,7 @@ function DeletePostPopUp({ owner, deletePostById }) {
       </Dialog>
     </div>
   );
-}
+};
 
 function ProfilePostDetail({ allPosts }) {
   const navigate = useNavigate();

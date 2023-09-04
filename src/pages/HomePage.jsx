@@ -64,7 +64,7 @@ const HomePage = () => {
       </Typography>
       <Typography className="text-center mb-8 font-bold text-2xl">
         A place to share & create your favorite memes!
-    </Typography> */}
+      </Typography> */}
       <div className="flex flex-col items-center w-full">
         {allPosts.map((post, index) => (
           <HomePostDetail allPosts={post} key={index} />
