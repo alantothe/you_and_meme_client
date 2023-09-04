@@ -5,7 +5,7 @@ import { Typography } from "@material-tailwind/react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 function CommentInput({ postId }) {
-  const userId = useSelector((state) => state.user.userId);
+  const userId = useSelector((state) => state.user.entireUser?.user);
 
   const [inputData, setInputData] = useState({
     user: userId,

@@ -8,6 +8,7 @@ import {
   Button,
   Dialog,
   DialogHeader,
+  DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +17,7 @@ import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 function Comments({ comment }) {
   const avatarIdentifier = comment.email || comment.id;
   const config = genConfig(avatarIdentifier);
-  const userId = useSelector((state) => state.user.userId);
+  const userId = useSelector((state) => state.user.entireUser?.user);
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
@@ -74,7 +75,7 @@ function Comments({ comment }) {
     }
   };
 
-  function DeleteCommentPopUp({ owner, deleteCommentById }) {
+  function DeleteCommentPopUp({ owner, deleteCommentById, commentBody }) {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(!open);
@@ -84,14 +85,17 @@ function Comments({ comment }) {
     return (
       <div>
         <EllipsisHorizontalIcon
-          className="h-7 w-7 mr-2 text-yellow-400 cursor-pointer"
+          className="h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50"
           strokeWidth={2}
           onClick={handleOpen}
         />
-        <Dialog open={open} handler={handleOpen}>
-          <DialogHeader className="flex justify-center">
+        <Dialog className="bg-meme-gray" open={open} handler={handleOpen}>
+          <DialogHeader className="flex text-center text-white">
             Are you sure you want to delete your comment?
           </DialogHeader>
+
+          <DialogBody className="text-white">{`" ${commentBody} "`}</DialogBody>
+
           <DialogFooter>
             <Button
               className="outline-none"
@@ -120,16 +124,20 @@ function Comments({ comment }) {
 
   return (
     <div
-      className="mt-4 bg-meme-gray p-2 rounded"
-      style={{ width: "480px", border: "1px solid rgb(209, 189, 4)" }}
+      className="mt-4 bg-dark-meme-gray p-2 rounded"
+      style={{ width: "480px", border: "1px solid rgb(86, 86, 86)" }}
     >
       <div className="flex justify-between">
-        <div className="flex items-center">
-          <Avatar onClick={navToProfile} className="w-8 h-8 mr-2" {...config} />
+        <div className="flex items-center hover:opacity-50">
+          <Avatar
+            onClick={navToProfile}
+            className="w-8 h-8 mr-2 cursor-pointer"
+            {...config}
+          />
           {/* onClick not working */}
 
           <Typography
-            className="text-yellow-400 cursor-pointer"
+            className="text-yellow-400 cursor-pointer font-black"
             onClick={navToProfile}
           >
             {user.user_string}
@@ -139,16 +147,13 @@ function Comments({ comment }) {
         <DeleteCommentPopUp
           owner={userId === comment.user}
           deleteCommentById={deleteCommentById}
+          commentBody={comment.body}
         />
-
-        {/* {userId === comment.user ? (
-          <button onClick={deleteCommentById}>X</button>
-        ) : null} */}
       </div>
 
       <Typography className="text-white ml-10">{comment.body}</Typography>
 
-      <Typography variant="small" className="text-yellow-400 text-right">
+      <Typography className="text-yellow-400 text-right text-xs">
         {formatTimestamp(comment.updated_at)}
       </Typography>
     </div>

@@ -35,7 +35,7 @@ const DeletePostPopUp = ({ owner, deletePostById }) => {
   return (
     <div>
       <EllipsisHorizontalIcon
-        className="h-7 w-7 mr-4 text-yellow-400 cursor-pointer"
+        className="h-7 w-7 mr-4 text-yellow-400 cursor-pointer hover:opacity-50"
         strokeWidth={2}
         onClick={handleOpen}
       />
@@ -229,8 +229,39 @@ function ProfilePostDetail({ allPosts }) {
           </Typography>
         </div>
 
+        {allPosts.comments.length === 0 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >
+              No comments
+            </span>
+          </div>
+        ) : null}
+
+        {allPosts.comments.length === 1 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >
+              View 1 comment
+            </span>
+          </div>
+        ) : null}
+
+        {allPosts.comments.length > 1 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >{`View all ${allPosts.comments.length} comments`}</span>
+          </div>
+        ) : null}
+
         <div className="pl-4 pb-4">
-          <Typography className="text-4">
+          <Typography className="text-xs">
             {formatTimestamp(allPosts.created)}
           </Typography>
         </div>
@@ -240,13 +271,3 @@ function ProfilePostDetail({ allPosts }) {
 }
 
 export default ProfilePostDetail;
-
-// {
-//   comments: [],
-//   created: "2023-09-04T18:52:20.184263Z",
-//   id: 35, // allPosts.id -- the post id
-//   likes: 1, // allPosts.likes -- the number of likes
-//   meme: "https://i.imgflip.com/7xzuyj.jpg",
-//   updated_at: "2023-09-04T18:53:46.795482Z",
-//   user: 12 // allPosts.user -- the guy who posted it
-// }
