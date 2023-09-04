@@ -11,12 +11,11 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 import Nav from "./layout/Nav.jsx";
 import { verifyUser } from "./api/users.js";
 import { useNavigate } from "react-router-dom";
-import { addUserToRedux } from "./redux/features/userSlice.js";
 import { useDispatch } from "react-redux";
+import { fetchUserById } from "./redux/features/user/userThunks.js";
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -25,11 +24,12 @@ const App = () => {
       const user = await verifyUser();
       if (user) {
         setUser(user);
-        dispatch(addUserToRedux(user));
+        dispatch(fetchUserById(user.user_id));
       } else {
         setUser(null);
       }
     };
+
     fetchUser();
   }, []);
 

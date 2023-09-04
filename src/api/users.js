@@ -81,3 +81,30 @@ export const removeUserLikedPosts = async (id, likedPosts) => {
     throw error;
   }
 };
+
+export const updateUsername = async (id, username) => {
+  try {
+    const response = await api.put(`/users/${id}/update_username/`, { username: username });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const updatePassword = async (id, password) => {
+  try {
+    const response = await api.put(`/users/${id}/update_password/`, { password: password });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const updateEmail = async (id, email) => {
+  try {
+    const response = await api.put(`/users/${id}/`, { email: email });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

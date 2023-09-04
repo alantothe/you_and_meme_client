@@ -139,20 +139,6 @@ function NavList({ user, handleLogOut }) {
   const navigate = useNavigate();
   return (
     <div className="flex flex-row items-center justify-end">
-      {/* <Typography
-        as="a"
-        href="/favorites"
-        variant="small"
-        className="font-normal"
-        >
-        <MenuItem
-          className="flex items-center gap-2 rounded-full"
-          style={{ color: "rgb(96, 20, 30)" }}
-        >
-          {createElement(HeartIcon, { className: "h-6 w-6" })}
-        </MenuItem>
-      </Typography> */}
-
       {user && (
         <Typography
           onClick={() => navigate("/meme-selection")}

@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
 import { Card, Typography } from "@material-tailwind/react";
+import {
+  getUserById,
+  updateUsername,
+  updatePassword,
+  updateEmail,
+} from "../api/users";
 
 const AccountSettingsPage = ({ user }) => {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -10,6 +16,7 @@ const AccountSettingsPage = ({ user }) => {
     username: "",
     email: "",
     password: "",
+    id: 0,
   });
 
   useEffect(() => {
@@ -46,6 +53,12 @@ const AccountSettingsPage = ({ user }) => {
       userData.password
     );
     if (userData.password === passwordConfirmation) {
+      console.log(
+        "Updated:",
+        userData.username,
+        userData.email,
+        userData.password
+      );
       setIsEditMode(false);
       setPasswordMatch(true);
       user = {

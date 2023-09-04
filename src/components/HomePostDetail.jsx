@@ -1,96 +1,77 @@
-import { useState, useEffect, createElement } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  getUserById,
-  addUserLikedPosts,
-  removeUserLikedPosts,
-} from "../api/users.js";
-import { updatePostByLikes } from "../api/posts.js";
-import { Typography } from "@material-tailwind/react";
+import { useState, useEffect, createElement, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserById } from "../api/users.js";
+import { Typography, Avatar } from "@material-tailwind/react";
 import {
   HeartIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import "./styles.css";
-import { addLike, removeLike } from "../redux/features/userSlice.js";
-import { useDispatch, useSelector } from "react-redux";
-import Avatar from "react-avatar";
+import {
+  add1Like,
+  minus1Like,
+  thunkAddUserLikedPosts,
+  thunkRemoveUserLikedPosts,
+  fetchUserById,
+} from "../redux/features/user/userThunks.js";
+import { useNavigate } from "react-router-dom";
 
 function HomePostDetail({ allPosts }) {
+  const entireUser = useSelector((state) => state.user?.entireUser);
+  const userId = entireUser?.user;
+  const likesRef = useRef(allPosts.likes);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  console.log(allPosts);
-  const [open, setOpen] = useState(false);
-  const toggleIsOpen = () => setOpen((cur) => !cur);
-
-  const likesArray = useSelector((state) => state.user.likes);
-  console.log(likesArray);
-
   const [user, setUser] = useState({});
-  const [likes, setLikes] = useState(0);
-  const [likesToggle, setLikesToggle] = useState();
-  const userId = useSelector((state) => state.user.userId);
-  const [avatar, setAvatar] = useState("");
-  console.log(user.avatar);
+  const [likes, setLikes] = useState(allPosts.likes);
 
-  const mockAvatar =
-    "https://res.cloudinary.com/dzjr3skhe/image/upload/v1693696048/yl6pdqk1fohrh920j5mq.png";
+  const initialToggle = entireUser?.likedPosts?.includes(allPosts.id) || false;
+  // Check if this post is in the user's likedPosts array to determine the initial toggle state
+  const [likesToggle, setLikesToggle] = useState(initialToggle);
 
-  // this is  fake but will be real later
-  //user.avatar = "";
-  //{user.avatar} will be placed next to user.user_string
-  //<img src={user.avatar} alt="user avatar" className="w-10 h-10 rounded-full" />
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetchUser();
-    setLikes(allPosts.likes);
-    checkLikes();
-  }, []);
+  const toggleLike = () => {
+    if (!allPosts?.id || !userId) return;
 
-  function checkLikes() {
-    if (likesArray.includes(allPosts.id)) {
+    // If not currently liked, like the post.
+    if (!likesToggle) {
+      console.log("toggleLike called");
+      setLikes((prevLikes) => prevLikes + 1);
       setLikesToggle(true);
-    } else {
-      setLikesToggle(false);
+      dispatch(add1Like(allPosts.id));
+      dispatch(thunkAddUserLikedPosts({ postId: allPosts.id, userId: userId }));
+      dispatch(fetchUserById(userId));
     }
-  }
-
-  const fetchUser = async () => {
-    const fetchedUser = await getUserById(allPosts.user);
-    setUser(fetchedUser);
-  };
-
-  const updateLikes = async () => {
-    if (!userId) {
-      navigate("/sign-in");
-    } else if (likesToggle === false) {
-      await updatePostByLikes(allPosts.id, 1);
-      setLikes(likes + 1);
-      setLikesToggle(true);
-      dispatch(addLike(allPosts.id));
-      addToLikedPosts();
-    } else {
-      await updatePostByLikes(allPosts.id, -1);
-      setLikes(likes - 1);
+    // If currently liked, unlike the post.
+    else {
+      console.log("toggleUnlike called");
+      setLikes((prevLikes) => prevLikes - 1);
       setLikesToggle(false);
-      dispatch(removeLike(allPosts.id));
-      removeFromLikedPosts();
+      dispatch(minus1Like(allPosts.id));
+      dispatch(
+        thunkRemoveUserLikedPosts({ postId: allPosts.id, userId: userId })
+      );
+      dispatch(fetchUserById(userId));
     }
   };
-
-  const addToLikedPosts = async () => {
-    await addUserLikedPosts(userId, allPosts.id);
-  };
-
-  const removeFromLikedPosts = async () => {
-    await removeUserLikedPosts(userId, allPosts.id);
-  };
-
   const navToProfile = () => {
     navigate(`/profile/${allPosts.user}`);
   };
+
+  useEffect(() => {
+    async function fetchUser() {
+      const fetchedUser = await getUserById(allPosts.user);
+      setUser(fetchedUser);
+    }
+
+    if (allPosts?.user) {
+      fetchUser();
+    }
+
+    // We can synchronize the ref's value with allPosts.likes
+    likesRef.current = allPosts.likes;
+  }, [allPosts.user, likesToggle]);
 
   return (
     <div className="flex justify-center my-4 w-screen">
@@ -103,13 +84,15 @@ function HomePostDetail({ allPosts }) {
       >
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center hover:opacity-50">
-            <Avatar
-              className="cursor-pointer"
-              src={mockAvatar}
-              round={true}
-              size="40"
-              onClick={navToProfile}
-            />
+            {user && user.avatar ? (
+              <Avatar
+                className="cursor-pointer"
+                src={user.avatar}
+                round={true}
+                size="40"
+                onClick={navToProfile}
+              />
+            ) : null}
             <Typography
               className="font-black pl-2 cursor-pointer"
               onClick={navToProfile}
@@ -136,25 +119,23 @@ function HomePostDetail({ allPosts }) {
                   className:
                     "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
                   strokeWidth: 2,
-                  onClick: updateLikes,
+                  onClick: toggleLike,
                 })
               : createElement(HeartIconSolid, {
                   className:
                     "h-7 w-7 mr-2 text-red-500 cursor-pointer hover:opacity-50",
                   strokeWidth: 2,
-                  onClick: updateLikes,
+                  onClick: toggleLike,
                 })}
             {createElement(ChatBubbleOvalLeftEllipsisIcon, {
-              className:
-                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
+              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
               strokeWidth: 2,
               onClick: () => {
                 navigate(`/meme-detail-page/${allPosts.id}`);
               },
             })}
             {createElement(PaperAirplaneIcon, {
-              className:
-                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
+              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
               strokeWidth: 2,
               onClick: () => {
                 navigate("/development");
