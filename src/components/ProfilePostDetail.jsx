@@ -23,7 +23,6 @@ import {
   Button,
   Dialog,
   DialogHeader,
-  // DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
 
@@ -45,9 +44,9 @@ function DeletePostPopUp({ owner, deletePostById }) {
         <DialogHeader className="flex justify-center">
           Are you sure you want to delete your post?
         </DialogHeader>
-        {/* <DialogBody divider>Please Confirm or Cancel</DialogBody> */}
         <DialogFooter>
           <Button
+            className="outline-none"
             variant="gradient"
             color="red"
             onClick={() => {
@@ -58,10 +57,10 @@ function DeletePostPopUp({ owner, deletePostById }) {
             Confirm
           </Button>
           <Button
+            className="ml-2 outline-none"
             variant="text"
             color="black"
             onClick={handleOpen}
-            className="mr-1"
           >
             Cancel
           </Button>
@@ -74,18 +73,18 @@ function DeletePostPopUp({ owner, deletePostById }) {
 function ProfilePostDetail({ allPosts }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(allPosts);
+  // console.log(allPosts);
   const [open, setOpen] = useState(false);
   const toggleIsOpen = () => setOpen((cur) => !cur);
 
   const likesArray = useSelector((state) => state.user.likes);
-  console.log(likesArray);
+  // console.log(likesArray);
 
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
   const [likesToggle, setLikesToggle] = useState();
   const userId = useSelector((state) => state.user.userId);
-  console.log(user);
+  // console.log(user);
 
   const mockAvatar =
     "https://res.cloudinary.com/dzjr3skhe/image/upload/v1693696048/yl6pdqk1fohrh920j5mq.png";
@@ -101,15 +100,13 @@ function ProfilePostDetail({ allPosts }) {
     checkLikes();
   }, []);
 
-  function checkLikes() {
-    // if (!likesArray) return;
-    // else
+  const checkLikes = () => {
     if (likesArray.includes(allPosts.id)) {
       setLikesToggle(true);
     } else {
       setLikesToggle(false);
     }
-  }
+  };
 
   const fetchUser = async () => {
     const fetchedUser = await getUserById(allPosts.user);
@@ -118,19 +115,20 @@ function ProfilePostDetail({ allPosts }) {
 
   const updateLikes = async () => {
     if (!userId) {
+      // You can't like a post if you are not logged in
       navigate("/sign-in");
     } else if (likesToggle === false) {
-      await updatePostByLikes(allPosts.id, likes + 1);
-      setLikes(likes + 1);
-      setLikesToggle(true);
-      dispatch(addLike(allPosts.id));
-      addToLikedPosts();
+      await updatePostByLikes(allPosts.id, 1); // Updates in back end
+      setLikes(likes + 1); // Updates in front end
+      setLikesToggle(true); // So you can't like it again
+      dispatch(addLike(allPosts.id)); // Updates in Redux store
+      addToLikedPosts(); // Adds post to user's liked posts so that if it is liked, they can log and back in and they can't like it again
     } else {
-      await updatePostByLikes(allPosts.id, likes - 1);
-      setLikes(likes - 1);
-      setLikesToggle(false);
-      dispatch(removeLike(allPosts.id));
-      removeFromLikedPosts();
+      await updatePostByLikes(allPosts.id, -1); // Updates in back end
+      setLikes(likes - 1); // Updates in front end
+      setLikesToggle(false); // So you can't unlike it again
+      dispatch(removeLike(allPosts.id)); // Updates in Redux store
+      removeFromLikedPosts(); // Adds post to user's liked posts so that if it is not liked, they can log and back in and it still shows they don't like it
     }
   };
 
@@ -184,9 +182,9 @@ function ProfilePostDetail({ allPosts }) {
   return (
     <div className="my-4">
       <div
-        className="w-80 mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
+        className="mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
         style={{
-          width: "600px",
+          width: "26vw",
           boxShadow:
             "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
         }}
@@ -194,51 +192,54 @@ function ProfilePostDetail({ allPosts }) {
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center">
             <Avatar src={mockAvatar} round={true} size="40" />
+
             <Typography className="font-black pl-2">
               {user.user_string}
             </Typography>
           </div>
+
           <DeletePostPopUp
             owner={userId === allPosts.user}
             deletePostById={deletePostById}
           />
         </div>
+
         <div className="flex flex-col items-center m-0 p-0">
           <img
-            className="m-0 p-0"
+            className="m-0 p-0 cursor-pointer"
             src={allPosts.meme}
-            style={{
-              width: "600px",
-              height: "auto", // Keep aspect ratio
-              objectFit: "contain",
-            }}
             onClick={() => {
               navigate(`/meme-detail-page/${allPosts.id}`);
             }}
           />
         </div>
+
         <div className="px-4 flex justify-between items-center">
           <div className="flex items-center py-5 ">
             {!likesToggle
               ? createElement(HeartIcon, {
-                  className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+                  className:
+                    "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
                   strokeWidth: 2,
                   onClick: updateLikes,
                 })
               : createElement(HeartIconSolid, {
-                  className: "h-7 w-7 mr-2 text-red-500 cursor-pointer",
+                  className:
+                    "h-7 w-7 mr-2 text-red-500 cursor-pointer hover:opacity-50",
                   strokeWidth: 2,
                   onClick: updateLikes,
                 })}
             {createElement(ChatBubbleOvalLeftEllipsisIcon, {
-              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
               onClick: () => {
                 navigate(`/meme-detail-page/${allPosts.id}`);
               },
             })}
             {createElement(PaperAirplaneIcon, {
-              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
               onClick: () => {
                 navigate("/development");

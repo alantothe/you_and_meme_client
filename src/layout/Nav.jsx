@@ -1,6 +1,8 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
 import DogeIcon from "../assets/DogeIcon";
+import ColorDoge from "../assets/ColorDoge.svg";
+import { useSelector } from "react-redux";
 
 import {
   Navbar,
@@ -21,7 +23,6 @@ import {
   Cog6ToothIcon,
   PowerIcon,
   Bars2Icon,
-  HeartIcon,
   PlusSmallIcon,
 } from "@heroicons/react/24/outline";
 
@@ -29,6 +30,14 @@ import {
 function AccountMenu({ user, handleLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
+  const navigate = useNavigate();
+  const userId = useSelector((state) => state.user.userId);
+
+  const navToProfile = () => {
+    closeMenu();
+    navigate(`/profile/${userId}`);
+  };
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen}>
       <MenuHandler>
@@ -39,7 +48,7 @@ function AccountMenu({ user, handleLogOut }) {
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "#8d8d8d" : "#565656",
+              color: user ? "rgb(45, 45, 45)" : "#facc15",
             },
           })}
 
@@ -49,7 +58,7 @@ function AccountMenu({ user, handleLogOut }) {
               isMenuOpen ? "rotate-180" : ""
             }`}
             style={{
-              color: user ? "#8d8d8d" : "#565656",
+              color: user ? "rgb(45, 45, 45)" : "#facc15",
             }}
           />
         </Button>
@@ -57,11 +66,11 @@ function AccountMenu({ user, handleLogOut }) {
 
       <MenuList className="p-1">
         {user && (
-          <Typography as="a" href="/account-info">
+          <Typography>
             <MenuItem
-              onClick={closeMenu}
+              onClick={navToProfile}
               className={"flex items-center gap-2 rounded"}
-              style={{ color: "rgb(209, 189, 4)" }}
+              style={{ color: "rgb(45, 45, 45)" }}
             >
               {createElement(UserCircleIcon, {
                 className: "h-4 w-4",
@@ -77,7 +86,7 @@ function AccountMenu({ user, handleLogOut }) {
             <MenuItem
               onClick={closeMenu}
               className={"flex items-center gap-2 rounded"}
-              style={{ color: "rgb(209, 189, 4)" }}
+              style={{ color: "rgb(45, 45, 45)" }}
             >
               {createElement(Cog6ToothIcon, {
                 className: "h-4 w-4",
@@ -93,7 +102,7 @@ function AccountMenu({ user, handleLogOut }) {
             <MenuItem
               onClick={closeMenu}
               className={"flex items-center gap-2 rounded"}
-              style={{ color: "rgb(209, 189, 4)" }}
+              style={{ color: "rgb(45, 45, 45)" }}
             >
               {createElement(UserPlusIcon, {
                 className: "h-4 w-4",
@@ -112,7 +121,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "rgb(209, 189, 4)" }}
+            style={{ color: "rgb(45, 45, 45)" }}
           >
             {createElement(PowerIcon, {
               className: "h-4 w-4",
@@ -126,7 +135,6 @@ function AccountMenu({ user, handleLogOut }) {
   );
 }
 
-// Creates add post icon
 function NavList({ user, handleLogOut }) {
   const navigate = useNavigate();
   return (
@@ -153,7 +161,7 @@ function NavList({ user, handleLogOut }) {
         >
           <MenuItem
             className="flex items-center gap-2 rounded-full hover:bg-meme-teal"
-            style={{ color: "#565656" }}
+            style={{ color: "rgb(45, 45, 45)" }}
           >
             {createElement(PlusSmallIcon, {
               className: "h-6 w-6",
@@ -166,7 +174,6 @@ function NavList({ user, handleLogOut }) {
   );
 }
 
-//real below
 export default function Nav({ user, handleLogOut }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
@@ -179,32 +186,36 @@ export default function Nav({ user, handleLogOut }) {
     );
   }, []);
 
-  // When productType button is clicked, it will navigate to the url, with above useEffect re-rendering page
-  const handleFeedFilter = async (e) => {
-    if (e.target.id === "most-liked") {
-    } else if (e.target.id === "friends") {
-    } else if (e.target.id === "newest") {
-      // navigate("/filter/all");
-    }
-  };
+  // const handleFeedFilter = async (e) => {
+  //   if (e.target.id === "most-liked") {
+  //   } else if (e.target.id === "friends") {
+  //   } else if (e.target.id === "newest") {
+  //   }
+  // };
 
   return (
     <div>
-      <Navbar className="max-w-full rounded-none bg-meme-teal">
-        {/* ==================== */}
-        <div className="flex text-meme-gray">
-          <DogeIcon width="30" height="30" fill="white" />
-
-          <Typography
-            onClick={() => navigate("/")}
-            className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl"
+      <Navbar className="max-w-full rounded-none bg-meme-teal px-0 py-4">
+        <div className="flex" style={{ color: "rgb(45, 45, 45)" }}>
+          <div
+            className="flex items-center w-full"
+            style={{ marginLeft: "33vw" }}
           >
-            You & Meme
-          </Typography>
+            <img
+              className="w-14 h-14 cursor-pointer"
+              src={ColorDoge}
+              onClick={() => navigate("/")}
+            />
 
-          {/* Favorites and shopping cart icons */}
+            <Typography
+              onClick={() => navigate("/")}
+              className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl"
+            >
+              You & Meme
+            </Typography>
+          </div>
+
           <div className="flex justify-end w-1/6 top-2/4 hidden lg:block">
-            {/* USER GOES HERE */}
             <NavList user={user} handleLogOut={handleLogOut} />
           </div>
 
@@ -219,29 +230,11 @@ export default function Nav({ user, handleLogOut }) {
             <Bars2Icon className="h-6 w-6" />
           </IconButton>
         </div>
-        {/* ==================== */}
 
         <Collapse open={isNavOpen} className="overflow-scroll">
           <NavList user={user} handleLogOut={handleLogOut} />
         </Collapse>
       </Navbar>
-
-      {/* <div
-        className="flex justify-center border-b border-t"
-        style={{ borderColor: "rgb(209, 189, 4)" }}
-      >
-        <Button
-          id="newest"
-          variant="text"
-          onClick={handleFeedFilter}
-          style={{
-            color: "rgb(209, 189, 4)",
-            fontFamily: "'HelpUsGiambattista', sans-serif",
-          }}
-        >
-          Newest Posts
-        </Button>
-      </div> */}
     </div>
   );
 }
