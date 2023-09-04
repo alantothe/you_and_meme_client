@@ -1,6 +1,8 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
 import DogeIcon from "../assets/DogeIcon";
+import ColorDoge from "../assets/ColorDoge.svg";
+import { useSelector } from "react-redux";
 
 import {
   Navbar,
@@ -28,6 +30,14 @@ import {
 function AccountMenu({ user, handleLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
+  const navigate = useNavigate();
+  const userId = useSelector((state) => state.user.userId);
+
+  const navToProfile = () => {
+    closeMenu();
+    navigate(`/profile/${userId}`);
+  };
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen}>
       <MenuHandler>
@@ -38,7 +48,7 @@ function AccountMenu({ user, handleLogOut }) {
           {createElement(UserCircleIcon, {
             className: "h-[24px] w-[24px]",
             style: {
-              color: user ? "#8d8d8d" : "#565656",
+              color: user ? "rgb(45, 45, 45)" : "#facc15",
             },
           })}
 
@@ -48,7 +58,7 @@ function AccountMenu({ user, handleLogOut }) {
               isMenuOpen ? "rotate-180" : ""
             }`}
             style={{
-              color: user ? "#8d8d8d" : "#565656",
+              color: user ? "rgb(45, 45, 45)" : "#facc15",
             }}
           />
         </Button>
@@ -56,11 +66,11 @@ function AccountMenu({ user, handleLogOut }) {
 
       <MenuList className="p-1">
         {user && (
-          <Typography as="a" href="/account-info">
+          <Typography>
             <MenuItem
-              onClick={closeMenu}
+              onClick={navToProfile}
               className={"flex items-center gap-2 rounded"}
-              style={{ color: "rgb(209, 189, 4)" }}
+              style={{ color: "rgb(45, 45, 45)" }}
             >
               {createElement(UserCircleIcon, {
                 className: "h-4 w-4",
@@ -76,7 +86,7 @@ function AccountMenu({ user, handleLogOut }) {
             <MenuItem
               onClick={closeMenu}
               className={"flex items-center gap-2 rounded"}
-              style={{ color: "rgb(209, 189, 4)" }}
+              style={{ color: "rgb(45, 45, 45)" }}
             >
               {createElement(Cog6ToothIcon, {
                 className: "h-4 w-4",
@@ -92,7 +102,7 @@ function AccountMenu({ user, handleLogOut }) {
             <MenuItem
               onClick={closeMenu}
               className={"flex items-center gap-2 rounded"}
-              style={{ color: "rgb(209, 189, 4)" }}
+              style={{ color: "rgb(45, 45, 45)" }}
             >
               {createElement(UserPlusIcon, {
                 className: "h-4 w-4",
@@ -111,7 +121,7 @@ function AccountMenu({ user, handleLogOut }) {
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
-            style={{ color: "rgb(209, 189, 4)" }}
+            style={{ color: "rgb(45, 45, 45)" }}
           >
             {createElement(PowerIcon, {
               className: "h-4 w-4",
@@ -151,7 +161,7 @@ function NavList({ user, handleLogOut }) {
         >
           <MenuItem
             className="flex items-center gap-2 rounded-full hover:bg-meme-teal"
-            style={{ color: "#565656" }}
+            style={{ color: "rgb(45, 45, 45)" }}
           >
             {createElement(PlusSmallIcon, {
               className: "h-6 w-6",
@@ -185,10 +195,17 @@ export default function Nav({ user, handleLogOut }) {
 
   return (
     <div>
-      <Navbar className="max-w-full rounded-none bg-meme-teal">
-        <div className="flex text-meme-gray">
-          <div className="flex w-full">
-            <DogeIcon width="30" height="30" fill="white" />
+      <Navbar className="max-w-full rounded-none bg-meme-teal px-0 py-4">
+        <div className="flex" style={{ color: "rgb(45, 45, 45)" }}>
+          <div
+            className="flex items-center w-full"
+            style={{ marginLeft: "33vw" }}
+          >
+            <img
+              className="w-14 h-14 cursor-pointer"
+              src={ColorDoge}
+              onClick={() => navigate("/")}
+            />
 
             <Typography
               onClick={() => navigate("/")}

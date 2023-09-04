@@ -98,8 +98,7 @@ function ProfilePage() {
           {user.user_string}
         </Typography>
       </div>
-      <p>a bio</p>
-      {/* <div className="flex justify-center"> */}
+      {/* <p>a bio</p> */}
       <div className="flex justify-center">
         <div className="flex flex-col">
           {firstColumn.map((post, index) => (
@@ -117,7 +116,6 @@ function ProfilePage() {
           ))}
         </div>
       </div>
-      {/* </div> */}
     </div>
   );
 }

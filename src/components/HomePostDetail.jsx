@@ -149,7 +149,7 @@ function HomePostDetail({ allPosts }) {
           </div>
         </div>
 
-        <div className="flex flex-col items-center m-0 p-0">
+        <div className="flex flex-col items-center m-0 p-0 cursor-pointer">
           <img
             className="m-0 p-0"
             src={allPosts.meme}
@@ -164,18 +164,19 @@ function HomePostDetail({ allPosts }) {
             {!likesToggle
               ? createElement(HeartIcon, {
                   className:
-                    "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:text-yellow-600",
+                    "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
                   strokeWidth: 2,
                   onClick: updateLikes,
                 })
               : createElement(HeartIconSolid, {
-                  className: "h-7 w-7 mr-2 text-red-500 cursor-pointer",
+                  className:
+                    "h-7 w-7 mr-2 text-red-500 cursor-pointer hover:opacity-50",
                   strokeWidth: 2,
                   onClick: updateLikes,
                 })}
             {createElement(ChatBubbleOvalLeftEllipsisIcon, {
               className:
-                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:text-yellow-600",
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
               onClick: () => {
                 navigate(`/meme-detail-page/${allPosts.id}`);
@@ -183,7 +184,7 @@ function HomePostDetail({ allPosts }) {
             })}
             {createElement(PaperAirplaneIcon, {
               className:
-                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:text-yellow-600",
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
               onClick: () => {
                 navigate("/development");
