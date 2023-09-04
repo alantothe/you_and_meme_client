@@ -17,7 +17,7 @@ import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 function Comments({ comment }) {
   const avatarIdentifier = comment.email || comment.id;
   const config = genConfig(avatarIdentifier);
-  const userId = useSelector((state) => state.user.userId);
+  const userId = useSelector((state) => state.user.entireUser?.user);
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});

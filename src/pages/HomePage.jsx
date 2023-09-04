@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { getAllPosts } from "../api/posts.js";
 import HomePostDetail from "../components/HomePostDetail.jsx";
+import { fetchUserById } from "../redux/features/user/userThunks.js";
+import { useSelector, useDispatch } from "react-redux";
 // import { Typography } from "@material-tailwind/react";
 // import Avatar from "react-avatar";
 
 const HomePage = () => {
+  const dispatch = useDispatch();
   const [allPosts, setAllPosts] = useState([]);
 
   useEffect(() => {
     fetchPost();
+    dispatch(fetchUserById(16));
   }, []);
 
   const fetchPost = async () => {

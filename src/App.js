@@ -44,7 +44,7 @@ const App = () => {
     <div>
       <Nav user={user} handleLogOut={handleLogOut} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage user={user} />} />
         <Route
           path="/account-settings"
           element={<AccountSettingsPage user={user} />}

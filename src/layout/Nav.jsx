@@ -1,6 +1,5 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
-import DogeIcon from "../assets/DogeIcon";
 import ColorDoge from "../assets/ColorDoge.svg";
 import { useSelector } from "react-redux";
 
@@ -31,7 +30,7 @@ function AccountMenu({ user, handleLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.user.userId);
+  const userId = useSelector((state) => state.user.entireUser?.user);
 
   const navToProfile = () => {
     closeMenu();

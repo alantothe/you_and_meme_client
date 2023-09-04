@@ -128,14 +128,16 @@ function HomePostDetail({ allPosts }) {
                   onClick: toggleLike,
                 })}
             {createElement(ChatBubbleOvalLeftEllipsisIcon, {
-              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
               onClick: () => {
                 navigate(`/meme-detail-page/${allPosts.id}`);
               },
             })}
             {createElement(PaperAirplaneIcon, {
-              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
               onClick: () => {
                 navigate("/development");
