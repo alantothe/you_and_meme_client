@@ -92,9 +92,16 @@ function ProfilePage() {
       className="flex flex-col items-center text-yellow-400"
       style={{ background: "rgb(45, 45, 45)" }}
     >
-      <div className="flex items-center">
+      <div
+        className="flex items-center justify-center w-screen"
+        style={{
+          // marginLeft: "33vw"
+          background: "rgb(30, 30, 30)",
+        }}
+      >
         <Avatar src={user.avatar} round={true} size="40" />
-        <Typography className="text-6xl my-4 ml-4">
+
+        <Typography className="text-5xl my-4 ml-4">
           {user.user_string}
         </Typography>
       </div>

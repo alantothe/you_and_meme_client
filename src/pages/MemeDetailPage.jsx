@@ -11,7 +11,7 @@ function MemeDetailPage() {
 
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
-  // const [username, setUsername] = useState();
+  const [username, setUsername] = useState();
   const { postId } = useParams();
 
   useEffect(() => {
@@ -55,7 +55,15 @@ function MemeDetailPage() {
         {/* {username} */}
       </Typography>
       <div className="mb-4" style={{ width: "480px" }}>
-        <img src={post.meme} alt="meme-photo" />
+        <img
+          className="shadow-lg border-meme-gray border-2"
+          style={{
+            boxShadow:
+              "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
+          }}
+          src={post.meme}
+          alt="meme-photo"
+        />
       </div>
 
       <CommentInput postId={postId} />

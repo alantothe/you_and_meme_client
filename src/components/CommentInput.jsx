@@ -56,13 +56,14 @@ function CommentInput({ postId }) {
         name="body"
         value={inputData.body}
         onChange={handleChange}
-        className={`w-full h-full rounded py-2 bg-meme-gray pl-3 pr-12 placeholder-zinc-700 text-white font-thin mb-5 outline-meme-teal`}
+        className={`w-full h-full rounded py-2 bg-meme-gray pl-3 pr-12 placeholder-zinc-700 text-white font-thin mb-5 outline-none`}
+        style={{ border: "1px solid rgb(4, 209, 189)" }}
         placeholder="Comment..."
       />
       <div className="absolute inset-y-0 right-2 flex items-center">
         <PaperAirplaneIcon
           className={`h-7 w-7 cursor-pointer ${
-            inputData.body ? "text-meme-teal" : "text-black"
+            inputData.body ? "text-meme-teal" : "text-meme-dark-gray"
           }`}
           onClick={handlePost}
         />

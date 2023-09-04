@@ -128,7 +128,7 @@ function HomePostDetail({ allPosts }) {
   return (
     <div className="flex justify-center my-4 w-screen">
       <div
-        className="w-1/3 mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
+        className="w-1/3 mx-4 mb-4 mt-2 shadow-lg border-meme-gray border-2 xs:w-screen overflow-hidden"
         style={{
           boxShadow:
             "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",

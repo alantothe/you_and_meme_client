@@ -12,6 +12,7 @@ module.exports = withMT({
         "meme-teal": "#04d1bd",
         "meme-yellow": "#d1bd04",
         "meme-light-gray": "#8d8d8d",
+        "meme-dark-gray": "#2d2d2d",
       },
     },
   },
