@@ -184,7 +184,7 @@ function ProfilePostDetail({ allPosts }) {
 
         <div className="flex flex-col items-center m-0 p-0">
           <img
-            className="m-0 p-0 cursor-pointer"
+            className="m-0 p-0 cursor-pointer w-full"
             src={allPosts.meme}
             onClick={() => {
               navigate(`/meme-detail-page/${allPosts.id}`);
