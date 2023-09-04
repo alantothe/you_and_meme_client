@@ -148,29 +148,36 @@ function RegisterPage() {
               required
             />
 
-            <label className="text-gray-100 font-bold">
-              Upload your avatar:
-            </label>
-            <div
-              {...getRootProps()}
-              className={`dropzone ${
-                isDragActive ? "dropzoneActive" : ""
-              } border-2 border-teal-500 rounded-md bg-teal-50 p-2 text-center`}
-            >
-              <input {...getInputProps()} />
-              {isDragActive ? (
-                <p>Drop the files here ...</p>
-              ) : (
-                <p>Drag and drop some files here, or click to select files</p>
-              )}
-            </div>
-            {avatarURL && (
-              <div className="mt-4">
-                <Avatar src={avatarURL} round={true} size="100" />
-              </div>
-            )}
-          </div>
 
+<label className="text-gray-100 font-bold">Upload your avatar:</label>
+
+         <div
+  {...getRootProps()}
+  className={`dropzone relative ${
+    isDragActive ? "dropzoneActive" : ""
+  } border-2 border-teal-500 rounded-md bg-teal-50 p-20 text-center`}
+>
+  <input {...getInputProps()} />
+  {avatarURL ? (
+    <div className="mx-auto w-36 h-36 rounded-full overflow-hidden">
+      <img
+        src={avatarURL}
+        alt="Avatar"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  ) : isDragActive ? (
+    <p>Drop the files here ...</p>
+  ) : (
+    <p>Drag and drop some files here, or click to select files</p>
+  )}
+
+  {avatarURL && (
+    <div className="mt-2 bg-green-800 text-center font-bold">What do you think?</div>
+  )}
+</div>
+   
+          </div>
           <Button
             color="teal"
             onClick={handleSubmit}
