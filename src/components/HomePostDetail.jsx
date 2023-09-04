@@ -32,7 +32,8 @@ function HomePostDetail({ allPosts }) {
   const [likes, setLikes] = useState(0);
   const [likesToggle, setLikesToggle] = useState();
   const userId = useSelector((state) => state.user.userId);
-  console.log(user);
+  const [avatar, setAvatar] = useState("");
+  console.log(user.avatar);
 
   const mockAvatar =
     "https://res.cloudinary.com/dzjr3skhe/image/upload/v1693696048/yl6pdqk1fohrh920j5mq.png";
@@ -90,29 +91,108 @@ function HomePostDetail({ allPosts }) {
   const navToProfile = () => {
     navigate(`/profile/${allPosts.user}`);
   };
+  
+  return (
+    <div className="flex justify-center my-4 w-screen">
+      <div
+        className="w-1/3 mx-4 mb-4 mt-2 shadow-lg border-meme-gray border-2 xs:w-screen overflow-hidden"
+        style={{
+          boxShadow:
+            "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
+        }}
+      >
+        <div className="flex justify-between items-center pl-2 py-3">
+          <div className="flex items-center cursor-pointer">
+            <Avatar
+              src={mockAvatar}
+              round={true}
+              size="40"
+              onClick={navToProfile}
+            />
+            <Typography className="font-black pl-2" onClick={navToProfile}>
+              {user.user_string}
+            </Typography>
+          </div>
+        </div>
 
-  // const formatTimestamp = (timestamp) => {
-  //   const date = new Date(timestamp);
-  //   const year = date.getFullYear().toString().slice(2);
-  //   const month = date.getMonth();
-  //   const day = date.getDate();
-  //   const hours = date.getHours();
-  //   const minutes = String(date.getMinutes()).padStart(2, "0");
+        <div className="flex flex-col items-center m-0 p-0 cursor-pointer">
+          <img
+            className="m-0 p-0"
+            src={allPosts.meme}
+            onClick={() => {
+              navigate(`/meme-detail-page/${allPosts.id}`);
+            }}
+          />
+        </div>
 
-  //   const months = [
-  //     "January",
-  //     "February",
-  //     "March",
-  //     "April",
-  //     "May",
-  //     "June",
-  //     "July",
-  //     "August",
-  //     "September",
-  //     "October",
-  //     "November",
-  //     "December",
-  //   ];
+        <div className="px-4 flex justify-between items-center">
+          <div className="flex items-center py-5 ">
+            {!likesToggle
+              ? createElement(HeartIcon, {
+                  className:
+                    "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
+                  strokeWidth: 2,
+                  onClick: updateLikes,
+                })
+              : createElement(HeartIconSolid, {
+                  className:
+                    "h-7 w-7 mr-2 text-red-500 cursor-pointer hover:opacity-50",
+                  strokeWidth: 2,
+                  onClick: updateLikes,
+                })}
+            {createElement(ChatBubbleOvalLeftEllipsisIcon, {
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
+              strokeWidth: 2,
+              onClick: () => {
+                navigate(`/meme-detail-page/${allPosts.id}`);
+              },
+            })}
+            {createElement(PaperAirplaneIcon, {
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
+              strokeWidth: 2,
+              onClick: () => {
+                navigate("/development");
+              },
+            })}
+          </div>
+
+          {/* <Typography>{formatTimestamp(allPosts.created)}</Typography> */}
+
+          <Typography className="font-black">
+            {likes} {likes !== 1 ? "likes" : "like"}
+          </Typography>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default HomePostDetail;
+
+// const formatTimestamp = (timestamp) => {
+//   const date = new Date(timestamp);
+//   const year = date.getFullYear().toString().slice(2);
+//   const month = date.getMonth();
+//   const day = date.getDate();
+//   const hours = date.getHours();
+//   const minutes = String(date.getMinutes()).padStart(2, "0");
+
+//   const months = [
+//     "January",
+//     "February",
+//     "March",
+//     "April",
+//     "May",
+//     "June",
+//     "July",
+//     "August",
+//     "September",
+//     "October",
+//     "November",
+//     "December",
+//   ];
 
   //   if (hours === 0) {
   //     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
@@ -136,12 +216,9 @@ function HomePostDetail({ allPosts }) {
       >
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center cursor-pointer">
-            <Avatar
-              src={mockAvatar}
-              round={true}
-              size="40"
-              onClick={navToProfile}
-            />
+            {user && user.avatar ? (
+              <Avatar src={user.avatar} round={true} size="40" onClick={navToProfile}/>
+            ) : null}
 
             <Typography className="font-black pl-2" onClick={navToProfile}>
               {user.user_string}
