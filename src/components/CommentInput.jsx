@@ -6,6 +6,7 @@ import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 function CommentInput({ postId, commentsToggle, setCommentsToggle }) {
   const userId = useSelector((state) => state.user.entireUser?.user);
 
+  const [input, setInput] = useState(false);
   const [inputData, setInputData] = useState({
     user: userId,
     post: parseInt(postId),
@@ -19,9 +20,11 @@ function CommentInput({ postId, commentsToggle, setCommentsToggle }) {
       ...prevData,
       [name]: value,
     }));
+    setInput(true);
   };
 
   const handlePost = async () => {
+    if (!inputData.body) return;
     await createComment(inputData);
     setCommentsToggle(!commentsToggle);
     setInputData((prevData) => ({
@@ -31,7 +34,13 @@ function CommentInput({ postId, commentsToggle, setCommentsToggle }) {
   };
 
   return (
-    <div className="relative w-full h-12">
+    <div
+      className="relative w-full h-12"
+      style={{
+        boxShadow:
+          "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
+      }}
+    >
       <input
         type="text"
         name="body"
