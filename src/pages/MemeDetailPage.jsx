@@ -11,13 +11,14 @@ function MemeDetailPage() {
 
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
+  const [commentsToggle, setCommentsToggle] = useState(false);
   const [username, setUsername] = useState();
   const { postId } = useParams();
 
   useEffect(() => {
     getPost();
     // getUsername();
-  }, []);
+  }, [commentsToggle]);
 
   const getPost = async () => {
     const fetchedPost = await getPostById(postId);
@@ -70,7 +71,11 @@ function MemeDetailPage() {
         )}
       </div>
 
-      <CommentInput postId={postId} />
+      <CommentInput
+        postId={postId}
+        commentsToggle={commentsToggle}
+        setCommentsToggle={setCommentsToggle}
+      />
 
       {comments.map((comment, index) => (
         <div key={comment.id}>

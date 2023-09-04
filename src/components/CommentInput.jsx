@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { createComment } from "../api/comments";
 import { useSelector } from "react-redux";
-import { Typography } from "@material-tailwind/react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
-function CommentInput({ postId }) {
+function CommentInput({ postId, commentsToggle, setCommentsToggle }) {
   const userId = useSelector((state) => state.user.entireUser?.user);
 
   const [inputData, setInputData] = useState({
@@ -22,34 +21,16 @@ function CommentInput({ postId }) {
     }));
   };
 
-  const handlePost = () => {
-    console.log("Comment submitted:", inputData);
-    createComment(inputData);
-    // After logging the data, you might want to clear the input.
-    // setInputData((prevData) => ({
-    //   ...prevData,
-    //   body: "",
-    // }));
-    console.log("Comment submitted:", inputData);
+  const handlePost = async () => {
+    await createComment(inputData);
+    setCommentsToggle(!commentsToggle);
+    setInputData((prevData) => ({
+      ...prevData,
+      body: "",
+    }));
   };
 
   return (
-    // <div className="flex" style={{ width: "480px" }}>
-    //   <input
-    //     className="flex grow pl-2 outline-none"
-    //     type="text"
-    //     name="body" // <-- This 'name' attribute is crucial for the handleChange function
-    //     value={inputData.body}
-    //     onChange={handleChange}
-    //     placeholder="Add a comment..."
-    //   />
-    //   <Typography
-    //     className="justify-end text-yellow-400 ml-2 cursor-pointer"
-    //     onClick={handlePost}
-    //   >
-    //     Post
-    //   </Typography>
-    // </div>
     <div className="relative w-full h-12">
       <input
         type="text"
