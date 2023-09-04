@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
 import { getAllPosts } from "../api/posts.js";
 import HomePostDetail from "../components/HomePostDetail.jsx";
-import { fetchUserById } from "../redux/features/user/userThunks.js";
-import { useSelector, useDispatch } from "react-redux";
-// import { Typography } from "@material-tailwind/react";
 // import Avatar from "react-avatar";
 
 const HomePage = () => {
-  const dispatch = useDispatch();
   const [allPosts, setAllPosts] = useState([]);
 
   useEffect(() => {
     fetchPost();
-    dispatch(fetchUserById(16));
   }, []);
 
   const fetchPost = async () => {
@@ -59,12 +54,6 @@ const HomePage = () => {
           className="border-2 border-meme-teal hover:opacity-50 hover:border-white cursor-pointer"
         />
       </div> */}
-      {/* <Typography className="text-center p-4 mb-4 font-bold text-4xl">
-        Welcome to You & Meme!
-      </Typography>
-      <Typography className="text-center mb-8 font-bold text-2xl">
-        A place to share & create your favorite memes!
-      </Typography> */}
       <div className="flex flex-col items-center w-full">
         {allPosts.map((post, index) => (
           <HomePostDetail allPosts={post} key={index} />
