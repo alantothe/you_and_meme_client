@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPostById } from "../api/posts.js";
-import { getUserById } from "../api/users.js";
+// import { getUserById } from "../api/users.js";
 import Comments from "../components/Comments";
 import CommentInput from "../components/CommentInput";
 import { Typography } from "@material-tailwind/react";
@@ -55,15 +55,19 @@ function MemeDetailPage() {
         {/* {username} */}
       </Typography>
       <div className="mb-4" style={{ width: "480px" }}>
-        <img
-          className="shadow-lg border-meme-gray border-2"
-          style={{
-            boxShadow:
-              "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
-          }}
-          src={post.meme}
-          alt="meme-photo"
-        />
+        {post.meme ? (
+          <img
+            className="shadow-lg border-meme-gray border-2"
+            style={{
+              boxShadow:
+                "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
+            }}
+            src={post.meme}
+            alt="meme-photo"
+          />
+        ) : (
+          <div className="h-screen"></div>
+        )}
       </div>
 
       <CommentInput postId={postId} />

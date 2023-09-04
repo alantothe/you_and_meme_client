@@ -83,17 +83,20 @@ function HomePostDetail({ allPosts }) {
         }}
       >
         <div className="flex justify-between items-center pl-2 py-3">
-          <div className="flex items-center cursor-pointer">
+          <div className="flex items-center hover:opacity-50">
             {user && user.avatar ? (
               <Avatar
+                className="cursor-pointer"
                 src={user.avatar}
                 round={true}
                 size="40"
                 onClick={navToProfile}
               />
             ) : null}
-
-            <Typography className="font-black pl-2" onClick={navToProfile}>
+            <Typography
+              className="font-black pl-2 cursor-pointer"
+              onClick={navToProfile}
+            >
               {user.user_string}
             </Typography>
           </div>
@@ -125,14 +128,16 @@ function HomePostDetail({ allPosts }) {
                   onClick: toggleLike,
                 })}
             {createElement(ChatBubbleOvalLeftEllipsisIcon, {
-              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
               onClick: () => {
                 navigate(`/meme-detail-page/${allPosts.id}`);
               },
             })}
             {createElement(PaperAirplaneIcon, {
-              className: "h-7 w-7 mr-2 text-yellow-400 cursor-pointer",
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
               onClick: () => {
                 navigate("/development");
@@ -146,6 +151,34 @@ function HomePostDetail({ allPosts }) {
             {likes} {likes !== 1 ? "likes" : "like"}
           </Typography>
         </div>
+        {allPosts.comments.length === 0 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >
+              No comments
+            </span>
+          </div>
+        ) : null}
+        {allPosts.comments.length === 1 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >
+              View 1 comment
+            </span>
+          </div>
+        ) : null}
+        {allPosts.comments.length > 1 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >{`View all ${allPosts.comments.length} comments`}</span>
+          </div>
+        ) : null}
       </div>
     </div>
   );

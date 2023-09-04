@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { getAllTemplates } from "../api/memes.js";
@@ -9,7 +9,6 @@ function MemeSelectionPage() {
 
   useEffect(() => {
     fetchAllTemplates();
-    console.log(allTemplates);
   }, []);
 
   async function fetchAllTemplates() {
@@ -18,12 +17,7 @@ function MemeSelectionPage() {
   }
 
   return (
-    <div
-      className="min-h-screen text-yellow-400"
-      style={{
-        background: "rgb(45, 45, 45)",
-      }}
-    >
+    <div className="min-h-screen text-yellow-400 bg-meme-dark-gray">
       <h1 className="text-center p-4 mb-4 font-bold text-4xl">
         Meme Selection Page
       </h1>
@@ -31,7 +25,7 @@ function MemeSelectionPage() {
         <div className="flex flex-wrap px-48 items-center justify-center">
           {allTemplates.map((meme, index) => (
             <div
-              className="flex flex-col w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg cursor-pointer border-meme-teal rounded-lg border-4 xs:w-screen xs:h-auto"
+              className="flex flex-col w-80 h-80 p-4 mx-4 mb-4 mt-2 shadow-lg border-meme-teal border-4 xs:w-screen xs:h-auto hover:bg-meme-gray"
               style={{
                 boxShadow:
                   "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
@@ -47,7 +41,8 @@ function MemeSelectionPage() {
                   />
                 </div>
                 <Button
-                  className="m-2 self-center"
+                  variant="text"
+                  className="mt-2 rounded-none text-meme-dark-gray bg-meme-teal hover:text-white hover:bg-meme-dark-gray"
                   onClick={() => navigate(`/create-meme/${meme.id}`)}
                 >
                   Use Template

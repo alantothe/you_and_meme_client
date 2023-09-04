@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { memes } from "../assets/templates.js";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { postMeme } from "../api/posts.js";
+import { getTemplateById } from "../api/memes.js";
 import { Typography } from "@material-tailwind/react";
 
 function CreateMemePage({ user }) {
-  const { id } = useParams();
-  const userId = user.user_id;
-
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [meme, setMeme] = useState({});
+  const userId = user.user_id;
 
   useEffect(() => {
-    fetchMeme(id);
+    getMemeTemplate();
   }, []);
 
-  function fetchMeme(memeId) {
-    const foundMeme = memes.find((m) => m.id === memeId);
-    if (foundMeme) {
-      setMeme(foundMeme);
-      console.log("yoo we found it ");
-    } else {
-      console.log("no meme bruh");
-      setMeme({});
-    }
-  }
+  const getMemeTemplate = async () => {
+    const fetchedMemeTemplate = await getTemplateById(id);
+    setMeme(fetchedMemeTemplate);
+  };
 
   const initialTextFields = {};
   for (let i = 0; i < meme.box_count; i++) {
@@ -77,12 +70,10 @@ function CreateMemePage({ user }) {
     user: userId,
     meme: newMeme,
   };
-  console.log(postData);
+
   const handleMemePost = async () => {
     try {
       const response = await postMeme(postData);
-
-      console.log(response);
       navigate(`/profile/${userId}`);
     } catch (error) {
       console.error(error);
@@ -91,8 +82,6 @@ function CreateMemePage({ user }) {
 
   return (
     <div className="my-4 flex flex-col items-center justify-center">
-      {" "}
-      {/* Wrapping div, similar to SmallPostDetail */}
       {/* Page Title */}
       <Typography className="text-center pl-4 text-3xl text-meme-light-gray">
         Create Your Own Meme!
@@ -137,16 +126,18 @@ function CreateMemePage({ user }) {
         ))}
         <button
           className="bg-meme-teal hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mt-4"
-          onClick={() => handleSubmit()}
+          onClick={handleSubmit}
         >
           Preview Meme
         </button>
-        <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
-          onClick={() => handleMemePost()}
-        >
-          Generate Meme
-        </button>
+        {newMeme ? (
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
+            onClick={handleMemePost}
+          >
+            Generate Meme
+          </button>
+        ) : null}
       </div>
     </div>
   );

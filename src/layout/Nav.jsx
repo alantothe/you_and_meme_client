@@ -1,6 +1,5 @@
 import { useState, useEffect, createElement } from "react";
 import { useNavigate } from "react-router-dom";
-import DogeIcon from "../assets/DogeIcon";
 import ColorDoge from "../assets/ColorDoge.svg";
 import { useSelector } from "react-redux";
 
@@ -31,7 +30,7 @@ function AccountMenu({ user, handleLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.user.userId);
+  const userId = useSelector((state) => state.user.entireUser?.user);
 
   const navToProfile = () => {
     closeMenu();
@@ -181,21 +180,21 @@ export default function Nav({ user, handleLogOut }) {
 
   return (
     <div>
-      <Navbar className="max-w-full rounded-none bg-meme-teal px-0 py-4">
+      <Navbar className="max-w-full rounded-none bg-meme-teal px-0 py-4 border-meme-teal">
         <div className="flex" style={{ color: "rgb(45, 45, 45)" }}>
           <div
             className="flex items-center w-full"
             style={{ marginLeft: "33vw" }}
           >
             <img
-              className="w-14 h-14 cursor-pointer"
+              className="w-14 h-14 cursor-pointer hover:opacity-50"
               src={ColorDoge}
               onClick={() => navigate("/")}
             />
 
             <Typography
               onClick={() => navigate("/")}
-              className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl"
+              className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl hover:opacity-50"
             >
               You & Meme
             </Typography>

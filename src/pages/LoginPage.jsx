@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/users.js";
+import { fetchUserById } from "../redux/features/user/userThunks.js";
+import { useSelector, useDispatch } from "react-redux";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.entireUser?.user);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -18,13 +22,12 @@ function LoginPage() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Login Logic
     console.log("Login submitted:", formData);
-    loginUser(formData);
+    await loginUser(formData);
     navigate("/");
-    // window.location.reload();
+    window.location.reload();
   };
 
   return (
