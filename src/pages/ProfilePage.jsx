@@ -9,11 +9,17 @@ function ProfilePage() {
   const [userObject, setUserObject] = useState({});
   const [allPosts, setAllPosts] = useState([]);
   const [user, setUser] = useState({});
+  const [firstColumn, setFirstColumn] = useState([]);
+  const [secondColumn, setSecondColumn] = useState([]);
+  const [thirdColumn, setThirdColumn] = useState([]);
 
   useEffect(() => {
     fetchUser();
     getPosts();
-  }, []);
+    firstArray();
+    secondArray();
+    thirdArray();
+  }, [allPosts]);
 
   const fetchUser = async () => {
     const fetchedUser = await getUserById(profileId);
@@ -33,6 +39,54 @@ function ProfilePage() {
     return sortedPosts;
   };
 
+  const firstArray = () => {
+    let n = 0;
+    const indexes = [];
+    const array = [];
+
+    while (n <= allPosts.length - 1) {
+      indexes.push(n);
+      n += 3;
+    }
+
+    indexes.forEach((index) => {
+      array.push(allPosts[index]);
+    });
+    setFirstColumn(array);
+  };
+
+  const secondArray = () => {
+    let n = 1;
+    const indexes = [];
+    const array = [];
+
+    while (n <= allPosts.length - 1) {
+      indexes.push(n);
+      n += 3;
+    }
+
+    indexes.forEach((index) => {
+      array.push(allPosts[index]);
+    });
+    setSecondColumn(array);
+  };
+
+  const thirdArray = () => {
+    let n = 2;
+    const indexes = [];
+    const array = [];
+
+    while (n <= allPosts.length - 1) {
+      indexes.push(n);
+      n += 3;
+    }
+
+    indexes.forEach((index) => {
+      array.push(allPosts[index]);
+    });
+    setThirdColumn(array);
+  };
+
   return (
     <div
       className="flex flex-col items-center text-yellow-400"
@@ -46,12 +100,22 @@ function ProfilePage() {
       </div>
       <p>a bio</p>
       {/* <div className="flex justify-center"> */}
-      <div className="flex flex-row flex-wrap items-start justify-center">
-        {allPosts.map((post, index) => (
-          <div className="flex flex-stretch">
+      <div className="flex justify-center">
+        <div className="flex flex-col">
+          {firstColumn.map((post, index) => (
             <ProfilePostDetail allPosts={post} key={index} />
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className="flex flex-col">
+          {secondColumn.map((post, index) => (
+            <ProfilePostDetail allPosts={post} key={index} />
+          ))}
+        </div>
+        <div className="flex flex-col">
+          {thirdColumn.map((post, index) => (
+            <ProfilePostDetail allPosts={post} key={index} />
+          ))}
+        </div>
       </div>
       {/* </div> */}
     </div>

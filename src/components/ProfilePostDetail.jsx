@@ -74,18 +74,18 @@ function DeletePostPopUp({ owner, deletePostById }) {
 function ProfilePostDetail({ allPosts }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(allPosts);
+  // console.log(allPosts);
   const [open, setOpen] = useState(false);
   const toggleIsOpen = () => setOpen((cur) => !cur);
 
   const likesArray = useSelector((state) => state.user.likes);
-  console.log(likesArray);
+  // console.log(likesArray);
 
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(0);
   const [likesToggle, setLikesToggle] = useState();
   const userId = useSelector((state) => state.user.userId);
-  console.log(user);
+  // console.log(user);
 
   const mockAvatar =
     "https://res.cloudinary.com/dzjr3skhe/image/upload/v1693696048/yl6pdqk1fohrh920j5mq.png";
