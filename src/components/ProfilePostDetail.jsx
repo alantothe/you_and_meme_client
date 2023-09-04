@@ -1,29 +1,28 @@
-import { useState, useEffect, createElement } from "react";
+import "./styles.css";
+import Avatar from "react-avatar";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect, createElement } from "react";
+import { updatePostByLikes, deletePost } from "../api/posts.js";
+import { addLike, removeLike } from "../redux/features/userSlice.js";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import {
   getUserById,
   addUserLikedPosts,
   removeUserLikedPosts,
 } from "../api/users.js";
-import { updatePostByLikes, deletePost } from "../api/posts.js";
-import { Typography } from "@material-tailwind/react";
 import {
   HeartIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   PaperAirplaneIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
-import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import "./styles.css";
-import { addLike, removeLike } from "../redux/features/userSlice.js";
-import { useDispatch, useSelector } from "react-redux";
-import Avatar from "react-avatar";
-
 import {
   Button,
   Dialog,
   DialogHeader,
   DialogFooter,
+  Typography,
 } from "@material-tailwind/react";
 
 const DeletePostPopUp = ({ owner, deletePostById }) => {
@@ -36,7 +35,7 @@ const DeletePostPopUp = ({ owner, deletePostById }) => {
   return (
     <div>
       <EllipsisHorizontalIcon
-        className="h-7 w-7 mr-4 text-yellow-400 cursor-pointer"
+        className="h-7 w-7 mr-4 text-yellow-400 cursor-pointer hover:opacity-50"
         strokeWidth={2}
         onClick={handleOpen}
       />
@@ -73,7 +72,7 @@ const DeletePostPopUp = ({ owner, deletePostById }) => {
 function ProfilePostDetail({ allPosts }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // console.log(allPosts);
+
   const [open, setOpen] = useState(false);
   const toggleIsOpen = () => setOpen((cur) => !cur);
 
@@ -98,6 +97,7 @@ function ProfilePostDetail({ allPosts }) {
     fetchUser();
     setLikes(allPosts.likes);
     checkLikes();
+    console.log(allPosts);
   }, []);
 
   const checkLikes = () => {
@@ -145,39 +145,39 @@ function ProfilePostDetail({ allPosts }) {
     await removeUserLikedPosts(userId, allPosts.id);
   };
 
-  // const formatTimestamp = (timestamp) => {
-  //   const date = new Date(timestamp);
-  //   const year = date.getFullYear().toString().slice(2);
-  //   const month = date.getMonth();
-  //   const day = date.getDate();
-  //   const hours = date.getHours();
-  //   const minutes = String(date.getMinutes()).padStart(2, "0");
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear().toString().slice(2);
+    const month = date.getMonth();
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, "0");
 
-  //   const months = [
-  //     "January",
-  //     "February",
-  //     "March",
-  //     "April",
-  //     "May",
-  //     "June",
-  //     "July",
-  //     "August",
-  //     "September",
-  //     "October",
-  //     "November",
-  //     "December",
-  //   ];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
 
-  //   if (hours === 0) {
-  //     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
-  //   } else if (hours < 12) {
-  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
-  //   } else if (hours === 12) {
-  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
-  //   } else {
-  //     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
-  //   }
-  // };
+    if (hours === 0) {
+      return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+    } else if (hours < 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+    } else if (hours === 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+    } else {
+      return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+    }
+  };
 
   return (
     <div className="my-4">
@@ -246,9 +246,45 @@ function ProfilePostDetail({ allPosts }) {
               },
             })}
           </div>
-          {/* <Typography>{formatTimestamp(allPosts.created)}</Typography> */}
           <Typography className="font-black">
             {likes} {likes !== 1 ? "likes" : "like"}
+          </Typography>
+        </div>
+
+        {allPosts.comments.length === 0 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >
+              No comments
+            </span>
+          </div>
+        ) : null}
+
+        {allPosts.comments.length === 1 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >
+              View 1 comment
+            </span>
+          </div>
+        ) : null}
+
+        {allPosts.comments.length > 1 ? (
+          <div className="pl-4 pb-4">
+            <span
+              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+              className="cursor-pointer font-thin hover:opacity-50"
+            >{`View all ${allPosts.comments.length} comments`}</span>
+          </div>
+        ) : null}
+
+        <div className="pl-4 pb-4">
+          <Typography className="text-xs">
+            {formatTimestamp(allPosts.created)}
           </Typography>
         </div>
       </div>
@@ -257,3 +293,13 @@ function ProfilePostDetail({ allPosts }) {
 }
 
 export default ProfilePostDetail;
+
+// {
+//   comments: [],
+//   created: "2023-09-04T18:52:20.184263Z",
+//   id: 35,
+//   likes: 1,
+//   meme: "https://i.imgflip.com/7xzuyj.jpg",
+//   updated_at: "2023-09-04T18:53:46.795482Z",
+//   user: 12
+// }

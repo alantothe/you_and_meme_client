@@ -202,14 +202,14 @@ export default function Nav({ user, handleLogOut }) {
             style={{ marginLeft: "33vw" }}
           >
             <img
-              className="w-14 h-14 cursor-pointer"
+              className="w-14 h-14 cursor-pointer hover:opacity-50"
               src={ColorDoge}
               onClick={() => navigate("/")}
             />
 
             <Typography
               onClick={() => navigate("/")}
-              className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl"
+              className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl hover:opacity-50"
             >
               You & Meme
             </Typography>

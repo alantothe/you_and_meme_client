@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { getAllTemplates } from "../api/memes.js";
@@ -9,7 +9,6 @@ function MemeSelectionPage() {
 
   useEffect(() => {
     fetchAllTemplates();
-    console.log(allTemplates);
   }, []);
 
   async function fetchAllTemplates() {
@@ -18,12 +17,7 @@ function MemeSelectionPage() {
   }
 
   return (
-    <div
-      className="min-h-screen text-yellow-400"
-      style={{
-        background: "rgb(45, 45, 45)",
-      }}
-    >
+    <div className="min-h-screen text-yellow-400 bg-meme-dark-gray">
       <h1 className="text-center p-4 mb-4 font-bold text-4xl">
         Meme Selection Page
       </h1>

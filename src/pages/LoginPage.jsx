@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/users.js";
 
@@ -31,8 +31,11 @@ function LoginPage() {
     <div className="page-container bg-gray-600">
       <div className="login-form mt-2 flex justify-center items-center bg-gray-600">
         {/* <h2 className="mb-2 text-2xl" variant="h4" color="blue-gray">Login</h2> */}
-        <form className="flex gap-6"onSubmit={handleSubmit}>
-          <label className="flex-col text-gray-100 font-bold" htmlFor="username">
+        <form className="flex gap-6" onSubmit={handleSubmit}>
+          <label
+            className="flex-col text-gray-100 font-bold"
+            htmlFor="username"
+          >
             Username
           </label>
           <input
@@ -58,7 +61,11 @@ function LoginPage() {
             required
           />
 
-          <button className="hover:text-teal-500 rounded-full" color="teal" type="submit">
+          <button
+            className="hover:text-teal-500 rounded-full"
+            color="teal"
+            type="submit"
+          >
             Login
           </button>
         </form>
