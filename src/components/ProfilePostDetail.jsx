@@ -1,36 +1,35 @@
-import { useState, useEffect, createElement } from "react";
+import "./styles.css";
+import Avatar from "react-avatar";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect, createElement } from "react";
+import { deletePost } from "../api/posts.js";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
+import { getUserById } from "../api/users.js";
 import {
-  getUserById,
-  addUserLikedPosts,
-  removeUserLikedPosts,
-} from "../api/users.js";
-import { updatePostByLikes, deletePost } from "../api/posts.js";
-import { Typography } from "@material-tailwind/react";
+  add1Like,
+  minus1Like,
+  thunkAddUserLikedPosts,
+  thunkRemoveUserLikedPosts,
+  fetchUserById,
+} from "../redux/features/user/userThunks.js";
 import {
   HeartIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   PaperAirplaneIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
-import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import "./styles.css";
-import { addLike, removeLike } from "../redux/features/userSlice.js";
-import { useDispatch, useSelector } from "react-redux";
-import Avatar from "react-avatar";
-
 import {
   Button,
   Dialog,
   DialogHeader,
   DialogFooter,
+  Typography,
 } from "@material-tailwind/react";
 
-function DeletePostPopUp({ owner, deletePostById }) {
+const DeletePostPopUp = ({ owner, deletePostById }) => {
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => setOpen(!open);
-
   if (!owner) return null;
 
   return (
@@ -68,68 +67,30 @@ function DeletePostPopUp({ owner, deletePostById }) {
       </Dialog>
     </div>
   );
-}
+};
 
 function ProfilePostDetail({ allPosts }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // console.log(allPosts);
   const [open, setOpen] = useState(false);
-  const toggleIsOpen = () => setOpen((cur) => !cur);
 
-  const likesArray = useSelector((state) => state.user.likes);
-  // console.log(likesArray);
+  const entireUser = useSelector((state) => state.user?.entireUser);
+  const userId = entireUser?.user; // The logged in user's id
+
+  const initialToggle = entireUser?.likedPosts?.includes(allPosts.id) || false;
+  // Check if this post is in the user's likedPosts array to determine the initial toggle state
+  const [likesToggle, setLikesToggle] = useState(initialToggle);
 
   const [user, setUser] = useState({});
-  const [likes, setLikes] = useState(0);
-  const [likesToggle, setLikesToggle] = useState();
-  const userId = useSelector((state) => state.user.userId);
-  // console.log(user);
-
-  const mockAvatar =
-    "https://res.cloudinary.com/dzjr3skhe/image/upload/v1693696048/yl6pdqk1fohrh920j5mq.png";
-
-  // this is  fake but will be real later
-  //user.avatar = "";
-  //{user.avatar} will be placed next to user.user_string
-  //<img src={user.avatar} alt="user avatar" className="w-10 h-10 rounded-full" />
+  const [likes, setLikes] = useState(allPosts.likes);
 
   useEffect(() => {
     fetchUser();
-    setLikes(allPosts.likes);
-    checkLikes();
   }, []);
-
-  const checkLikes = () => {
-    if (likesArray.includes(allPosts.id)) {
-      setLikesToggle(true);
-    } else {
-      setLikesToggle(false);
-    }
-  };
 
   const fetchUser = async () => {
     const fetchedUser = await getUserById(allPosts.user);
     setUser(fetchedUser);
-  };
-
-  const updateLikes = async () => {
-    if (!userId) {
-      // You can't like a post if you are not logged in
-      navigate("/sign-in");
-    } else if (likesToggle === false) {
-      await updatePostByLikes(allPosts.id, 1); // Updates in back end
-      setLikes(likes + 1); // Updates in front end
-      setLikesToggle(true); // So you can't like it again
-      dispatch(addLike(allPosts.id)); // Updates in Redux store
-      addToLikedPosts(); // Adds post to user's liked posts so that if it is liked, they can log and back in and they can't like it again
-    } else {
-      await updatePostByLikes(allPosts.id, -1); // Updates in back end
-      setLikes(likes - 1); // Updates in front end
-      setLikesToggle(false); // So you can't unlike it again
-      dispatch(removeLike(allPosts.id)); // Updates in Redux store
-      removeFromLikedPosts(); // Adds post to user's liked posts so that if it is not liked, they can log and back in and it still shows they don't like it
-    }
   };
 
   const deletePostById = async () => {
@@ -137,47 +98,64 @@ function ProfilePostDetail({ allPosts }) {
     window.location.reload();
   };
 
-  const addToLikedPosts = async () => {
-    await addUserLikedPosts(userId, allPosts.id);
+  const toggleLike = () => {
+    if (!allPosts?.id || !userId) return;
+
+    // If not currently liked, like the post.
+    if (!likesToggle) {
+      console.log("toggleLike called");
+      setLikes((prevLikes) => prevLikes + 1);
+      setLikesToggle(true);
+      dispatch(add1Like(allPosts.id));
+      dispatch(thunkAddUserLikedPosts({ postId: allPosts.id, userId: userId }));
+      dispatch(fetchUserById(userId));
+    }
+    // If currently liked, unlike the post.
+    else {
+      console.log("toggleUnlike called");
+      setLikes((prevLikes) => prevLikes - 1);
+      setLikesToggle(false);
+      dispatch(minus1Like(allPosts.id));
+      dispatch(
+        thunkRemoveUserLikedPosts({ postId: allPosts.id, userId: userId })
+      );
+      dispatch(fetchUserById(userId));
+    }
   };
 
-  const removeFromLikedPosts = async () => {
-    await removeUserLikedPosts(userId, allPosts.id);
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear().toString().slice(2);
+    const month = date.getMonth();
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    if (hours === 0) {
+      return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+    } else if (hours < 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+    } else if (hours === 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+    } else {
+      return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+    }
   };
-
-  // const formatTimestamp = (timestamp) => {
-  //   const date = new Date(timestamp);
-  //   const year = date.getFullYear().toString().slice(2);
-  //   const month = date.getMonth();
-  //   const day = date.getDate();
-  //   const hours = date.getHours();
-  //   const minutes = String(date.getMinutes()).padStart(2, "0");
-
-  //   const months = [
-  //     "January",
-  //     "February",
-  //     "March",
-  //     "April",
-  //     "May",
-  //     "June",
-  //     "July",
-  //     "August",
-  //     "September",
-  //     "October",
-  //     "November",
-  //     "December",
-  //   ];
-
-  //   if (hours === 0) {
-  //     return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
-  //   } else if (hours < 12) {
-  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
-  //   } else if (hours === 12) {
-  //     return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
-  //   } else {
-  //     return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
-  //   }
-  // };
 
   return (
     <div className="my-4">
@@ -191,7 +169,7 @@ function ProfilePostDetail({ allPosts }) {
       >
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center">
-            <Avatar src={mockAvatar} round={true} size="40" />
+            <Avatar src={user.avatar} round={true} size="40" />
 
             <Typography className="font-black pl-2">
               {user.user_string}
@@ -221,13 +199,13 @@ function ProfilePostDetail({ allPosts }) {
                   className:
                     "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
                   strokeWidth: 2,
-                  onClick: updateLikes,
+                  onClick: toggleLike,
                 })
               : createElement(HeartIconSolid, {
                   className:
                     "h-7 w-7 mr-2 text-red-500 cursor-pointer hover:opacity-50",
                   strokeWidth: 2,
-                  onClick: updateLikes,
+                  onClick: toggleLike,
                 })}
             {createElement(ChatBubbleOvalLeftEllipsisIcon, {
               className:
@@ -246,9 +224,14 @@ function ProfilePostDetail({ allPosts }) {
               },
             })}
           </div>
-          {/* <Typography>{formatTimestamp(allPosts.created)}</Typography> */}
           <Typography className="font-black">
             {likes} {likes !== 1 ? "likes" : "like"}
+          </Typography>
+        </div>
+
+        <div className="pl-4 pb-4">
+          <Typography className="text-4">
+            {formatTimestamp(allPosts.created)}
           </Typography>
         </div>
       </div>
@@ -257,3 +240,13 @@ function ProfilePostDetail({ allPosts }) {
 }
 
 export default ProfilePostDetail;
+
+// {
+//   comments: [],
+//   created: "2023-09-04T18:52:20.184263Z",
+//   id: 35, // allPosts.id -- the post id
+//   likes: 1, // allPosts.likes -- the number of likes
+//   meme: "https://i.imgflip.com/7xzuyj.jpg",
+//   updated_at: "2023-09-04T18:53:46.795482Z",
+//   user: 12 // allPosts.user -- the guy who posted it
+// }

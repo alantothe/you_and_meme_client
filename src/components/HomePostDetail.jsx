@@ -15,12 +15,13 @@ import {
   thunkRemoveUserLikedPosts,
   fetchUserById,
 } from "../redux/features/user/userThunks.js";
+import { useNavigate } from "react-router-dom";
 
 function HomePostDetail({ allPosts }) {
   const entireUser = useSelector((state) => state.user?.entireUser);
   const userId = entireUser?.user;
   const likesRef = useRef(allPosts.likes);
-
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [likes, setLikes] = useState(allPosts.likes);
 
