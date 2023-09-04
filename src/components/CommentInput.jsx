@@ -21,7 +21,6 @@ function CommentInput({ postId }) {
       [name]: value,
     }));
   };
-
   const handlePost = () => {
     console.log("Comment submitted:", inputData);
     createComment(inputData);
