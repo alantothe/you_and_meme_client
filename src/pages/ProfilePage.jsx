@@ -8,7 +8,7 @@ function ProfilePage() {
   const { profileId } = useParams();
   const [userObject, setUserObject] = useState({});
   const [allPosts, setAllPosts] = useState([]);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState([]);
   const [firstColumn, setFirstColumn] = useState([]);
   const [secondColumn, setSecondColumn] = useState([]);
   const [thirdColumn, setThirdColumn] = useState([]);
@@ -16,6 +16,9 @@ function ProfilePage() {
   useEffect(() => {
     fetchUser();
     getPosts();
+  }, []);
+
+  useEffect(() => {
     firstArray();
     secondArray();
     thirdArray();
@@ -108,8 +111,9 @@ function ProfilePage() {
           {user.user_string}
         </Typography>
       </div>
-      {/* <p>a bio</p> */}
-      <div className="flex justify-center">
+
+      {/* Responsive Layout */}
+      <div className="flex flex-col md:flex-row">
         <div className="flex flex-col">
           {firstColumn.map((post, index) => (
             <ProfilePostDetail allPosts={post} key={index} />

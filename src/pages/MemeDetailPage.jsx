@@ -147,13 +147,14 @@ function MemeDetailPage() {
         ) : null}
       </div>
 
-      <div className="mb-4" style={{ width: "480px" }}>
+      <div className="mb-4 sm:max-md:w-screen"
+      >
         {post.meme ? (
           <img
-            className="shadow-lg border-meme-gray border-2"
+            className="shadow-lg border-meme-gray border-2 sm:max-md:w-screen"
             style={{
               boxShadow:
-                "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
+                "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)"
             }}
             src={post.meme}
             alt="meme-photo"
@@ -203,6 +204,7 @@ function MemeDetailPage() {
       </div>
 
       <CommentInput
+        className="sm:max-w-full" style={{ width: "480px", maxWidth: "600px", width: "80%" }}
         postId={postId}
         commentsToggle={commentsToggle}
         setCommentsToggle={setCommentsToggle}
