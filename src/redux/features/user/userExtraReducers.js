@@ -58,7 +58,6 @@ export const thunkAddUserLikedPostsReducers = (builder) => {
       state.status = "loading";
     })
     .addCase(thunkAddUserLikedPosts.fulfilled, (state, action) => {
-      console.log("State before:", state);
       state.status = "succeeded";
       if (state.entireUser) {
         if (!state.entireUser.likedPosts) {
@@ -68,7 +67,6 @@ export const thunkAddUserLikedPostsReducers = (builder) => {
           state.entireUser.likedPosts.push(action.payload.postId);
         }
       }
-      console.log("State after:", state);
     })
     .addCase(thunkAddUserLikedPosts.rejected, (state, action) => {
       state.status = "failed";
@@ -87,7 +85,6 @@ export const thunkRemoveUserLikedPostsReducers = (builder) => {
         const index = state.entireUser.likedPosts.indexOf(
           action.payload.postId
         );
-        console.log("Index to remove:", index);
         if (index > -1) {
           state.entireUser.likedPosts.splice(index, 1);
         }
