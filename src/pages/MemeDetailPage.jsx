@@ -5,10 +5,9 @@ import { getUserById } from "../api/users.js";
 import Comments from "../components/Comments";
 import CommentInput from "../components/CommentInput";
 import { useSelector, useDispatch } from "react-redux";
-import { Typography } from "@material-tailwind/react";
-import Avatar from "react-avatar";
+import { Typography, Avatar } from "@material-tailwind/react";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon, ShareIcon } from "@heroicons/react/24/outline";
 import {
   add1Like,
   minus1Like,
@@ -21,9 +20,10 @@ function MemeDetailPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const entireUser = useSelector((state) => state.user?.entireUser);
+  dispatch(fetchUserById(entireUser?.id));
   const [post, setPost] = useState({});
   const initialToggle = entireUser?.likedPosts?.includes(post.id) || false;
-  const [likesToggle, setLikesToggle] = useState(initialToggle);
+  const [likesToggle, setLikesToggle] = useState(false);
 
   const [likes, setLikes] = useState(() => post.likes || 0);
   const [user, setUser] = useState({});
@@ -39,26 +39,25 @@ function MemeDetailPage() {
     setLikes(post.likes || 0);
   }, [post.likes]);
 
-  const [open, setOpen] = useState(false);
-
   const userId = entireUser?.user; // The logged in user's id
 
   // Check if this post is in the user's likedPosts array to determine the initial toggle state
 
-  console.log(post);
-  //---------
   const [comments, setComments] = useState([]);
   const [username, setUsername] = useState();
 
   const getPostAndUser = async () => {
+    dispatch(fetchUserById(userId));
     const fetchedPost = await getPostById(postId);
     setPost(fetchedPost);
-    console.log(fetchedPost);
+    const initialToggle =
+      entireUser?.likedPosts?.includes(fetchedPost.id) || false;
+    setLikesToggle(initialToggle);
+
     const allComments = fetchedPost.comments;
     setComments(sortComments(allComments));
     const fetchedUser = await getUserById(fetchedPost.user);
     setUserAvatar(fetchedUser);
-    console.log(fetchedUser);
   };
 
   const sortComments = (comments) => {
@@ -93,15 +92,46 @@ function MemeDetailPage() {
     }
   };
 
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear().toString().slice(2);
+    const month = date.getMonth();
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    if (hours === 0) {
+      return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+    } else if (hours < 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+    } else if (hours === 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+    } else {
+      return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+    }
+  };
+
   return (
-    <div
-      className="flex flex-col mx-auto justify-center items-center m-4"
-      style={{ width: "480px" }}
-    >
-      <div className="flex ">
+    <div className="flex flex-col mx-auto m-4" style={{ width: "480px" }}>
+      <div className="pl-2 py-3 flex items-center hover:opacity-50">
         {userAvatar ? (
           <Avatar
-            className="cursor-pointer"
+            className="cursor-pointer border-x border-y border-yellow-400"
             src={userAvatar.avatar}
             round={true}
             size="40"
@@ -110,7 +140,7 @@ function MemeDetailPage() {
         ) : null}
         {userAvatar ? (
           <Typography
-            className="font-black pl-2 cursor-pointer"
+            className="font-black pl-2 cursor-pointer text-yellow-400"
             onClick={navToProfile}
           >
             {userAvatar.user_string}
@@ -149,12 +179,25 @@ function MemeDetailPage() {
                 strokeWidth: 2,
                 onClick: toggleLike,
               })}
-        </div>
 
-        {/* <Typography>{formatTimestamp(allPosts.created)}</Typography> */}
+          {createElement(ShareIcon, {
+            className:
+              "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
+            strokeWidth: 2,
+            onClick: () => {
+              navigate("/development");
+            },
+          })}
+        </div>
 
         <Typography className="font-black">
           {likes} {likes !== 1 ? "likes" : "like"}
+        </Typography>
+      </div>
+
+      <div className="flex justify-end">
+        <Typography className="text-yellow-400 text-xs">
+          {formatTimestamp(post.created)}
         </Typography>
       </div>
 

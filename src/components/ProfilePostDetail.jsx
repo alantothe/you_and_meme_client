@@ -1,5 +1,4 @@
 import "./styles.css";
-import Avatar from "react-avatar";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, createElement } from "react";
@@ -25,6 +24,7 @@ import {
   DialogHeader,
   DialogFooter,
   Typography,
+  Avatar,
 } from "@material-tailwind/react";
 
 const DeletePostPopUp = ({ owner, deletePostById }) => {
@@ -172,7 +172,12 @@ function ProfilePostDetail({ allPosts }) {
       >
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center">
-            <Avatar src={user.avatar} round={true} size="40" />
+            <Avatar
+              className="border-x border-y border-yellow-400"
+              src={user.avatar}
+              round={true}
+              size="40"
+            />
 
             <Typography className="font-black pl-2">
               {user.user_string}
