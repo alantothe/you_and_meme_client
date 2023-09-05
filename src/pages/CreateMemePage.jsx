@@ -10,7 +10,7 @@ function CreateMemePage({ user }) {
   const { id } = useParams();
 
   const [meme, setMeme] = useState({});
-  const userId = user.user_id;
+  const userId = user?.user_id;
 
   useEffect(() => {
     getMemeTemplate();
@@ -45,21 +45,18 @@ function CreateMemePage({ user }) {
 
   const handleSubmit = async () => {
     try {
-      // Dynamically generate the parameters for boxes.
       let boxesParams = "";
       for (let i = 0; i < meme.box_count; i++) {
         boxesParams += `&boxes[${i}][text]=${encodeURIComponent(
-          formData[`text${i}`]
+          formData[`text${i}`] || ""
         )}`;
       }
-
       const baseApiUrl = "https://api.imgflip.com/caption_image";
       const authParams = `template_id=${formData.template_id}&username=${formData.username}&password=${formData.password}`;
 
       const fullApiUrl = `${baseApiUrl}?${authParams}${boxesParams}`;
 
       const response = await axios.get(fullApiUrl);
-
       setNewMeme(response.data.data.url);
     } catch (error) {
       console.error("Error sending request:", error);
