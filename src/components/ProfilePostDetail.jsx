@@ -15,7 +15,7 @@ import {
 import {
   HeartIcon,
   ChatBubbleOvalLeftEllipsisIcon,
-  PaperAirplaneIcon,
+  ShareIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -221,7 +221,7 @@ function ProfilePostDetail({ allPosts }) {
                 navigate(`/meme-detail-page/${allPosts.id}`);
               },
             })}
-            {createElement(PaperAirplaneIcon, {
+            {createElement(ShareIcon, {
               className:
                 "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
@@ -266,8 +266,8 @@ function ProfilePostDetail({ allPosts }) {
           </div>
         ) : null}
 
-        <div className="pl-4 pb-4">
-          <Typography className="text-xs">
+        <div className="pr-4 pb-4">
+          <Typography className="flex justify-end text-xs">
             {formatTimestamp(allPosts.created)}
           </Typography>
         </div>
