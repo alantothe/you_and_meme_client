@@ -69,7 +69,7 @@ const DeletePostPopUp = ({ owner, deletePostById }) => {
   );
 };
 
-function ProfilePostDetail({ allPosts }) {
+function ProfilePostDetail({ allPosts, userToken }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -99,7 +99,7 @@ function ProfilePostDetail({ allPosts }) {
   };
 
   const toggleLike = () => {
-    if (!userId) {
+    if (!userToken) {
       navigate("/sign-in");
       return;
     }
@@ -174,7 +174,7 @@ function ProfilePostDetail({ allPosts }) {
               className="border-x border-y border-yellow-400"
               src={user.avatar}
               round={true}
-              size="40"
+              size="sm"
             />
 
             <Typography className="font-black pl-2">

@@ -17,7 +17,7 @@ import {
 } from "../redux/features/user/userThunks.js";
 import { useNavigate } from "react-router-dom";
 
-function HomePostDetail({ allPosts }) {
+function HomePostDetail({ allPosts, userToken }) {
   const entireUser = useSelector((state) => state.user?.entireUser);
   const userId = entireUser?.user;
   const likesRef = useRef(allPosts.likes);
@@ -32,7 +32,7 @@ function HomePostDetail({ allPosts }) {
   const dispatch = useDispatch();
 
   const toggleLike = () => {
-    if (!userId) {
+    if (!userToken) {
       navigate("/sign-in");
       return;
     }
@@ -90,7 +90,6 @@ function HomePostDetail({ allPosts }) {
                 className="cursor-pointer border-x border-y border-yellow-400"
                 src={user.avatar}
                 round={true}
-                size="40"
                 onClick={navToProfile}
               />
             ) : null}

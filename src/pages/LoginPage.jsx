@@ -24,7 +24,6 @@ function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Login submitted:", formData);
     await loginUser(formData);
     navigate("/");
     window.location.reload();
