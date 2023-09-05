@@ -6,7 +6,6 @@ export const loginUser = async (loginData) => {
     const response = await api.post("/user/login/", loginData);
     localStorage.setItem("token", response.data.token);
     const user = jwtDecode(response.data.token);
-    // console.log(user);
     return user;
   } catch (err) {
     throw err;
@@ -21,7 +20,6 @@ export const verifyUser = async () => {
     try {
       // Decode the token directly
       const user = jwtDecode(token);
-      console.log(user);
       return user;
     } catch (err) {
       console.error("Error during token verification:", err);
@@ -84,21 +82,25 @@ export const removeUserLikedPosts = async (id, likedPosts) => {
 
 export const updateUsername = async (id, username) => {
   try {
-    const response = await api.put(`/users/${id}/update_username/`, { username: username });
+    const response = await api.put(`/users/${id}/update_username/`, {
+      username: username,
+    });
     return response.data;
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const updatePassword = async (id, password) => {
   try {
-    const response = await api.put(`/users/${id}/update_password/`, { password: password });
+    const response = await api.put(`/users/${id}/update_password/`, {
+      password: password,
+    });
     return response.data;
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const updateEmail = async (id, email) => {
   try {

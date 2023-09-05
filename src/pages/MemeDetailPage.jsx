@@ -16,7 +16,7 @@ import {
   fetchUserById,
 } from "../redux/features/user/userThunks.js";
 
-function MemeDetailPage() {
+function MemeDetailPage({ userToken }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const entireUser = useSelector((state) => state.user?.entireUser);
@@ -71,7 +71,7 @@ function MemeDetailPage() {
   };
 
   const toggleLike = () => {
-    if (!post?.id || !userId) return;
+    if (!userToken) return;
 
     // If not currently liked, like the post.
     if (!likesToggle) {
@@ -147,10 +147,10 @@ function MemeDetailPage() {
         ) : null}
       </div>
 
-      <div className="mb-4" style={{ width: "480px" }}>
+      <div className="mb-4 sm:max-md:w-screen" style={{ width: "480px" }}>
         {post.meme ? (
           <img
-            className="shadow-lg border-meme-gray border-2"
+            className="shadow-lg border-meme-gray border-2 sm:max-md:w-screen"
             style={{
               boxShadow:
                 "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
@@ -203,6 +203,7 @@ function MemeDetailPage() {
       </div>
 
       <CommentInput
+        className="sm:max-w-full"
         postId={postId}
         commentsToggle={commentsToggle}
         setCommentsToggle={setCommentsToggle}
