@@ -106,7 +106,6 @@ function ProfilePostDetail({ allPosts }) {
 
     // If not currently liked, like the post.
     if (!likesToggle) {
-      console.log("toggleLike called");
       setLikes((prevLikes) => prevLikes + 1);
       setLikesToggle(true);
       dispatch(add1Like(allPosts.id));
@@ -115,7 +114,6 @@ function ProfilePostDetail({ allPosts }) {
     }
     // If currently liked, unlike the post.
     else {
-      console.log("toggleUnlike called");
       setLikes((prevLikes) => prevLikes - 1);
       setLikesToggle(false);
       dispatch(minus1Like(allPosts.id));

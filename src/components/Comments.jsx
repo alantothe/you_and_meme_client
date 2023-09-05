@@ -19,7 +19,6 @@ function Comments({ comment }) {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
-  console.log(user.user_string);
 
   useEffect(() => {
     fetchUsername();
