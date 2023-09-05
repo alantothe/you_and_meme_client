@@ -87,11 +87,11 @@ function Comments({ comment }) {
           onClick={handleOpen}
         />
         <Dialog className="bg-meme-gray" open={open} handler={handleOpen}>
-          <DialogHeader className="flex text-center text-white">
+          <DialogHeader className="flex justify-center text-white">
             Are you sure you want to delete your comment?
           </DialogHeader>
 
-          <DialogBody className="text-white">{`" ${commentBody} "`}</DialogBody>
+          <DialogBody className="text-white text-center">{`" ${commentBody} "`}</DialogBody>
 
           <DialogFooter>
             <Button
