@@ -33,16 +33,11 @@ function MemeDetailPage() {
 
   useEffect(() => {
     getPostAndUser();
-  }, [commentsToggle, likesToggle]);
+  }, [commentsToggle]);
 
-  // useEffect(
-  //   () => {
-  //     setLikes(post.likes || 0);
-  //   },
-  //   [
-  //     // post.likes
-  //   ]
-  // );
+  useEffect(() => {
+    setLikes(post.likes || 0);
+  }, [post.likes]);
 
   const userId = entireUser?.user; // The logged in user's id
 
