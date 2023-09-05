@@ -37,6 +37,11 @@ function AccountMenu({ user, handleLogOut }) {
     navigate(`/profile/${userId}`);
   };
 
+  const navToLogin = () => {
+    closeMenu();
+    navigate("/sign-in");
+  };
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen}>
       <MenuHandler>
@@ -116,17 +121,14 @@ function AccountMenu({ user, handleLogOut }) {
           </Typography>
         )}
 
-        <Typography
-          as="a"
-          onClick={user ? handleLogOut : undefined}
-          href={user ? undefined : "/sign-in"}
-        >
+        <Typography onClick={user ? handleLogOut : undefined}>
           <MenuItem
             onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
             style={{ color: "rgb(45, 45, 45)" }}
           >
             {createElement(PowerIcon, {
+              onClick: { navToLogin },
               className: "h-4 w-4",
               strokeWidth: 2,
             })}
