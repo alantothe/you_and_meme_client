@@ -45,20 +45,16 @@ function MemeDetailPage() {
 
   // Check if this post is in the user's likedPosts array to determine the initial toggle state
 
-  console.log(post);
-  //---------
   const [comments, setComments] = useState([]);
   const [username, setUsername] = useState();
 
   const getPostAndUser = async () => {
     const fetchedPost = await getPostById(postId);
     setPost(fetchedPost);
-    console.log(fetchedPost);
     const allComments = fetchedPost.comments;
     setComments(sortComments(allComments));
     const fetchedUser = await getUserById(fetchedPost.user);
     setUserAvatar(fetchedUser);
-    console.log(fetchedUser);
   };
 
   const sortComments = (comments) => {

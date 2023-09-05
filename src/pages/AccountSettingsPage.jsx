@@ -21,11 +21,17 @@ const AccountSettingsPage = ({ user }) => {
 
   useEffect(() => {
     if (user) {
-      setUserData({
-        username: user.username || "",
-        email: user.email || "",
-        password: user.password || "",
-      });
+      const id = user.user_id;
+      const fetchUser = async () => {
+        const individualUser = await getUserById(id);
+        setUserData({
+          username: individualUser.user_string || "",
+          email: individualUser.email || "",
+          password: individualUser.password || "",
+          id: id,
+        });
+      };
+      fetchUser();
     }
   }, [user]);
 
@@ -45,13 +51,7 @@ const AccountSettingsPage = ({ user }) => {
     setIsEditMode(true);
   };
 
-  const handleUpdateClick = () => {
-    console.log(
-      "Updated:",
-      userData.username,
-      userData.email,
-      userData.password
-    );
+  const handleUpdateClick = async () => {
     if (userData.password === passwordConfirmation) {
       console.log(
         "Updated:",
@@ -66,6 +66,10 @@ const AccountSettingsPage = ({ user }) => {
         email: userData.email,
         password: userData.password,
       };
+      const id = userData.id;
+      await updateUsername(id, userData.username);
+      await updateEmail(id, userData.email);
+      await updatePassword(id, userData.password);
     } else {
       setPasswordMatch(false);
     }
