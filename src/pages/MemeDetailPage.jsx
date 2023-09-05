@@ -29,8 +29,7 @@ function MemeDetailPage() {
   const [user, setUser] = useState({});
   const [userAvatar, setUserAvatar] = useState({});
   const [commentsToggle, setCommentsToggle] = useState(false);
-
-  console.log(entireUser.id);
+  const { postId } = useParams();
 
   useEffect(() => {
     getPostAndUser();
@@ -50,7 +49,6 @@ function MemeDetailPage() {
   //---------
   const [comments, setComments] = useState([]);
   const [username, setUsername] = useState();
-  const { postId } = useParams();
 
   const getPostAndUser = async () => {
     const fetchedPost = await getPostById(postId);
