@@ -1,5 +1,4 @@
 import "./styles.css";
-import Avatar from "react-avatar";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, createElement } from "react";
@@ -16,7 +15,7 @@ import {
 import {
   HeartIcon,
   ChatBubbleOvalLeftEllipsisIcon,
-  PaperAirplaneIcon,
+  ShareIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -25,6 +24,7 @@ import {
   DialogHeader,
   DialogFooter,
   Typography,
+  Avatar,
 } from "@material-tailwind/react";
 
 const DeletePostPopUp = ({ owner, deletePostById }) => {
@@ -170,7 +170,12 @@ function ProfilePostDetail({ allPosts }) {
       >
         <div className="flex justify-between items-center pl-2 py-3">
           <div className="flex items-center">
-            <Avatar src={user.avatar} round={true} size="40" />
+            <Avatar
+              className="border-x border-y border-yellow-400"
+              src={user.avatar}
+              round={true}
+              size="40"
+            />
 
             <Typography className="font-black pl-2">
               {user.user_string}
@@ -216,7 +221,7 @@ function ProfilePostDetail({ allPosts }) {
                 navigate(`/meme-detail-page/${allPosts.id}`);
               },
             })}
-            {createElement(PaperAirplaneIcon, {
+            {createElement(ShareIcon, {
               className:
                 "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
@@ -261,8 +266,8 @@ function ProfilePostDetail({ allPosts }) {
           </div>
         ) : null}
 
-        <div className="pl-4 pb-4">
-          <Typography className="text-xs">
+        <div className="pr-4 pb-4">
+          <Typography className="flex justify-end text-xs">
             {formatTimestamp(allPosts.created)}
           </Typography>
         </div>

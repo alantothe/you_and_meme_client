@@ -96,7 +96,12 @@ function ProfilePage() {
         }}
       >
         {user.avatar ? (
-          <Avatar src={user.avatar} round={true} size="40" />
+          <Avatar
+            className="border-x border-y border-yellow-400"
+            src={user.avatar}
+            round={true}
+            size="40"
+          />
         ) : null}
 
         <Typography className="text-5xl my-4 ml-4">

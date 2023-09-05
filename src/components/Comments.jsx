@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Avatar from "react-avatar";
 import { getUserById } from "../api/users.js";
 import { deleteComment } from "../api/comments.js";
 import { useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Avatar,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
@@ -87,11 +87,11 @@ function Comments({ comment }) {
           onClick={handleOpen}
         />
         <Dialog className="bg-meme-gray" open={open} handler={handleOpen}>
-          <DialogHeader className="flex text-center text-white">
+          <DialogHeader className="flex justify-center text-white">
             Are you sure you want to delete your comment?
           </DialogHeader>
 
-          <DialogBody className="text-white">{`" ${commentBody} "`}</DialogBody>
+          <DialogBody className="text-white text-center">{`" ${commentBody} "`}</DialogBody>
 
           <DialogFooter>
             <Button
@@ -133,7 +133,7 @@ function Comments({ comment }) {
         <div className="flex items-center hover:opacity-50">
           <Avatar
             onClick={navToProfile}
-            className="w-8 h-8 mr-2 cursor-pointer"
+            className="w-10 h-10 mr-2 cursor-pointer border-x border-y border-yellow-400"
             src={user.avatar}
             round={true}
             size="40"
@@ -155,7 +155,7 @@ function Comments({ comment }) {
         />
       </div>
 
-      <Typography className="text-white ml-10">{comment.body}</Typography>
+      <Typography className="text-white ml-12">{comment.body}</Typography>
 
       <Typography className="text-yellow-400 text-right text-xs">
         {formatTimestamp(comment.updated_at)}
