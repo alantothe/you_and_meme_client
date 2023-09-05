@@ -5,7 +5,7 @@ import { Typography, Avatar } from "@material-tailwind/react";
 import {
   HeartIcon,
   ChatBubbleOvalLeftEllipsisIcon,
-  PaperAirplaneIcon,
+  ShareIcon,
 } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import {
@@ -87,7 +87,7 @@ function HomePostDetail({ allPosts }) {
           <div className="flex items-center hover:opacity-50">
             {user && user.avatar ? (
               <Avatar
-                className="cursor-pointer"
+                className="cursor-pointer border-x border-y border-yellow-400"
                 src={user.avatar}
                 round={true}
                 size="40"
@@ -136,7 +136,7 @@ function HomePostDetail({ allPosts }) {
                 navigate(`/meme-detail-page/${allPosts.id}`);
               },
             })}
-            {createElement(PaperAirplaneIcon, {
+            {createElement(ShareIcon, {
               className:
                 "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
               strokeWidth: 2,
