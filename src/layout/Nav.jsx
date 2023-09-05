@@ -42,6 +42,16 @@ function AccountMenu({ user, handleLogOut }) {
     navigate("/sign-in");
   };
 
+  const navToSignUp = () => {
+    closeMenu();
+    navigate("/register");
+  };
+
+  const navToAccountSettings = () => {
+    closeMenu();
+    navigate("/account-settings");
+  };
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen}>
       <MenuHandler>
@@ -90,9 +100,8 @@ function AccountMenu({ user, handleLogOut }) {
         )}
 
         {user && (
-          <Typography as="a" href="/account-settings">
+          <Typography onClick={navToAccountSettings}>
             <MenuItem
-              onClick={closeMenu}
               className={"flex items-center gap-2 rounded"}
               style={{ color: "rgb(45, 45, 45)" }}
             >
@@ -106,9 +115,8 @@ function AccountMenu({ user, handleLogOut }) {
         )}
 
         {!user && (
-          <Typography as="a" href="/register">
+          <Typography onClick={navToSignUp}>
             <MenuItem
-              onClick={closeMenu}
               className={"flex items-center gap-2 rounded"}
               style={{ color: "rgb(45, 45, 45)" }}
             >
@@ -121,14 +129,12 @@ function AccountMenu({ user, handleLogOut }) {
           </Typography>
         )}
 
-        <Typography onClick={user ? handleLogOut : undefined}>
+        <Typography onClick={user ? handleLogOut : navToLogin}>
           <MenuItem
-            onClick={closeMenu}
             className={"flex items-center gap-2 rounded"}
             style={{ color: "rgb(45, 45, 45)" }}
           >
             {createElement(PowerIcon, {
-              onClick: { navToLogin },
               className: "h-4 w-4",
               strokeWidth: 2,
             })}
