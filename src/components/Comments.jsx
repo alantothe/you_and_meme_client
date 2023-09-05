@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Avatar, { genConfig } from "react-nice-avatar";
+import Avatar from "react-avatar";
 import { getUserById } from "../api/users.js";
 import { deleteComment } from "../api/comments.js";
 import { useSelector } from "react-redux";
@@ -15,8 +15,6 @@ import { useNavigate } from "react-router-dom";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
 function Comments({ comment }) {
-  const avatarIdentifier = comment.email || comment.id;
-  const config = genConfig(avatarIdentifier);
   const userId = useSelector((state) => state.user.entireUser?.user);
   const navigate = useNavigate();
 
@@ -137,7 +135,9 @@ function Comments({ comment }) {
           <Avatar
             onClick={navToProfile}
             className="w-8 h-8 mr-2 cursor-pointer"
-            {...config}
+            src={user.avatar}
+            round={true}
+            size="40"
           />
           {/* onClick not working */}
 

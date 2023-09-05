@@ -3,7 +3,7 @@ import axios from "axios";
 let apiUrl;
 
 const apiUrls = {
-  production: "",
+  production: "https://you-and-meme-backend-6abb25257062.herokuapp.com/",
   development: "https://you-and-meme-backend-6abb25257062.herokuapp.com/",
 };
 
