@@ -59,12 +59,15 @@ function RegisterPage() {
         password: formData.password,
         avatar: avatarURL, // Add the avatarURL here
       };
-      console.log("Form submitted:", passedFormData);
       registerUser(passedFormData);
       navigate("/sign-in");
     } else {
       setPasswordMatch(false);
     }
+  };
+
+  const navToLogin = () => {
+    navigate("/sign-in");
   };
 
   return (
@@ -193,12 +196,12 @@ function RegisterPage() {
             className="mt-4 text-center font-normal text-gray-100 font-bold"
           >
             Already have an account?{" "}
-            <a
-              href="/login"
+            <Typography
+              onClick={navToLogin}
               className="font-bold text-gray-900 hover:text-teal-500"
             >
               Sign In
-            </a>
+            </Typography>
           </Typography>
         </form>
       </Card>
