@@ -20,7 +20,6 @@ function MemeDetailPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const entireUser = useSelector((state) => state.user?.entireUser);
-  dispatch(fetchUserById(entireUser?.id));
   const [post, setPost] = useState({});
   const initialToggle = entireUser?.likedPosts?.includes(post.id) || false;
   const [likesToggle, setLikesToggle] = useState(false);
@@ -164,41 +163,43 @@ function MemeDetailPage() {
         )}
       </div>
 
-      <div className="px-4 flex justify-between items-center">
-        <div className="flex items-center py-5 ">
-          {!likesToggle
-            ? createElement(HeartIcon, {
-                className:
-                  "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
-                strokeWidth: 2,
-                onClick: toggleLike,
-              })
-            : createElement(HeartIconSolid, {
-                className:
-                  "h-7 w-7 mr-2 text-red-500 cursor-pointer hover:opacity-50",
-                strokeWidth: 2,
-                onClick: toggleLike,
-              })}
-
-          {createElement(ShareIcon, {
-            className:
-              "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
-            strokeWidth: 2,
-            onClick: () => {
-              navigate("/development");
-            },
-          })}
-        </div>
-
-        <Typography className="font-black">
-          {likes} {likes !== 1 ? "likes" : "like"}
-        </Typography>
-      </div>
-
       <div className="flex justify-end">
         <Typography className="text-yellow-400 text-xs">
           {formatTimestamp(post.created)}
         </Typography>
+      </div>
+
+      <div className="flex items-center">
+        <div className="flex items-center justify-between w-full py-3">
+          <div className="flex" style={{ marginTop: "-30px" }}>
+            {!likesToggle
+              ? createElement(HeartIcon, {
+                  className:
+                    "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
+                  strokeWidth: 2,
+                  onClick: toggleLike,
+                })
+              : createElement(HeartIconSolid, {
+                  className:
+                    "h-7 w-7 mr-2 text-red-500 cursor-pointer hover:opacity-50",
+                  strokeWidth: 2,
+                  onClick: toggleLike,
+                })}
+
+            {createElement(ShareIcon, {
+              className:
+                "h-7 w-7 mr-2 text-yellow-400 cursor-pointer hover:opacity-50",
+              strokeWidth: 2,
+              onClick: () => {
+                navigate("/development");
+              },
+            })}
+          </div>
+
+          <Typography className="font-black text-yellow-400">
+            {likes} {likes !== 1 ? "likes" : "like"}
+          </Typography>
+        </div>
       </div>
 
       <CommentInput
