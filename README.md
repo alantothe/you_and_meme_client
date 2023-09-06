@@ -10,6 +10,14 @@
 - [Deployed Backend App](https://you-and-meme-backend-6abb25257062.herokuapp.com)
 - [Backend Repo](https://github.com/DanSinensky/you_and_meme_backend)
 
+### Technologies Used
+
+- React
+- Django
+- PostgreSQL
+- Material Tailwind CSS
+- Redux
+
 ### Installation
 
 Clone the repository
@@ -65,5 +73,5 @@ npm start
 ### Contributors
 
 - Contributors to this project include: <br>
-  [Alan Malpartida](Alan's LinkedIn) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) |
+  [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) | [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | Alan Malpartida LinkedIn not provided at time of README creation
 - Please reach out to us via LinkedIn
