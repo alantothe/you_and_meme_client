@@ -4,10 +4,11 @@ import { loginUser } from "../api/users.js";
 import { fetchUserById } from "../redux/features/user/userThunks.js";
 import { useSelector, useDispatch } from "react-redux";
 
-function LoginPage() {
+function LoginPage({ userToken }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.entireUser?.user);
+  const [invalidLoginAttempt, setInvalidLoginAttempt] = useState(false);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -25,6 +26,10 @@ function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await loginUser(formData);
+    if (!userToken) {
+      setInvalidLoginAttempt(true);
+      return;
+    }
     navigate("/");
     window.location.reload();
   };
@@ -32,7 +37,6 @@ function LoginPage() {
   return (
     <div className="page-container bg-gray-600">
       <div className="login-form flex justify-center items-center bg-gray-600">
-        {/* <h2 className="mb-2 text-2xl" variant="h4" color="blue-gray">Login</h2> */}
         <form className="flex gap-6 h-8" onSubmit={handleSubmit}>
           <label
             className="flex-col text-gray-100 font-bold"
@@ -72,6 +76,11 @@ function LoginPage() {
           </button>
         </form>
       </div>
+      {invalidLoginAttempt ? (
+        <div className="flex justify-center">
+          Invalid username or password. Please try again.
+        </div>
+      ) : null}
     </div>
   );
 }

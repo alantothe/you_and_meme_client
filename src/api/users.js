@@ -8,7 +8,7 @@ export const loginUser = async (loginData) => {
     const user = jwtDecode(response.data.token);
     return user;
   } catch (err) {
-    throw err;
+    console.error(err);
   }
 };
 
@@ -32,8 +32,6 @@ export const verifyUser = async () => {
 export const registerUser = async (registerData) => {
   try {
     const response = await api.post("/user/signup/", registerData);
-    // localStorage.setItem("token", response.data.token);
-    // const user = jwtDecode(response.data.token);
     return response;
   } catch (err) {
     throw err;
