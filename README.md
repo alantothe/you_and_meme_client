@@ -7,7 +7,6 @@
 ### Quick Links
 
 - [You & Meme deployed app](https://youandmeme.netlify.app)
-- [Deployed Backend App](https://you-and-meme-backend-6abb25257062.herokuapp.com)
 - [Backend Repo](https://github.com/DanSinensky/you_and_meme_backend)
 
 ### Technologies Used
@@ -73,5 +72,5 @@ npm start
 ### Contributors
 
 - Contributors to this project include: <br>
-  [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) | [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | Alan Malpartida LinkedIn not provided at time of README creation
+  [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) | [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | [Alan Malpartida](https://github.com/alantothe)
 - Please reach out to us via LinkedIn
