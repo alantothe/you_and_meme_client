@@ -1,3 +1,4 @@
+import "./styles.css";
 import { useState, useEffect, createElement, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserById } from "../api/users.js";
@@ -17,7 +18,7 @@ import {
 } from "../redux/features/user/userThunks.js";
 import { useNavigate } from "react-router-dom";
 
-function HomePostDetail({ allPosts, userToken }) {
+function HomePostDetail({ allPosts, userToken, mobileView, handleResize }) {
   const entireUser = useSelector((state) => state.user?.entireUser);
   const userId = entireUser?.user;
   const likesRef = useRef(allPosts.likes);
@@ -74,11 +75,18 @@ function HomePostDetail({ allPosts, userToken }) {
     likesRef.current = allPosts.likes;
   }, [allPosts.user, likesToggle]);
 
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="flex justify-center my-4 w-screen">
       <div
-        className="w-1/3 mx-4 mb-4 mt-2 shadow-lg border-meme-gray border-2 xs:w-screen overflow-hidden"
+        className="mx-4 mb-4 mt-2 shadow-lg border-meme-gray border-2 overflow-hidden"
         style={{
+          width: mobileView ? "90vw" : "33vw",
           boxShadow:
             "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
         }}

@@ -196,23 +196,22 @@ export default function Nav({ user, handleLogOut }) {
   return (
     <div>
       <Navbar className="max-w-full rounded-none bg-meme-teal px-0 py-4 border-meme-teal">
-        <div className="flex" style={{ color: "rgb(45, 45, 45)" }}>
-          <div
-            className="flex items-center w-full"
-            style={{ marginLeft: "33vw" }}
-          >
-            <img
-              className="w-14 h-14 cursor-pointer hover:opacity-50"
-              src={ColorDoge}
-              onClick={() => navigate("/")}
-            />
+        <div className="flex">
+          <div className="flex items-center w-full">
+            <div className="flex ml-5">
+              <img
+                className="w-14 h-14 cursor-pointer hover:opacity-50"
+                src={ColorDoge}
+                onClick={() => navigate("/")}
+              />
 
-            <Typography
-              onClick={() => navigate("/")}
-              className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl hover:opacity-50"
-            >
-              You & Meme
-            </Typography>
+              <Typography
+                onClick={() => navigate("/")}
+                className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl text-meme-dark-gray hover:opacity-50"
+              >
+                You & Meme
+              </Typography>
+            </div>
           </div>
 
           <div className="flex justify-end w-1/6 top-2/4 hidden lg:block">
