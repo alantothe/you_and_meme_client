@@ -156,10 +156,13 @@ function MemeDetailPage({ userToken, mobileView, handleResize }) {
         ) : null}
       </div>
 
-      <div className="mb-4" style={{ width: mobileView ? "90vw" : "33vw" }}>
+      <div
+        className="flex justify-center mb-4"
+        style={{ width: mobileView ? "90vw" : "33vw" }}
+      >
         {post.meme ? (
           <img
-            className="shadow-lg border-meme-gray border-2 sm:max-md:w-screen"
+            className="shadow-lg border-meme-gray border-2"
             style={{
               boxShadow:
                 "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
@@ -212,7 +215,6 @@ function MemeDetailPage({ userToken, mobileView, handleResize }) {
       </div>
 
       <CommentInput
-        // className="md:max-w-full"
         postId={postId}
         commentsToggle={commentsToggle}
         setCommentsToggle={setCommentsToggle}

@@ -4,7 +4,7 @@ import { loginUser } from "../api/users.js";
 import { fetchUserById } from "../redux/features/user/userThunks.js";
 import { useSelector, useDispatch } from "react-redux";
 
-function LoginPage({ userToken }) {
+function LoginPage({}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.entireUser?.user);
@@ -37,8 +37,11 @@ function LoginPage({ userToken }) {
 
   return (
     <div className="page-container">
-     <div className="login-form flex justify-center items-center mt-32 xs:flex-col md:flex-row gap-6 h-8 items-center justify-center w-full">
-      <form className="flex flex-col gap-6 p-2 bg-gray-600 p-4 rounded" onSubmit={handleSubmit}>
+      <div className="flex flex-col justify-center items-center mt-60 gap-6 h-8 w-full">
+        <form
+          className="flex flex-col gap-6 p-2 bg-gray-600 p-4 rounded"
+          onSubmit={handleSubmit}
+        >
           <label
             className="flex-col text-gray-100 font-bold"
             htmlFor="username"
@@ -76,12 +79,12 @@ function LoginPage({ userToken }) {
             Login
           </button>
         </form>
+        {invalidLoginAttempt ? (
+          <div className="flex justify-center text-center text-white">
+            Invalid username or password. Please try again.
+          </div>
+        ) : null}
       </div>
-      {invalidLoginAttempt ? (
-        <div className="flex justify-center">
-          Invalid username or password. Please try again.
-        </div>
-      ) : null}
     </div>
   );
 }
