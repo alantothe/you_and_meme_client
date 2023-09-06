@@ -16,7 +16,7 @@ import {
   fetchUserById,
 } from "../redux/features/user/userThunks.js";
 
-function MemeDetailPage({ userToken }) {
+function MemeDetailPage({ userToken, mobileView, handleResize }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const entireUser = useSelector((state) => state.user?.entireUser);
@@ -37,6 +37,12 @@ function MemeDetailPage({ userToken }) {
   useEffect(() => {
     setLikes(post.likes || 0);
   }, [post.likes]);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const userId = entireUser?.user; // The logged in user's id
 
@@ -126,7 +132,10 @@ function MemeDetailPage({ userToken }) {
   };
 
   return (
-    <div className="flex flex-col mx-auto m-4" style={{ width: "480px" }}>
+    <div
+      className="flex flex-col mx-auto m-4"
+      style={{ width: mobileView ? "90vw" : "33vw" }}
+    >
       <div className="pl-2 py-3 flex items-center hover:opacity-50">
         {userAvatar ? (
           <Avatar
@@ -147,7 +156,7 @@ function MemeDetailPage({ userToken }) {
         ) : null}
       </div>
 
-      <div className="mb-4 sm:max-md:w-screen" style={{ width: "480px" }}>
+      <div className="mb-4" style={{ width: mobileView ? "90vw" : "33vw" }}>
         {post.meme ? (
           <img
             className="shadow-lg border-meme-gray border-2 sm:max-md:w-screen"
@@ -203,7 +212,7 @@ function MemeDetailPage({ userToken }) {
       </div>
 
       <CommentInput
-        className="sm:max-w-full"
+        // className="md:max-w-full"
         postId={postId}
         commentsToggle={commentsToggle}
         setCommentsToggle={setCommentsToggle}

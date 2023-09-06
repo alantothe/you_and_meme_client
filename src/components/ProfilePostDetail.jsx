@@ -1,4 +1,3 @@
-import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, createElement } from "react";
@@ -69,7 +68,7 @@ const DeletePostPopUp = ({ owner, deletePostById }) => {
   );
 };
 
-function ProfilePostDetail({ allPosts, userToken }) {
+function ProfilePostDetail({ allPosts, userToken, mobileView, handleResize }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -86,6 +85,12 @@ function ProfilePostDetail({ allPosts, userToken }) {
 
   useEffect(() => {
     fetchUser();
+  }, []);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const fetchUser = async () => {
@@ -161,9 +166,9 @@ function ProfilePostDetail({ allPosts, userToken }) {
   return (
     <div className="my-4">
       <div
-        className="mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 xs:w-screen overflow-hidden"
+        className="mx-4 mb-4 mt-2 shadow-lg border-gray-700 border-2 overflow-hidden"
         style={{
-          width: "26vw",
+          width: mobileView ? "90vw" : "30vw",
           boxShadow:
             "10px 8px 12px rgba(0, 0, 0, .6), 0px 8px 8px rgba(0, 0, 0, .1)",
         }}

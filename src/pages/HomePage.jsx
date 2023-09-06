@@ -3,7 +3,7 @@ import { getAllPosts } from "../api/posts.js";
 import HomePostDetail from "../components/HomePostDetail.jsx";
 // import Avatar from "react-avatar";
 
-const HomePage = ({ user }) => {
+const HomePage = ({ user, mobileView, handleResize }) => {
   const [allPosts, setAllPosts] = useState([]);
 
   useEffect(() => {
@@ -56,7 +56,13 @@ const HomePage = ({ user }) => {
       </div> */}
       <div className="flex flex-col items-center w-full">
         {allPosts.map((post, index) => (
-          <HomePostDetail allPosts={post} key={index} userToken={user} />
+          <HomePostDetail
+            allPosts={post}
+            key={index}
+            userToken={user}
+            mobileView={mobileView}
+            handleResize={handleResize}
+          />
         ))}
       </div>
     </div>

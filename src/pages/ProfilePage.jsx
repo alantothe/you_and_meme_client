@@ -4,7 +4,7 @@ import { getPostsByUser, getUserById } from "../api/users.js";
 import ProfilePostDetail from "../components/ProfilePostDetail.jsx";
 import { Avatar, Typography } from "@material-tailwind/react";
 
-function ProfilePage({ userToken }) {
+function ProfilePage({ userToken, mobileView, handleResize }) {
   const { profileId } = useParams();
   const [userObject, setUserObject] = useState({});
   const [allPosts, setAllPosts] = useState([]);
@@ -98,13 +98,12 @@ function ProfilePage({ userToken }) {
           background: "rgb(30, 30, 30)",
         }}
       >
-        <div className="flex items-center" style={{ marginLeft: "37vw" }}>
+        <div className="flex items-center justify-center w-full">
           {user.avatar ? (
             <Avatar
               className="border-x border-y border-yellow-400"
               src={user.avatar}
               round={true}
-              size="40"
             />
           ) : null}
 
@@ -121,6 +120,8 @@ function ProfilePage({ userToken }) {
               allPosts={post}
               key={index}
               userToken={userToken}
+              mobileView={mobileView}
+              handleResize={handleResize}
             />
           ))}
         </div>
@@ -130,6 +131,8 @@ function ProfilePage({ userToken }) {
               allPosts={post}
               key={index}
               userToken={userToken}
+              mobileView={mobileView}
+              handleResize={handleResize}
             />
           ))}
         </div>
@@ -139,6 +142,8 @@ function ProfilePage({ userToken }) {
               allPosts={post}
               key={index}
               userToken={userToken}
+              mobileView={mobileView}
+              handleResize={handleResize}
             />
           ))}
         </div>

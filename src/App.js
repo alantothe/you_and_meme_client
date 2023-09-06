@@ -16,6 +16,7 @@ import { fetchUserById } from "./redux/features/user/userThunks.js";
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [mobileView, setMobileView] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -40,11 +41,28 @@ const App = () => {
     window.location.reload();
   };
 
+  const handleResize = () => {
+    if (window.innerWidth < 720) {
+      setMobileView(true);
+    } else {
+      setMobileView(false);
+    }
+  };
+
   return (
     <div>
       <Nav user={user} handleLogOut={handleLogOut} />
       <Routes>
-        <Route path="/" element={<HomePage user={user} />} />
+        <Route
+          path="/"
+          element={
+            <HomePage
+              user={user}
+              mobileView={mobileView}
+              handleResize={handleResize}
+            />
+          }
+        />
         <Route
           path="/account-settings"
           element={<AccountSettingsPage user={user} />}
@@ -64,12 +82,24 @@ const App = () => {
         />
         <Route
           path="/profile/:profileId"
-          element={<ProfilePage userToken={user} />}
+          element={
+            <ProfilePage
+              userToken={user}
+              mobileView={mobileView}
+              handleResize={handleResize}
+            />
+          }
         />
         <Route path="/register" element={<RegisterPage user={user} />} />
         <Route
           path="/meme-detail-page/:postId"
-          element={<MemeDetailPage user={user} />}
+          element={
+            <MemeDetailPage
+              user={user}
+              mobileView={mobileView}
+              handleResize={handleResize}
+            />
+          }
         />
       </Routes>
     </div>
