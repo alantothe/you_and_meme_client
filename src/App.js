@@ -53,7 +53,7 @@ const App = () => {
           path="/create-meme/:id"
           element={<CreateMemePage user={user} />}
         />
-        <Route path="/sign-in" element={<LoginPage user={user} />} />
+        <Route path="/sign-in" element={<LoginPage userToken={user} />} />
         <Route
           path="/memes/:postId"
           element={<MemeDetailPage userToken={user} />}
