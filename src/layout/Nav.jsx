@@ -175,7 +175,7 @@ export default function Nav({ user, handleLogOut }) {
   useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setIsNavOpen(false)
+      () => window.innerWidth >= 720 && setIsNavOpen(false)
     );
   }, []);
 

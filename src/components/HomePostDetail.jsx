@@ -18,7 +18,13 @@ import {
 } from "../redux/features/user/userThunks.js";
 import { useNavigate } from "react-router-dom";
 
-function HomePostDetail({ allPosts, userToken, mobileView, handleResize }) {
+function HomePostDetail({
+  allPosts,
+  userToken,
+  mobileView,
+  handleResize,
+  formatTimestamp,
+}) {
   const entireUser = useSelector((state) => state.user?.entireUser);
   const userId = entireUser?.user;
   const likesRef = useRef(allPosts.likes);
@@ -153,40 +159,41 @@ function HomePostDetail({ allPosts, userToken, mobileView, handleResize }) {
             })}
           </div>
 
-          {/* <Typography>{formatTimestamp(allPosts.created)}</Typography> */}
-
           <Typography className="font-black">
             {likes} {likes !== 1 ? "likes" : "like"}
           </Typography>
         </div>
-        {allPosts.comments.length === 0 ? (
-          <div className="pl-4 pb-4">
-            <span
-              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
-              className="cursor-pointer font-thin hover:opacity-50"
-            >
-              No comments
-            </span>
-          </div>
-        ) : null}
-        {allPosts.comments.length === 1 ? (
-          <div className="pl-4 pb-4">
-            <span
-              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
-              className="cursor-pointer font-thin hover:opacity-50"
-            >
-              View 1 comment
-            </span>
-          </div>
-        ) : null}
-        {allPosts.comments.length > 1 ? (
-          <div className="pl-4 pb-4">
-            <span
-              onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
-              className="cursor-pointer font-thin hover:opacity-50"
-            >{`View all ${allPosts.comments.length} comments`}</span>
-          </div>
-        ) : null}
+        <div className="flex justify-between pr-4">
+          {allPosts.comments.length === 0 ? (
+            <div className="pl-4 pb-4">
+              <span
+                onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+                className="cursor-pointer font-thin hover:opacity-50"
+              >
+                No comments
+              </span>
+            </div>
+          ) : null}
+          {allPosts.comments.length === 1 ? (
+            <div className="pl-4 pb-4">
+              <span
+                onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+                className="cursor-pointer font-thin hover:opacity-50"
+              >
+                View 1 comment
+              </span>
+            </div>
+          ) : null}
+          {allPosts.comments.length > 1 ? (
+            <div className="pl-4 pb-4">
+              <span
+                onClick={() => navigate(`/meme-detail-page/${allPosts.id}`)}
+                className="cursor-pointer font-thin hover:opacity-50"
+              >{`View all ${allPosts.comments.length} comments`}</span>
+            </div>
+          ) : null}
+          <Typography>{formatTimestamp(allPosts.created)}</Typography>
+        </div>
       </div>
     </div>
   );

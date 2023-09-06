@@ -68,7 +68,13 @@ const DeletePostPopUp = ({ owner, deletePostById }) => {
   );
 };
 
-function ProfilePostDetail({ allPosts, userToken, mobileView, handleResize }) {
+function ProfilePostDetail({
+  allPosts,
+  userToken,
+  mobileView,
+  handleResize,
+  formatTimestamp,
+}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -126,40 +132,6 @@ function ProfilePostDetail({ allPosts, userToken, mobileView, handleResize }) {
         thunkRemoveUserLikedPosts({ postId: allPosts.id, userId: userId })
       );
       dispatch(fetchUserById(userId));
-    }
-  };
-
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    const year = date.getFullYear().toString().slice(2);
-    const month = date.getMonth();
-    const day = date.getDate();
-    const hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    if (hours === 0) {
-      return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
-    } else if (hours < 12) {
-      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
-    } else if (hours === 12) {
-      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
-    } else {
-      return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
     }
   };
 

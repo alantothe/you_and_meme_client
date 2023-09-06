@@ -8,6 +8,7 @@ import MemeDetailPage from "./pages/MemeDetailPage.jsx";
 import MemeSelectionPage from "./pages/MemeSelectionPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
+import DevelopmentPage from "./pages/DevelopmentPage.jsx";
 import Nav from "./layout/Nav.jsx";
 import { verifyUser } from "./api/users.js";
 import { useNavigate } from "react-router-dom";
@@ -49,6 +50,40 @@ const App = () => {
     }
   };
 
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear().toString().slice(2);
+    const month = date.getMonth();
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    if (hours === 0) {
+      return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
+    } else if (hours < 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
+    } else if (hours === 12) {
+      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
+    } else {
+      return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
+    }
+  };
+
   return (
     <div>
       <Nav user={user} handleLogOut={handleLogOut} />
@@ -60,6 +95,7 @@ const App = () => {
               user={user}
               mobileView={mobileView}
               handleResize={handleResize}
+              formatTimestamp={formatTimestamp}
             />
           }
         />
@@ -71,10 +107,24 @@ const App = () => {
           path="/create-meme/:id"
           element={<CreateMemePage user={user} />}
         />
-        <Route path="/sign-in" element={<LoginPage userToken={user} />} />
+        <Route
+          path="/sign-in"
+          element={
+            <LoginPage
+              userToken={user}
+              mobileView={mobileView}
+              handleResize={handleResize}
+            />
+          }
+        />
         <Route
           path="/memes/:postId"
-          element={<MemeDetailPage userToken={user} />}
+          element={
+            <MemeDetailPage
+              userToken={user}
+              formatTimestamp={formatTimestamp}
+            />
+          }
         />
         <Route
           path="/meme-selection"
@@ -87,6 +137,7 @@ const App = () => {
               userToken={user}
               mobileView={mobileView}
               handleResize={handleResize}
+              formatTimestamp={formatTimestamp}
             />
           }
         />
@@ -98,9 +149,11 @@ const App = () => {
               user={user}
               mobileView={mobileView}
               handleResize={handleResize}
+              formatTimestamp={formatTimestamp}
             />
           }
         />
+        <Route path="/development" element={<DevelopmentPage />} />
       </Routes>
     </div>
   );
