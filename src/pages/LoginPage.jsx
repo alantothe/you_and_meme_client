@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/users.js";
 import { fetchUserById } from "../redux/features/user/userThunks.js";
 import { useSelector, useDispatch } from "react-redux";
 
-function LoginPage({}) {
+function LoginPage({ mobileView, handleResize }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.entireUser?.user);
@@ -14,6 +14,12 @@ function LoginPage({}) {
     username: "",
     password: "",
   });
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -40,6 +46,7 @@ function LoginPage({}) {
       <div className="flex flex-col justify-center items-center mt-60 gap-6 h-8 w-full">
         <form
           className="flex flex-col gap-6 p-2 bg-gray-600 p-4 rounded"
+          style={{ width: mobileView ? "50vw" : "33vw" }}
           onSubmit={handleSubmit}
         >
           <label

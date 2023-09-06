@@ -16,7 +16,12 @@ import {
   fetchUserById,
 } from "../redux/features/user/userThunks.js";
 
-function MemeDetailPage({ userToken, mobileView, handleResize }) {
+function MemeDetailPage({
+  userToken,
+  mobileView,
+  handleResize,
+  formatTimestamp,
+}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const entireUser = useSelector((state) => state.user?.entireUser);
@@ -77,7 +82,10 @@ function MemeDetailPage({ userToken, mobileView, handleResize }) {
   };
 
   const toggleLike = () => {
-    if (!userToken) return;
+    if (!userToken) {
+      navigate("/sign-in");
+      return;
+    }
 
     // If not currently liked, like the post.
     if (!likesToggle) {
@@ -94,40 +102,6 @@ function MemeDetailPage({ userToken, mobileView, handleResize }) {
       dispatch(minus1Like(post.id));
       dispatch(thunkRemoveUserLikedPosts({ postId: post.id, userId: userId }));
       dispatch(fetchUserById(userId));
-    }
-  };
-
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    const year = date.getFullYear().toString().slice(2);
-    const month = date.getMonth();
-    const day = date.getDate();
-    const hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    if (hours === 0) {
-      return `${months[month]} ${day}, ${year} at ${hours + 12}:${minutes}AM`;
-    } else if (hours < 12) {
-      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}AM`;
-    } else if (hours === 12) {
-      return `${months[month]} ${day}, ${year} at ${hours}:${minutes}PM`;
-    } else {
-      return `${months[month]} ${day}, ${year} at ${hours - 12}:${minutes}PM`;
     }
   };
 

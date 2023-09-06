@@ -3,7 +3,7 @@ import { getAllPosts } from "../api/posts.js";
 import HomePostDetail from "../components/HomePostDetail.jsx";
 // import Avatar from "react-avatar";
 
-const HomePage = ({ user, mobileView, handleResize }) => {
+const HomePage = ({ user, mobileView, handleResize, formatTimestamp }) => {
   const [allPosts, setAllPosts] = useState([]);
 
   useEffect(() => {
@@ -62,6 +62,7 @@ const HomePage = ({ user, mobileView, handleResize }) => {
             userToken={user}
             mobileView={mobileView}
             handleResize={handleResize}
+            formatTimestamp={formatTimestamp}
           />
         ))}
       </div>
