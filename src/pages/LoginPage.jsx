@@ -25,11 +25,12 @@ function LoginPage({ userToken }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await loginUser(formData);
-    if (!userToken) {
+    const validLogin = await loginUser(formData);
+    if (!validLogin) {
       setInvalidLoginAttempt(true);
       return;
     }
+    setInvalidLoginAttempt(false);
     navigate("/");
     window.location.reload();
   };
