@@ -1,6 +1,6 @@
 function DevelopmentPage() {
   return (
-    <div className="flex justify-center text-white text-3xl text-center px-5">
+    <div className="flex justify-center text-white text-3xl text-center px-5 mt-5">
       This feature is currently under development.
     </div>
   );
