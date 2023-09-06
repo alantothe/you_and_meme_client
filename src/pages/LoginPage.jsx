@@ -36,9 +36,9 @@ function LoginPage({ userToken }) {
   };
 
   return (
-    <div className="page-container bg-gray-600">
-      <div className="login-form flex justify-center items-center bg-gray-600 xs:flex-col md:flex-row gap-6 h-8 items-center justify-center w-full">
-      <form className="flex flex-col gap-6 h-8 " onSubmit={handleSubmit}>
+    <div className="page-container">
+     <div className="login-form flex justify-center items-center mt-32 xs:flex-col md:flex-row gap-6 h-8 items-center justify-center w-full">
+      <form className="flex flex-col gap-6 p-2 bg-gray-600 p-4 rounded" onSubmit={handleSubmit}>
           <label
             className="flex-col text-gray-100 font-bold"
             htmlFor="username"
@@ -69,7 +69,7 @@ function LoginPage({ userToken }) {
           />
 
           <button
-            className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-full"
+            className="bg-teal-500 hover:bg-teal-300 text-white font-bold py-1 px-4 rounded-full"
             color="teal"
             type="submit"
           >
