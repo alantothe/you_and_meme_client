@@ -76,14 +76,16 @@ const AccountSettingsPage = ({ user }) => {
   };
 
   return (
-    <>
-      <Card color="bg-gray-600" shadow={false}>
-        <Typography variant="h4" color="white">
-          Account Settings
-        </Typography>
-        <form className="mt-8 mb-2 w-80 w-screen">
-          <div className="flex flex-col gap-6 flex justify-center items-center bg-gray-600">
-            <label htmlFor="username">Username</label>
+    <div>
+      <Typography className="flex justify-center items-center text-3xl py-5 text-white">
+        Account Settings
+      </Typography>
+      <div className="flex justify-center ">
+        <form className="flex justify-center mb-2 pt-5 w-2/4 bg-meme-gray">
+          <div className="flex flex-col gap-6 justify-center items-center">
+            <label className="text-white" htmlFor="username">
+              Username
+            </label>
             {isEditMode ? (
               <input
                 type="text"
@@ -92,9 +94,11 @@ const AccountSettingsPage = ({ user }) => {
                 onChange={handleChange}
               />
             ) : (
-              <span>{userData.username}</span>
+              <span className="text-yellow-400">{userData.username}</span>
             )}
-            <label htmlFor="email">Email</label>
+            <label className="text-white" htmlFor="email">
+              Email
+            </label>
             {isEditMode ? (
               <input
                 type="email"
@@ -103,12 +107,14 @@ const AccountSettingsPage = ({ user }) => {
                 onChange={handleChange}
               />
             ) : (
-              <span>{userData.email}</span>
+              <span className="text-yellow-400">{userData.email}</span>
             )}
             {isEditMode && (
               <>
-                <label htmlFor="password">Password</label>
-                <div className="flex items-center">
+                <label className="text-white" htmlFor="password">
+                  Password
+                </label>
+                <div className="flex items-center text-white">
                   <input
                     type="password"
                     value={userData.password}
@@ -116,7 +122,9 @@ const AccountSettingsPage = ({ user }) => {
                     onChange={handleChange}
                   />
                 </div>
-                <label htmlFor="confirm-password">Confirm Password</label>
+                <label className="text-white" htmlFor="confirm-password">
+                  Confirm Password
+                </label>
                 <div className="flex items-center">
                   <input
                     type="password"
@@ -128,15 +136,15 @@ const AccountSettingsPage = ({ user }) => {
               </>
             )}
             {isEditMode ? (
-              <div className="mt-4">
+              <div className="mt-4 mb-5">
                 <button
-                  className="px-4 py-2 mr-2 bg-blue-700 text-white rounded"
+                  className="px-4 py-2 mr-2 bg-meme-teal text-white"
                   onClick={handleUpdateClick}
                 >
                   Update
                 </button>
                 <button
-                  className="px-4 py-2 bg-gray-300 rounded"
+                  className="px-4 py-2 bg-gray-300"
                   onClick={() => setIsEditMode(false)}
                 >
                   Cancel
@@ -144,7 +152,7 @@ const AccountSettingsPage = ({ user }) => {
               </div>
             ) : (
               <button
-                className="px-4 py-2 bg-green-700 text-white rounded"
+                className="px-4 py-2 bg-meme-teal text-white mb-5"
                 onClick={handleEditClick}
               >
                 Edit
@@ -152,8 +160,8 @@ const AccountSettingsPage = ({ user }) => {
             )}
           </div>
         </form>
-      </Card>
-    </>
+      </div>
+    </div>
   );
 };
 
