@@ -207,6 +207,7 @@ export default function Nav({ user, handleLogOut }) {
 
               <Typography
                 onClick={() => navigate("/")}
+                style={{ fontFamily: "'Doge Sans', sans-serif" }}
                 className="mr-4 ml-4 flex items-center grow cursor-pointer py-1.5 font-black text-3xl text-meme-dark-gray hover:opacity-50"
               >
                 You & Meme
